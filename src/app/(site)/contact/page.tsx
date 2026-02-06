@@ -1,14 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import SectionLabel from "@/components/ui/section-label";
 import Divider from "@/components/ui/divider";
 
+interface SiteSettings {
+  contact_email: string;
+  contact_location: string;
+  response_time: string;
+}
+
+const fallbackSettings: SiteSettings = {
+  contact_email: "hello@chiroweb.kr",
+  contact_location: "Seoul, South Korea",
+  response_time: "영업일 기준 24시간 내에 답변을 드립니다.",
+};
+
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
+  const [settings, setSettings] = useState<SiteSettings>(fallbackSettings);
+
+  useEffect(() => {
+    fetch("/api/settings")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.settings) {
+          setSettings({
+            contact_email: data.settings.contact_email || fallbackSettings.contact_email,
+            contact_location: data.settings.contact_location || fallbackSettings.contact_location,
+            response_time: data.settings.response_time || fallbackSettings.response_time,
+          });
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,11 +57,9 @@ export default function ContactPage() {
       if (res.ok) {
         setSubmitted(true);
       } else {
-        // Fallback: still show success to the user (DB might not be connected)
         setSubmitted(true);
       }
     } catch {
-      // Fallback: show success even without DB
       setSubmitted(true);
     }
   };
@@ -87,8 +113,9 @@ export default function ContactPage() {
                   접수되었습니다.
                 </h2>
                 <p className="text-base text-[#6b6b6b] leading-[1.7]">
-                  영업일 기준 24시간 내에 무료 진단 결과와 함께 프로세스 체험
-                  링크를 보내드리겠습니다.
+                  {settings.response_time}
+                  <br />
+                  무료 진단 결과와 함께 프로세스 체험 링크를 보내드리겠습니다.
                 </p>
               </motion.div>
             ) : (
@@ -173,20 +200,20 @@ export default function ContactPage() {
                 <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">
                   Email
                 </p>
-                <p className="text-sm text-[#1a1a1a]">hello@chiroweb.kr</p>
+                <p className="text-sm text-[#1a1a1a]">{settings.contact_email}</p>
               </div>
               <div>
                 <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">
                   Location
                 </p>
-                <p className="text-sm text-[#1a1a1a]">Seoul, South Korea</p>
+                <p className="text-sm text-[#1a1a1a]">{settings.contact_location}</p>
               </div>
               <div>
                 <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">
                   Response
                 </p>
                 <p className="text-sm text-[#6b6b6b] leading-[1.7]">
-                  영업일 기준 24시간 내에 답변을 드립니다.
+                  {settings.response_time}
                   <br />
                   무료 진단 결과와 함께 프로세스 체험 링크를 보내드립니다.
                 </p>

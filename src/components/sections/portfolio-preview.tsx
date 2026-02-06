@@ -1,35 +1,40 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import SectionLabel from "@/components/ui/section-label";
 import Divider from "@/components/ui/divider";
 import Button from "@/components/ui/button";
 
-const projects = [
-  {
-    name: "Project Alpha",
-    category: "Branding & Web",
-    year: "2024",
-  },
-  {
-    name: "Project Beta",
-    category: "UX Redesign",
-    year: "2024",
-  },
-  {
-    name: "Project Gamma",
-    category: "Performance",
-    year: "2024",
-  },
-  {
-    name: "Project Delta",
-    category: "Custom Build",
-    year: "2023",
-  },
+interface Project {
+  id: number;
+  name: string;
+  category: string;
+  year: string | null;
+}
+
+const fallbackProjects: Project[] = [
+  { id: 1, name: "Project Alpha", category: "Branding & Web", year: "2024" },
+  { id: 2, name: "Project Beta", category: "UX Redesign", year: "2024" },
+  { id: 3, name: "Project Gamma", category: "Performance", year: "2024" },
+  { id: 4, name: "Project Delta", category: "Custom Build", year: "2025" },
 ];
 
 export default function PortfolioPreview() {
+  const [projects, setProjects] = useState<Project[]>(fallbackProjects);
+
+  useEffect(() => {
+    fetch("/api/portfolio")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.projects && data.projects.length > 0) {
+          setProjects(data.projects.slice(0, 4));
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <section className="py-[120px] px-8">
       <Divider />
@@ -59,8 +64,8 @@ export default function PortfolioPreview() {
         >
           {projects.map((project, i) => (
             <motion.a
-              key={project.name}
-              href={`/portfolio#${project.name.toLowerCase().replace(" ", "-")}`}
+              key={project.id}
+              href="/portfolio"
               variants={fadeInUp}
               data-cursor="view"
               className="group flex items-center justify-between py-6 md:py-8 border-b border-[#E0E0E0] transition-colors duration-300 hover:bg-[#F9F9F9] px-4 -mx-4"
