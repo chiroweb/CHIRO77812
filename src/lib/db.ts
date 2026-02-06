@@ -1,3 +1,8 @@
-import { sql } from "@vercel/postgres";
+import { neon } from "@neondatabase/serverless";
 
-export { sql };
+const DATABASE_URL = process.env.DATABASE_URL || process.env.POSTGRES_URL || "";
+
+export function sql(strings: TemplateStringsArray, ...values: unknown[]) {
+  const client = neon(DATABASE_URL);
+  return client(strings, ...values).then((rows) => ({ rows }));
+}
