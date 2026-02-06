@@ -9,13 +9,6 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-[#fafaf8]">
-      {/* Grid Paper Background - visible on hover */}
-      <div
-        className={`absolute inset-0 z-0 grid-paper transition-opacity duration-500 ${
-          isHovered ? "opacity-100" : "opacity-0"
-        }`}
-      />
-
       {/* Content Container */}
       <div className="relative z-10 max-w-[1280px] mx-auto px-8 w-full">
         <div className="flex items-center min-h-screen py-[120px]">
