@@ -1,0 +1,213 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #ffffff;
+  --color-foreground: #1a1a1a;
+  --color-foreground-secondary: #6b6b6b;
+  --color-foreground-tertiary: #9b9b9b;
+  --color-surface: #fafaf8;
+  --color-border: #e5e5e3;
+  --color-border-active: #1a1a1a;
+  --color-accent: #FF4D00;
+  --color-divider: #E0E0E0;
+  --color-hover-bg: #F9F9F9;
+
+  --font-sans: "Pretendard", "Noto Sans JP", system-ui, sans-serif;
+  --font-serif: "Noto Serif KR", serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 스크롤바 스타일 */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 2px;
+}
+
+/* 선택 영역 스타일 */
+::selection {
+  background: #1a1a1a;
+  color: #ffffff;
+}
+
+/* Grid paper pattern for hero hover effect */
+.grid-paper {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Accent period */
+.accent-period {
+  color: var(--color-accent);
+}
+
+/* Hairline divider */
+.divider-hairline {
+  height: 0.5px;
+  background: var(--color-divider);
+}
+
+/* Emphasis divider */
+.divider-emphasis {
+  border-top: 2px solid var(--color-foreground);
+}
+
+/* Tiptap / ProseMirror Editor Styles */
+.tiptap {
+  outline: none;
+}
+
+.tiptap h2 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 1.5em 0 0.5em;
+  letter-spacing: -0.01em;
+}
+
+.tiptap h3 {
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin: 1.25em 0 0.5em;
+}
+
+.tiptap p {
+  margin: 0.75em 0;
+  line-height: 1.8;
+  color: #6b6b6b;
+}
+
+.tiptap ul,
+.tiptap ol {
+  padding-left: 1.5em;
+  margin: 0.75em 0;
+}
+
+.tiptap li {
+  margin: 0.25em 0;
+  line-height: 1.7;
+  color: #6b6b6b;
+}
+
+.tiptap blockquote {
+  border-left: 2px solid #e5e5e3;
+  padding-left: 1em;
+  margin: 1em 0;
+  color: #9b9b9b;
+  font-style: italic;
+}
+
+.tiptap hr {
+  border: none;
+  border-top: 1px solid #e5e5e3;
+  margin: 2em 0;
+}
+
+.tiptap img {
+  max-width: 100%;
+  height: auto;
+  margin: 1.5em 0;
+}
+
+.tiptap a {
+  color: #FF4D00;
+  text-decoration: underline;
+}
+
+.tiptap strong {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.tiptap code {
+  background: #fafaf8;
+  padding: 0.2em 0.4em;
+  border-radius: 2px;
+  font-size: 0.9em;
+}
+
+.tiptap pre {
+  background: #fafaf8;
+  border: 1px solid #e5e5e3;
+  padding: 1em;
+  overflow-x: auto;
+  margin: 1em 0;
+}
+
+/* Blog content rendering */
+.blog-content h2 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 2em 0 0.75em;
+  color: #1a1a1a;
+}
+
+.blog-content h3 {
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin: 1.5em 0 0.5em;
+  color: #1a1a1a;
+}
+
+.blog-content p {
+  margin: 0.75em 0;
+  line-height: 1.8;
+  color: #6b6b6b;
+}
+
+.blog-content ul,
+.blog-content ol {
+  padding-left: 1.5em;
+  margin: 0.75em 0;
+}
+
+.blog-content li {
+  margin: 0.25em 0;
+  line-height: 1.7;
+  color: #6b6b6b;
+}
+
+.blog-content blockquote {
+  border-left: 2px solid #e5e5e3;
+  padding-left: 1em;
+  margin: 1em 0;
+  color: #9b9b9b;
+}
+
+.blog-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 1.5em 0;
+}
+
+.blog-content a {
+  color: #FF4D00;
+  text-decoration: underline;
+}
+
+.blog-content strong {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.blog-content hr {
+  border: none;
+  border-top: 1px solid #e5e5e3;
+  margin: 2em 0;
+}
