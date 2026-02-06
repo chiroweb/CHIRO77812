@@ -19,8 +19,8 @@ export default function Hero() {
       {/* Content Container */}
       <div className="relative z-10 max-w-[1280px] mx-auto px-8 w-full">
         <div className="flex items-center min-h-screen py-[120px]">
-          {/* Left: Text - takes ~55% and overlaps video */}
-          <div className="relative z-20 w-full md:w-[55%] shrink-0">
+          {/* Left: Text - wide enough for title in one line, overlaps video */}
+          <div className="relative z-20 w-full md:w-[65%] shrink-0">
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -40,7 +40,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: isHovered ? 0 : 1, y: 0 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="text-4xl md:text-[64px] lg:text-[76px] tracking-tight leading-[1.05] font-[family-name:var(--font-noto-serif-kr)] text-[#1a1a1a]"
+                className="text-4xl md:text-[64px] lg:text-[76px] tracking-tight leading-[1.05] font-[family-name:var(--font-noto-serif-kr)] text-[#1a1a1a] whitespace-nowrap"
               >
                 기획이 곧 개발이 되는
                 <br />
@@ -52,7 +52,7 @@ export default function Hero() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: isHovered ? 1 : 0 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="absolute inset-0 text-4xl md:text-[64px] lg:text-[76px] tracking-tight leading-[1.05] font-[family-name:var(--font-noto-serif-kr)]"
+                className="absolute inset-0 text-4xl md:text-[64px] lg:text-[76px] tracking-tight leading-[1.05] font-[family-name:var(--font-noto-serif-kr)] whitespace-nowrap"
                 style={{
                   WebkitTextStroke: "1px #1a1a1a",
                   WebkitTextFillColor: "transparent",
@@ -92,7 +92,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, delay: 0.6, ease: "easeOut" }}
-            className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 w-[50%] h-[70vh] z-10"
+            className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 w-[50%] h-[55vh] z-10"
           >
             <video
               autoPlay
