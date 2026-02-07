@@ -80,12 +80,12 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Right: Video */}
+          {/* Right: Video — mobile: small right-aligned, text overlaps */}
           <motion.div
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, delay: 0.6, ease: "easeOut" }}
-            className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 w-[50%] h-[55vh] z-10"
+            className="absolute right-0 top-1/2 -translate-y-1/2 w-[55%] h-[30vh] md:w-[50%] md:h-[55vh] z-10"
           >
             <video
               autoPlay
