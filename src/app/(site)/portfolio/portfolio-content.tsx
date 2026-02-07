@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import SectionLabel from "@/components/ui/section-label";
 import Divider from "@/components/ui/divider";
+import SubCtaBand from "@/components/ui/sub-cta-band";
 
 interface Project {
   id: number;
@@ -44,7 +45,8 @@ export default function PortfolioContent() {
   }
 
   return (
-    <section className="pt-24 md:pt-32 pb-24 md:pb-32 px-5 md:px-8">
+    <>
+    <section className="pt-24 md:pt-32 pb-16 md:pb-24 px-5 md:px-8">
       <div className="max-w-[1280px] mx-auto">
         <SectionLabel number="01" label="Portfolio" />
 
@@ -157,5 +159,27 @@ export default function PortfolioContent() {
         </motion.div>
       </div>
     </section>
+
+    {/* ── Dark Statement ── */}
+    <section className="py-[72px] md:py-[100px] px-5 md:px-8 bg-[#1a1a1a]">
+      <div className="max-w-[1280px] mx-auto">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportConfig}
+        >
+          <motion.p
+            variants={fadeInUp}
+            className="font-[family-name:var(--font-space-grotesk)] text-[36px] md:text-[64px] font-extrabold tracking-[-0.03em] leading-[1.1] text-white text-center"
+          >
+            결과로 <span className="decoration-[#FF4D00] underline underline-offset-[6px] md:underline-offset-[10px] decoration-[3px]">증명</span>합니다<span className="text-[#FF4D00]">.</span>
+          </motion.p>
+        </motion.div>
+      </div>
+    </section>
+
+    {/* ── CTA Band ── */}
+    <SubCtaBand />
+    </>
   );
 }

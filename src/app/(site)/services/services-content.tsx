@@ -11,6 +11,7 @@ import SectionLabel from "@/components/ui/section-label";
 import Divider from "@/components/ui/divider";
 import Button from "@/components/ui/button";
 import Placeholder from "@/components/ui/placeholder";
+import SubCtaBand from "@/components/ui/sub-cta-band";
 
 /* ─────────────────────────────────────
    1. Service Categories
@@ -187,6 +188,7 @@ export default function ServicesContent() {
   const activeService = services.find((s) => s.id === activeTab)!;
 
   return (
+    <>
     <div className="pt-24 md:pt-32 pb-24 md:pb-32 px-5 md:px-8">
       <div className="max-w-[1280px] mx-auto">
 
@@ -530,5 +532,9 @@ export default function ServicesContent() {
         </div>
       </div>
     </div>
+
+    {/* ── CTA Band ── */}
+    <SubCtaBand />
+    </>
   );
 }
