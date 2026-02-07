@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import SectionLabel from "@/components/ui/section-label";
-import Divider from "@/components/ui/divider";
 
 const comparisons = [
   {
@@ -24,26 +23,34 @@ const comparisons = [
   {
     aspect: "완성까지 기간",
     others: "평균 4~8주",
-    chiro: "평균 4일",
+    chiro: "평균 4일 완성",
   },
   {
     aspect: "소통 방식",
     others: "담당자 배정, 전달 과정에서 의도 왜곡 가능",
     chiro: "디렉터 직접 소통, 기획부터 개발까지 1인 전담",
   },
+  {
+    aspect: "응답 속도",
+    others: "업무 시간 내 순차 대응",
+    chiro: "24시간 이내 응답",
+  },
 ];
 
 export default function Comparison() {
   return (
-    <section className="py-[120px] px-8">
-      <Divider />
-      <div className="max-w-[1280px] mx-auto pt-24">
-        {/* 30/70 Split Layout */}
-        <div className="flex flex-col md:flex-row mb-16">
+    <section className="py-[72px] md:py-[120px] px-5 md:px-8 bg-[#1a1a1a]">
+      <div className="max-w-[1280px] mx-auto">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row mb-10 md:mb-16">
           <div className="md:w-[30%] md:pr-12 mb-8 md:mb-0">
-            <SectionLabel number="06" label="Why CHIRO" />
+            <div className="mb-12">
+              <span className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#6b6b6b]">
+                03 — Why CHIRO
+              </span>
+            </div>
           </div>
-          <div className="md:w-[70%] md:border-l md:border-[#E0E0E0] md:pl-12">
+          <div className="md:w-[70%] md:border-l md:border-[#333] md:pl-12">
             <motion.div
               variants={staggerContainer}
               initial="hidden"
@@ -52,16 +59,15 @@ export default function Comparison() {
             >
               <motion.h2
                 variants={fadeInUp}
-                className="text-3xl md:text-[40px] font-[family-name:var(--font-noto-serif-kr)] tracking-tight leading-[1.2] mb-6"
+                className="font-[family-name:var(--font-space-grotesk)] font-light text-[32px] md:text-[52px] tracking-[0.03em] leading-[1.05] text-white mb-3"
               >
-                같은 결과, 다른 과정<span className="text-[#FF4D00]">.</span>
+                Different Process<span className="text-[#FF4D00]">.</span>
               </motion.h2>
-          <motion.p
+              <motion.p
                 variants={fadeInUp}
-                className="text-base text-[#6b6b6b] leading-[1.7] max-w-xl"
+                className="text-[18px] md:text-[22px] font-medium text-white/50 tracking-tight leading-[1.5]"
               >
-                일반적인 웹 에이전시와 치로의 프로세스를 비교합니다. 결과물이 아닌
-                과정에서 차이가 만들어집니다.
+                같은 결과, 다른 과정.
               </motion.p>
             </motion.div>
           </div>
@@ -77,19 +83,19 @@ export default function Comparison() {
           <div className="hidden md:block">
             <table className="w-full border-collapse">
               <thead>
-                <tr className="border-b border-[#E0E0E0]">
+                <tr className="border-b border-[#333]">
                   <th className="text-left py-5 pr-8 w-[20%]">
-                    <span className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] font-normal">
+                    <span className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#6b6b6b] font-normal">
                       항목
                     </span>
                   </th>
                   <th className="text-left py-5 px-8 w-[40%]">
-                    <span className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] font-normal">
+                    <span className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#6b6b6b] font-normal">
                       일반 에이전시
                     </span>
                   </th>
-                  <th className="text-left py-5 px-8 w-[40%] bg-[#fafaf8]">
-                    <span className="text-xs tracking-[0.2em] uppercase text-[#1a1a1a] font-normal">
+                  <th className="text-left py-5 px-8 w-[40%] bg-white/5">
+                    <span className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-white font-normal">
                       CHIRO
                     </span>
                   </th>
@@ -100,15 +106,15 @@ export default function Comparison() {
                   <motion.tr
                     key={row.aspect}
                     variants={fadeInUp}
-                    className="border-b border-[#E0E0E0]"
+                    className="border-b border-[#333]"
                   >
-                    <td className="py-5 pr-8 text-sm font-normal text-[#1a1a1a] align-top">
+                    <td className="py-5 pr-8 text-sm font-normal text-white/80 align-top">
                       {row.aspect}
                     </td>
-                    <td className="py-5 px-8 text-sm text-[#9b9b9b] leading-[1.6] align-top">
+                    <td className="py-5 px-8 text-sm text-[#6b6b6b] leading-[1.6] align-top">
                       {row.others}
                     </td>
-                    <td className="py-5 px-8 text-sm text-[#1a1a1a] leading-[1.6] bg-[#fafaf8] align-top">
+                    <td className="py-5 px-8 text-sm text-white leading-[1.6] bg-white/5 align-top">
                       {row.chiro}
                     </td>
                   </motion.tr>
@@ -123,27 +129,27 @@ export default function Comparison() {
               <motion.div
                 key={row.aspect}
                 variants={fadeInUp}
-                className="border border-[#E0E0E0]"
+                className="border border-[#333]"
               >
-                <div className="p-4 border-b border-[#E0E0E0]">
-                  <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b]">
+                <div className="p-4 border-b border-[#333]">
+                  <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#6b6b6b]">
                     {row.aspect}
                   </p>
                 </div>
-                <div className="grid grid-cols-2 divide-x divide-[#e5e5e3]">
+                <div className="grid grid-cols-2 divide-x divide-[#333]">
                   <div className="p-4">
-                    <p className="text-[10px] tracking-[0.2em] uppercase text-[#9b9b9b] mb-2">
+                    <p className="font-[family-name:var(--font-jetbrains-mono)] text-[10px] tracking-[0.15em] uppercase text-[#6b6b6b] mb-2">
                       일반
                     </p>
-                    <p className="text-xs text-[#9b9b9b] leading-[1.6]">
+                    <p className="text-xs text-[#6b6b6b] leading-[1.6]">
                       {row.others}
                     </p>
                   </div>
-                  <div className="p-4 bg-[#fafaf8]">
-                    <p className="text-[10px] tracking-[0.2em] uppercase text-[#1a1a1a] mb-2">
+                  <div className="p-4 bg-[#FF4D00]/10">
+                    <p className="font-[family-name:var(--font-jetbrains-mono)] text-[10px] tracking-[0.15em] uppercase text-white mb-2">
                       CHIRO
                     </p>
-                    <p className="text-xs text-[#1a1a1a] leading-[1.6]">
+                    <p className="text-sm text-white leading-[1.6]">
                       {row.chiro}
                     </p>
                   </div>

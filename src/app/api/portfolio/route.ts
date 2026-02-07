@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     const result = await sql`
-      SELECT id, name, category, problem, result, year, image_url
+      SELECT id, name, slug, category, client_name, site_url, problem, result, year, image_url
       FROM portfolio_projects
       WHERE published = true
       ORDER BY sort_order ASC, created_at DESC

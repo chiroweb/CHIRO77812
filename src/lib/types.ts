@@ -13,9 +13,13 @@ export interface BlogPost {
 export interface PortfolioProject {
   id: number;
   name: string;
+  slug: string;
   category: string;
+  client_name: string | null;
+  site_url: string | null;
   problem: string | null;
   result: string | null;
+  content: string | null;
   year: string | null;
   image_url: string | null;
   sort_order: number;

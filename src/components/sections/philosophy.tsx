@@ -7,19 +7,19 @@ import Divider from "@/components/ui/divider";
 
 export default function Philosophy() {
   return (
-    <section className="py-[120px] px-8">
+    <section className="py-[72px] md:py-[120px] px-5 md:px-8">
       <Divider />
-      <div className="max-w-[1280px] mx-auto pt-24">
+      <div className="max-w-[1280px] mx-auto pt-16 md:pt-24">
         {/* 30/70 Split Layout */}
         <div className="flex flex-col md:flex-row">
-          {/* Left Column - 30% - Sticky */}
+          {/* Left Column - Sticky */}
           <div className="md:w-[30%] md:pr-12 mb-8 md:mb-0">
             <div className="md:sticky md:top-32">
-              <SectionLabel number="01" label="Philosophy" />
+              <SectionLabel number="05" label="Philosophy" />
             </div>
           </div>
 
-          {/* Right Column - 70% - Scrolling Content */}
+          {/* Right Column - Scrolling Content */}
           <div className="md:w-[70%] md:border-l md:border-[#E0E0E0] md:pl-12">
             <motion.div
               variants={staggerContainer}
@@ -27,11 +27,14 @@ export default function Philosophy() {
               whileInView="visible"
               viewport={viewportConfig}
             >
+              {/* Hero statement — Pretendard ExtraBold, massive */}
               <motion.h2
                 variants={fadeInUp}
-                className="text-3xl md:text-[40px] font-[family-name:var(--font-noto-serif-kr)] tracking-tight leading-[1.2]"
+                className="text-[36px] md:text-[80px] font-extrabold tracking-[-0.03em] leading-[1.05] text-[#1a1a1a]"
               >
-                치로는 공장이 아닙니다<span className="text-[#FF4D00]">.</span>
+                치로는 공장이
+                <br className="hidden md:inline" />
+                아닙니다<span className="text-[#FF4D00]">.</span>
               </motion.h2>
 
               <motion.p
@@ -52,7 +55,7 @@ export default function Philosophy() {
                 당신의 브랜드를 설계합니다.
               </motion.p>
 
-              {/* Key Values with Keywords */}
+              {/* Key Values */}
               <div className="mt-[80px] pt-12 border-t border-[#E0E0E0]">
                 <motion.div
                   variants={staggerContainer}
@@ -88,7 +91,7 @@ export default function Philosophy() {
                     >
                       <div className="md:w-1/3">
                         <h3
-                          className={`text-xl font-normal tracking-normal ${
+                          className={`text-xl font-bold tracking-tight ${
                             item.highlight
                               ? "underline decoration-[#FF4D00] decoration-[1.5px] underline-offset-4"
                               : ""
@@ -96,7 +99,7 @@ export default function Philosophy() {
                         >
                           {item.title}
                         </h3>
-                        <span className="text-xs tracking-[0.15em] uppercase text-[#9b9b9b] mt-1 block">
+                        <span className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#9b9b9b] mt-1 block">
                           {item.titleEn}
                         </span>
                       </div>

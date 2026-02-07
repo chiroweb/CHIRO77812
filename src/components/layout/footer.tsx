@@ -11,7 +11,7 @@ const footerLinks = [
 
 export default function Footer() {
   return (
-    <footer className="px-8 pb-8">
+    <footer className="px-5 md:px-8 pb-8">
       <Divider />
       <div className="max-w-[1280px] mx-auto pt-16 pb-8">
         <div className="grid grid-cols-4 md:grid-cols-12 gap-6">
@@ -56,7 +56,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-16 pt-8 border-t border-[#e5e5e3] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div className="mt-16 pt-8 border-t border-[#E0E0E0] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <p className="text-xs text-[#9b9b9b] tracking-wider">
             &copy; {new Date().getFullYear()} CHIRO Web Design. All rights reserved.
           </p>

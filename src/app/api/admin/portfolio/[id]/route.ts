@@ -26,16 +26,20 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
 export async function PUT(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params;
-    const { name, category, problem, result: projectResult, year, image_url, published } = await request.json();
+    const { name, slug, category, client_name, site_url, problem, result: projectResult, content, year, image_url, published } = await request.json();
 
     if (!name || !category) {
       return NextResponse.json({ error: "Name and category are required" }, { status: 400 });
     }
 
+    const projectSlug = slug || name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
     const result = await sql`
       UPDATE portfolio_projects
-      SET name = ${name}, category = ${category}, problem = ${problem || null},
-          result = ${projectResult || null}, year = ${year || null},
+      SET name = ${name}, slug = ${projectSlug}, category = ${category},
+          client_name = ${client_name || null}, site_url = ${site_url || null},
+          problem = ${problem || null}, result = ${projectResult || null},
+          content = ${content || null}, year = ${year || null},
           image_url = ${image_url || null}, published = ${published ?? true},
           updated_at = NOW()
       WHERE id = ${parseInt(id)}

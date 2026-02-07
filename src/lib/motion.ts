@@ -8,7 +8,7 @@ export const fadeInUp = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: easings.smooth },
+    transition: { duration: 0.4, ease: easings.smooth },
   },
 };
 

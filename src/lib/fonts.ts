@@ -1,5 +1,5 @@
 import localFont from "next/font/local";
-import { Noto_Sans_JP, Noto_Serif_KR, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 
 export const pretendard = localFont({
   src: [
@@ -13,23 +13,16 @@ export const pretendard = localFont({
   fallback: ["system-ui", "sans-serif"],
 });
 
-export const notoSansJP = Noto_Sans_JP({
+export const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  variable: "--font-noto-sans-jp",
+  weight: ["300", "400", "500", "700"],
+  variable: "--font-space-grotesk",
   display: "swap",
 });
 
 export const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400"],
+  weight: ["400", "500"],
   variable: "--font-jetbrains-mono",
-  display: "swap",
-});
-
-export const notoSerifKR = Noto_Serif_KR({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-noto-serif-kr",
   display: "swap",
 });

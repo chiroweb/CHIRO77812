@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
+import TiptapEditor from "@/components/admin/tiptap-editor";
 
 export default function EditPortfolioPage() {
   const router = useRouter();
@@ -10,9 +11,13 @@ export default function EditPortfolioPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [name, setName] = useState("");
+  const [slug, setSlug] = useState("");
   const [category, setCategory] = useState("");
+  const [clientName, setClientName] = useState("");
+  const [siteUrl, setSiteUrl] = useState("");
   const [problem, setProblem] = useState("");
   const [result, setResult] = useState("");
+  const [content, setContent] = useState("");
   const [year, setYear] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [published, setPublished] = useState(true);
@@ -25,9 +30,13 @@ export default function EditPortfolioPage() {
       .then((r) => r.json())
       .then((data) => {
         setName(data.name || "");
+        setSlug(data.slug || "");
         setCategory(data.category || "");
+        setClientName(data.client_name || "");
+        setSiteUrl(data.site_url || "");
         setProblem(data.problem || "");
         setResult(data.result || "");
+        setContent(data.content || "");
         setYear(data.year || "");
         setImageUrl(data.image_url || "");
         setPublished(data.published ?? true);
@@ -64,7 +73,10 @@ export default function EditPortfolioPage() {
       const res = await fetch(`/api/admin/portfolio/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, category, problem, result, year, image_url: imageUrl, published }),
+        body: JSON.stringify({
+          name, slug, category, client_name: clientName, site_url: siteUrl,
+          problem, result, content, year, image_url: imageUrl, published,
+        }),
       });
 
       if (res.ok) {
@@ -90,11 +102,20 @@ export default function EditPortfolioPage() {
         <p className="text-sm text-[#9b9b9b] mt-1">포트폴리오 프로젝트를 수정합니다.</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-8 max-w-2xl">
+      <form onSubmit={handleSubmit} className="space-y-8 max-w-3xl">
         <div>
           <label className="block text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">프로젝트명</label>
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} required
             className="w-full border-b border-[#e5e5e3] py-3 text-lg bg-transparent outline-none focus:border-[#1a1a1a] transition-colors" />
+        </div>
+
+        <div>
+          <label className="block text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">슬러그 (URL)</label>
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-[#9b9b9b]">/portfolio/</span>
+            <input type="text" value={slug} onChange={(e) => setSlug(e.target.value)}
+              className="flex-1 border-b border-[#e5e5e3] py-3 text-sm bg-transparent outline-none focus:border-[#1a1a1a] transition-colors font-[family-name:var(--font-jetbrains-mono)]" />
+          </div>
         </div>
 
         <div className="grid grid-cols-2 gap-8">
@@ -110,20 +131,33 @@ export default function EditPortfolioPage() {
           </div>
         </div>
 
+        <div className="grid grid-cols-2 gap-8">
+          <div>
+            <label className="block text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">클라이언트명</label>
+            <input type="text" value={clientName} onChange={(e) => setClientName(e.target.value)} placeholder="회사명 또는 클라이언트명"
+              className="w-full border-b border-[#e5e5e3] py-3 text-sm bg-transparent outline-none focus:border-[#1a1a1a] transition-colors" />
+          </div>
+          <div>
+            <label className="block text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">사이트 주소</label>
+            <input type="url" value={siteUrl} onChange={(e) => setSiteUrl(e.target.value)} placeholder="https://example.com"
+              className="w-full border-b border-[#e5e5e3] py-3 text-sm bg-transparent outline-none focus:border-[#1a1a1a] transition-colors" />
+          </div>
+        </div>
+
         <div>
-          <label className="block text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">문제점</label>
+          <label className="block text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">과제 (Challenge)</label>
           <textarea value={problem} onChange={(e) => setProblem(e.target.value)} rows={3}
             className="w-full border-b border-[#e5e5e3] py-3 text-sm bg-transparent outline-none focus:border-[#1a1a1a] transition-colors resize-none" />
         </div>
 
         <div>
-          <label className="block text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">결과</label>
+          <label className="block text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">결과 (Result)</label>
           <textarea value={result} onChange={(e) => setResult(e.target.value)} rows={2}
             className="w-full border-b border-[#e5e5e3] py-3 text-sm bg-transparent outline-none focus:border-[#1a1a1a] transition-colors resize-none" />
         </div>
 
         <div>
-          <label className="block text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">이미지</label>
+          <label className="block text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">대표 이미지</label>
           {imageUrl && (
             <div className="mb-3">
               <img src={imageUrl} alt="Preview" className="w-48 h-36 object-cover border border-[#e5e5e3]" />
@@ -134,6 +168,12 @@ export default function EditPortfolioPage() {
             {uploading ? "업로드 중..." : "이미지 업로드"}
           </button>
           <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
+        </div>
+
+        <div>
+          <label className="block text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">상세 콘텐츠</label>
+          <p className="text-xs text-[#9b9b9b] mb-4">프로젝트 진행 과정, 스크린샷, 상세 설명 등을 자유롭게 작성하세요.</p>
+          <TiptapEditor content={content} onChange={setContent} />
         </div>
 
         <div>

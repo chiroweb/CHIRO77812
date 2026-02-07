@@ -21,9 +21,13 @@ export async function GET() {
       CREATE TABLE IF NOT EXISTS portfolio_projects (
         id SERIAL PRIMARY KEY,
         name VARCHAR(300) NOT NULL,
+        slug VARCHAR(300) UNIQUE,
         category VARCHAR(200) NOT NULL,
+        client_name VARCHAR(300),
+        site_url TEXT,
         problem TEXT,
         result TEXT,
+        content TEXT,
         year VARCHAR(10),
         image_url TEXT,
         sort_order INTEGER DEFAULT 0,
@@ -32,6 +36,12 @@ export async function GET() {
         updated_at TIMESTAMPTZ DEFAULT NOW()
       )
     `;
+
+    // Add new columns if table already exists (migration)
+    await sql`ALTER TABLE portfolio_projects ADD COLUMN IF NOT EXISTS slug VARCHAR(300) UNIQUE`;
+    await sql`ALTER TABLE portfolio_projects ADD COLUMN IF NOT EXISTS client_name VARCHAR(300)`;
+    await sql`ALTER TABLE portfolio_projects ADD COLUMN IF NOT EXISTS site_url TEXT`;
+    await sql`ALTER TABLE portfolio_projects ADD COLUMN IF NOT EXISTS content TEXT`;
 
     await sql`
       CREATE TABLE IF NOT EXISTS contact_submissions (

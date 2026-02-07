@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Sans_JP, Noto_Serif_KR, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -15,37 +15,54 @@ const pretendard = localFont({
   fallback: ["system-ui", "sans-serif"],
 });
 
-const notoSansJP = Noto_Sans_JP({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  variable: "--font-noto-sans-jp",
+  weight: ["300", "400", "500", "700"],
+  variable: "--font-space-grotesk",
   display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400"],
+  weight: ["400", "500"],
   variable: "--font-jetbrains-mono",
   display: "swap",
 });
 
-const notoSerifKR = Noto_Serif_KR({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-noto-serif-kr",
-  display: "swap",
-});
-
 export const metadata: Metadata = {
-  title: "CHIRO — Web Design Studio",
+  metadataBase: new URL("https://chiroweb.co.kr"),
+  title: {
+    default: "치로웹디자인 — 당일 시작, 실시간 확인 | 웹 디자인 스튜디오",
+    template: "%s | 치로웹디자인",
+  },
   description:
-    "기획이 곧 개발이 되는 투명함. 당신의 브랜드에 온전히 몰입합니다. 치로웹디자인은 소수의 프로젝트에 깊이 집중하는 웹 디자인 스튜디오입니다.",
-  keywords: ["웹디자인", "홈페이지 제작", "치로웹디자인", "웹사이트 제작"],
+    "상담 당일 빌드 시작, 실시간 링크로 제작 과정을 직접 확인. 소수 프로젝트에 깊이 집중하는 프리미엄 웹 디자인 스튜디오 치로.",
+  keywords: [
+    "홈페이지 제작",
+    "웹디자인",
+    "웹사이트 제작",
+    "맞춤형 홈페이지",
+    "웹디자인 스튜디오",
+    "반응형 웹사이트",
+    "기업 홈페이지",
+    "브랜드 사이트",
+    "치로웹디자인",
+  ],
   openGraph: {
-    title: "CHIRO — Web Design Studio",
-    description: "기획이 곧 개발이 되는 투명함. 당신의 브랜드에 온전히 몰입합니다.",
+    title: "치로웹디자인 — 당일 시작, 실시간 확인",
+    description:
+      "상담 당일 빌드 시작, 실시간 링크로 제작 과정을 직접 확인. 기다리지 않는 웹 디자인 스튜디오.",
+    url: "https://chiroweb.co.kr",
+    siteName: "치로웹디자인",
     type: "website",
     locale: "ko_KR",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "https://chiroweb.co.kr",
   },
 };
 
@@ -54,10 +71,35 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: "치로웹디자인",
+    alternateName: "CHIRO Web Design Studio",
+    url: "https://chiroweb.co.kr",
+    description:
+      "상담 당일 빌드 시작, 실시간 링크로 제작 과정을 직접 확인. 소수 프로젝트에 깊이 집중하는 프리미엄 웹 디자인 스튜디오.",
+    areaServed: "KR",
+    serviceType: "웹 디자인",
+    priceRange: "₩₩",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Seoul",
+      addressCountry: "KR",
+    },
+    sameAs: [],
+  };
+
   return (
     <html lang="ko">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+      </head>
       <body
-        className={`${pretendard.variable} ${notoSansJP.variable} ${jetbrainsMono.variable} ${notoSerifKR.variable} font-[family-name:var(--font-pretendard),var(--font-noto-sans-jp),system-ui,sans-serif] antialiased`}
+        className={`${pretendard.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} font-[family-name:var(--font-pretendard),system-ui,sans-serif] antialiased`}
       >
         {children}
       </body>

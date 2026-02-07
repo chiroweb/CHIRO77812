@@ -18,19 +18,22 @@ export async function GET() {
 // POST: Create a new portfolio project
 export async function POST(request: NextRequest) {
   try {
-    const { name, category, problem, result: projectResult, year, image_url, published } = await request.json();
+    const { name, slug, category, client_name, site_url, problem, result: projectResult, content, year, image_url, published } = await request.json();
 
     if (!name || !category) {
       return NextResponse.json({ error: "Name and category are required" }, { status: 400 });
     }
+
+    // Generate slug from name if not provided
+    const projectSlug = slug || name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
     // Get next sort_order
     const maxOrder = await sql`SELECT COALESCE(MAX(sort_order), 0) + 1 as next_order FROM portfolio_projects`;
     const sortOrder = maxOrder.rows[0].next_order;
 
     const result = await sql`
-      INSERT INTO portfolio_projects (name, category, problem, result, year, image_url, sort_order, published)
-      VALUES (${name}, ${category}, ${problem || null}, ${projectResult || null}, ${year || null}, ${image_url || null}, ${sortOrder}, ${published ?? true})
+      INSERT INTO portfolio_projects (name, slug, category, client_name, site_url, problem, result, content, year, image_url, sort_order, published)
+      VALUES (${name}, ${projectSlug}, ${category}, ${client_name || null}, ${site_url || null}, ${problem || null}, ${projectResult || null}, ${content || null}, ${year || null}, ${image_url || null}, ${sortOrder}, ${published ?? true})
       RETURNING *
     `;
 

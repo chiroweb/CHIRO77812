@@ -12,8 +12,8 @@
   --color-divider: #E0E0E0;
   --color-hover-bg: #F9F9F9;
 
-  --font-sans: "Pretendard", "Noto Sans JP", system-ui, sans-serif;
-  --font-serif: "Noto Serif KR", serif;
+  --font-sans: "Pretendard", system-ui, sans-serif;
+  --font-display: "Space Grotesk", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 }
 
