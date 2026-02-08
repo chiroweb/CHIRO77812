@@ -22,7 +22,7 @@ export async function verifyToken(token: string): Promise<boolean> {
 }
 
 export function checkPassword(password: string): boolean {
-  return password === (process.env.ADMIN_PASSWORD || "admin1234");
+  return password === (process.env.ADMIN_PASSWORD || "0812");
 }
 
 export async function getTokenFromCookies(): Promise<string | undefined> {

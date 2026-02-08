@@ -39,7 +39,7 @@ export default function NewPortfolioPage() {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
+      const res = await fetch("/api/chiro/upload", { method: "POST", body: formData });
       const data = await res.json();
       if (data.url) setImageUrl(data.url);
     } catch {
@@ -54,7 +54,7 @@ export default function NewPortfolioPage() {
     setSaving(true);
 
     try {
-      const res = await fetch("/api/admin/portfolio", {
+      const res = await fetch("/api/chiro/portfolio", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -64,7 +64,7 @@ export default function NewPortfolioPage() {
       });
 
       if (res.ok) {
-        router.push("/admin/portfolio");
+        router.push("/chiro/portfolio");
       } else {
         alert("저장에 실패했습니다.");
       }

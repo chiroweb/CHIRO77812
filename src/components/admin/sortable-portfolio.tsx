@@ -74,7 +74,7 @@ function SortableItem({ project, onDelete }: SortableItemProps) {
       </div>
       <div className="flex items-center gap-2 ml-4">
         <Link
-          href={`/admin/portfolio/${project.id}/edit`}
+          href={`/chiro/portfolio/${project.id}/edit`}
           className="text-xs px-3 py-1 border border-[#e5e5e3] hover:border-[#1a1a1a] transition-colors"
         >
           수정

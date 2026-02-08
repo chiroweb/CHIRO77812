@@ -15,7 +15,7 @@ export default function AdminPortfolioPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/admin/portfolio")
+    fetch("/api/chiro/portfolio")
       .then((r) => r.json())
       .then((data) => {
         setProjects(data.projects || []);
@@ -27,7 +27,7 @@ export default function AdminPortfolioPage() {
   const handleReorder = useCallback(async (reordered: PortfolioProject[]) => {
     setProjects(reordered);
     // Save to server
-    await fetch("/api/admin/portfolio/reorder", {
+    await fetch("/api/chiro/portfolio/reorder", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ orderedIds: reordered.map((p) => p.id) }),
@@ -36,7 +36,7 @@ export default function AdminPortfolioPage() {
 
   const handleDelete = useCallback(async (id: number) => {
     if (!confirm("이 프로젝트를 삭제하시겠습니까?")) return;
-    const res = await fetch(`/api/admin/portfolio/${id}`, { method: "DELETE" });
+    const res = await fetch(`/api/chiro/portfolio/${id}`, { method: "DELETE" });
     if (res.ok) {
       setProjects((prev) => prev.filter((p) => p.id !== id));
     }
@@ -50,7 +50,7 @@ export default function AdminPortfolioPage() {
           <p className="text-sm text-[#9b9b9b] mt-1">프로젝트를 추가하고 드래그로 순서를 변경하세요.</p>
         </div>
         <Link
-          href="/admin/portfolio/new"
+          href="/chiro/portfolio/new"
           className="border border-[#1a1a1a] text-[#1a1a1a] px-6 py-2 text-sm tracking-[0.05em] transition-all duration-300 hover:bg-[#1a1a1a] hover:text-white"
         >
           새 프로젝트

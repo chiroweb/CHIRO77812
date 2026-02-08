@@ -18,7 +18,7 @@ export default function AdminDashboardPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/admin/stats")
+    fetch("/api/chiro/stats")
       .then((r) => {
         if (!r.ok) throw new Error("Failed");
         return r.json();
@@ -60,7 +60,7 @@ export default function AdminDashboardPage() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-[1px] bg-[#e5e5e3] mb-12">
-        <Link href="/admin/blog" className="bg-white p-6 hover:bg-[#fafaf8] transition-colors">
+        <Link href="/chiro/blog" className="bg-white p-6 hover:bg-[#fafaf8] transition-colors">
           <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-2">블로그 글</p>
           <p className="text-3xl font-light font-[family-name:var(--font-jetbrains-mono)]">
             {stats.blogPosts}
@@ -68,7 +68,7 @@ export default function AdminDashboardPage() {
           <p className="text-xs text-[#9b9b9b] mt-1">공개 {stats.publishedBlogPosts}건</p>
         </Link>
 
-        <Link href="/admin/portfolio" className="bg-white p-6 hover:bg-[#fafaf8] transition-colors">
+        <Link href="/chiro/portfolio" className="bg-white p-6 hover:bg-[#fafaf8] transition-colors">
           <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-2">포트폴리오</p>
           <p className="text-3xl font-light font-[family-name:var(--font-jetbrains-mono)]">
             {stats.portfolioProjects}
@@ -76,7 +76,7 @@ export default function AdminDashboardPage() {
           <p className="text-xs text-[#9b9b9b] mt-1">프로젝트</p>
         </Link>
 
-        <Link href="/admin/contacts" className="bg-white p-6 hover:bg-[#fafaf8] transition-colors">
+        <Link href="/chiro/contacts" className="bg-white p-6 hover:bg-[#fafaf8] transition-colors">
           <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-2">문의</p>
           <p className="text-3xl font-light font-[family-name:var(--font-jetbrains-mono)]">
             {stats.totalContacts}
@@ -84,7 +84,7 @@ export default function AdminDashboardPage() {
           <p className="text-xs text-[#9b9b9b] mt-1">총 접수</p>
         </Link>
 
-        <Link href="/admin/contacts" className="bg-white p-6 hover:bg-[#fafaf8] transition-colors">
+        <Link href="/chiro/contacts" className="bg-white p-6 hover:bg-[#fafaf8] transition-colors">
           <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-2">미확인</p>
           <p className="text-3xl font-light font-[family-name:var(--font-jetbrains-mono)] text-[#FF4D00]">
             {stats.unreadContacts}
@@ -97,7 +97,7 @@ export default function AdminDashboardPage() {
       <div>
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-light tracking-tight">최근 문의</h2>
-          <Link href="/admin/contacts" className="text-xs text-[#9b9b9b] hover:text-[#1a1a1a] transition-colors">
+          <Link href="/chiro/contacts" className="text-xs text-[#9b9b9b] hover:text-[#1a1a1a] transition-colors">
             전체보기 →
           </Link>
         </div>

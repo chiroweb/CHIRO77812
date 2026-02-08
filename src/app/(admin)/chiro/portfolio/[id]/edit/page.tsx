@@ -26,7 +26,7 @@ export default function EditPortfolioPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`/api/admin/portfolio/${id}`)
+    fetch(`/api/chiro/portfolio/${id}`)
       .then((r) => r.json())
       .then((data) => {
         setName(data.name || "");
@@ -44,7 +44,7 @@ export default function EditPortfolioPage() {
       })
       .catch(() => {
         alert("프로젝트를 불러오지 못했습니다.");
-        router.push("/admin/portfolio");
+        router.push("/chiro/portfolio");
       });
   }, [id, router]);
 
@@ -55,7 +55,7 @@ export default function EditPortfolioPage() {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
+      const res = await fetch("/api/chiro/upload", { method: "POST", body: formData });
       const data = await res.json();
       if (data.url) setImageUrl(data.url);
     } catch {
@@ -70,7 +70,7 @@ export default function EditPortfolioPage() {
     setSaving(true);
 
     try {
-      const res = await fetch(`/api/admin/portfolio/${id}`, {
+      const res = await fetch(`/api/chiro/portfolio/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -80,7 +80,7 @@ export default function EditPortfolioPage() {
       });
 
       if (res.ok) {
-        router.push("/admin/portfolio");
+        router.push("/chiro/portfolio");
       } else {
         alert("저장에 실패했습니다.");
       }

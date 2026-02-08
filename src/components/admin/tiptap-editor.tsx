@@ -22,7 +22,7 @@ function MenuBar({ editor }: { editor: ReturnType<typeof useEditor> }) {
     formData.append("file", file);
 
     try {
-      const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
+      const res = await fetch("/api/chiro/upload", { method: "POST", body: formData });
       const data = await res.json();
       if (data.url) {
         editor.chain().focus().setImage({ src: data.url }).run();

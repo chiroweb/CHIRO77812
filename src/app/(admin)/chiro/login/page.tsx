@@ -15,14 +15,14 @@ export default function AdminLoginPage() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/admin/login", {
+      const res = await fetch("/api/chiro/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ password }),
       });
 
       if (res.ok) {
-        router.push("/admin");
+        router.push("/chiro");
       } else {
         setError("비밀번호가 올바르지 않습니다.");
       }

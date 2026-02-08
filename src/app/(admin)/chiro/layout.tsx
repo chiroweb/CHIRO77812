@@ -4,11 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navItems = [
-  { href: "/admin", label: "대시보드", icon: "◻" },
-  { href: "/admin/blog", label: "블로그", icon: "✎" },
-  { href: "/admin/portfolio", label: "포트폴리오", icon: "◈" },
-  { href: "/admin/contacts", label: "문의", icon: "✉" },
-  { href: "/admin/settings", label: "설정", icon: "⚙" },
+  { href: "/chiro", label: "대시보드", icon: "◻" },
+  { href: "/chiro/blog", label: "블로그", icon: "✎" },
+  { href: "/chiro/portfolio", label: "포트폴리오", icon: "◈" },
+  { href: "/chiro/contacts", label: "문의", icon: "✉" },
+  { href: "/chiro/settings", label: "설정", icon: "⚙" },
 ];
 
 export default function AdminLayout({
@@ -19,7 +19,7 @@ export default function AdminLayout({
   const pathname = usePathname();
 
   // Login page: no sidebar
-  if (pathname === "/admin/login") {
+  if (pathname === "/chiro/login") {
     return <>{children}</>;
   }
 
@@ -28,7 +28,7 @@ export default function AdminLayout({
       {/* Sidebar */}
       <aside className="w-[240px] border-r border-[#e5e5e3] flex flex-col fixed top-0 left-0 bottom-0 bg-white z-40">
         <div className="h-16 flex items-center px-6 border-b border-[#e5e5e3]">
-          <Link href="/admin" className="text-sm tracking-[0.2em] uppercase font-medium text-[#1a1a1a]">
+          <Link href="/chiro" className="text-sm tracking-[0.2em] uppercase font-medium text-[#1a1a1a]">
             CHIRO Admin
           </Link>
         </div>
@@ -36,8 +36,8 @@ export default function AdminLayout({
         <nav className="flex-1 py-4">
           {navItems.map((item) => {
             const isActive =
-              item.href === "/admin"
-                ? pathname === "/admin"
+              item.href === "/chiro"
+                ? pathname === "/chiro"
                 : pathname.startsWith(item.href);
 
             return (
@@ -61,7 +61,7 @@ export default function AdminLayout({
           <Link href="/" className="text-xs text-[#9b9b9b] hover:text-[#1a1a1a] transition-colors">
             ← 사이트로 돌아가기
           </Link>
-          <form action="/api/admin/logout" method="POST" className="mt-3">
+          <form action="/api/chiro/logout" method="POST" className="mt-3">
             <button
               type="submit"
               className="text-xs text-[#9b9b9b] hover:text-[#FF4D00] transition-colors cursor-pointer"

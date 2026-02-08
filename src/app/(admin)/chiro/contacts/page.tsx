@@ -9,7 +9,7 @@ export default function AdminContactsPage() {
   const [selectedId, setSelectedId] = useState<number | null>(null);
 
   useEffect(() => {
-    fetch("/api/admin/contacts")
+    fetch("/api/chiro/contacts")
       .then((r) => r.json())
       .then((data) => {
         setSubmissions(data.submissions || []);
@@ -19,7 +19,7 @@ export default function AdminContactsPage() {
   }, []);
 
   const toggleRead = async (sub: ContactSubmission) => {
-    const res = await fetch(`/api/admin/contacts/${sub.id}`, {
+    const res = await fetch(`/api/chiro/contacts/${sub.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ read: !sub.read }),
@@ -33,7 +33,7 @@ export default function AdminContactsPage() {
 
   const handleDelete = async (id: number) => {
     if (!confirm("이 문의를 삭제하시겠습니까?")) return;
-    const res = await fetch(`/api/admin/contacts/${id}`, { method: "DELETE" });
+    const res = await fetch(`/api/chiro/contacts/${id}`, { method: "DELETE" });
     if (res.ok) {
       setSubmissions((prev) => prev.filter((s) => s.id !== id));
       if (selectedId === id) setSelectedId(null);

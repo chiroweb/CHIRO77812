@@ -23,14 +23,14 @@ export default function NewBlogPage() {
     setSaving(true);
 
     try {
-      const res = await fetch("/api/admin/blog", {
+      const res = await fetch("/api/chiro/blog", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title, excerpt, category, content, published }),
       });
 
       if (res.ok) {
-        router.push("/admin/blog");
+        router.push("/chiro/blog");
       } else {
         alert("저장에 실패했습니다.");
       }

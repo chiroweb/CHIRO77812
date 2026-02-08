@@ -16,19 +16,19 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Allow login page and login API
-  if (pathname === "/admin/login" || pathname === "/api/admin/login") {
+  if (pathname === "/chiro/login" || pathname === "/api/chiro/login") {
     return NextResponse.next();
   }
 
-  // Protect /admin/* and /api/admin/*
-  if (pathname.startsWith("/admin") || pathname.startsWith("/api/admin")) {
+  // Protect /chiro/* and /api/chiro/*
+  if (pathname.startsWith("/chiro") || pathname.startsWith("/api/chiro")) {
     const token = request.cookies.get("admin_token")?.value;
 
     if (!token || !(await verifyAuth(token))) {
       if (pathname.startsWith("/api/")) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
       }
-      const loginUrl = new URL("/admin/login", request.url);
+      const loginUrl = new URL("/chiro/login", request.url);
       return NextResponse.redirect(loginUrl);
     }
   }
@@ -37,5 +37,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/api/admin/:path*"],
+  matcher: ["/chiro/:path*", "/api/chiro/:path*"],
 };

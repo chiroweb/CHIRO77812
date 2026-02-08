@@ -9,7 +9,7 @@ export default function AdminBlogPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/admin/blog")
+    fetch("/api/chiro/blog")
       .then((r) => r.json())
       .then((data) => {
         setPosts(data.posts || []);
@@ -21,14 +21,14 @@ export default function AdminBlogPage() {
   const handleDelete = async (id: number) => {
     if (!confirm("이 글을 삭제하시겠습니까?")) return;
 
-    const res = await fetch(`/api/admin/blog/${id}`, { method: "DELETE" });
+    const res = await fetch(`/api/chiro/blog/${id}`, { method: "DELETE" });
     if (res.ok) {
       setPosts((prev) => prev.filter((p) => p.id !== id));
     }
   };
 
   const togglePublished = async (post: BlogPost) => {
-    const res = await fetch(`/api/admin/blog/${post.id}`, {
+    const res = await fetch(`/api/chiro/blog/${post.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -56,7 +56,7 @@ export default function AdminBlogPage() {
           <p className="text-sm text-[#9b9b9b] mt-1">게시글을 작성하고 관리합니다.</p>
         </div>
         <Link
-          href="/admin/blog/new"
+          href="/chiro/blog/new"
           className="border border-[#1a1a1a] text-[#1a1a1a] px-6 py-2 text-sm tracking-[0.05em] transition-all duration-300 hover:bg-[#1a1a1a] hover:text-white"
         >
           새 글 작성
@@ -84,7 +84,7 @@ export default function AdminBlogPage() {
                     }`}
                   />
                   <Link
-                    href={`/admin/blog/${post.id}/edit`}
+                    href={`/chiro/blog/${post.id}/edit`}
                     className="text-base font-normal truncate hover:opacity-60 transition-opacity"
                   >
                     {post.title}
@@ -105,7 +105,7 @@ export default function AdminBlogPage() {
                   {post.published ? "비공개" : "공개"}
                 </button>
                 <Link
-                  href={`/admin/blog/${post.id}/edit`}
+                  href={`/chiro/blog/${post.id}/edit`}
                   className="text-xs px-3 py-1 border border-[#e5e5e3] hover:border-[#1a1a1a] transition-colors"
                 >
                   수정

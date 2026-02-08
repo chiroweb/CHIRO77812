@@ -17,7 +17,7 @@ export default function AdminSettingsPage() {
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    fetch("/api/admin/settings")
+    fetch("/api/chiro/settings")
       .then((r) => r.json())
       .then((data) => {
         setSettings(data.settings || {});
@@ -32,7 +32,7 @@ export default function AdminSettingsPage() {
     setSaved(false);
 
     try {
-      const res = await fetch("/api/admin/settings", {
+      const res = await fetch("/api/chiro/settings", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ settings }),

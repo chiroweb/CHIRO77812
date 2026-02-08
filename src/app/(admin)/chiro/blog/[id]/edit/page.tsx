@@ -23,7 +23,7 @@ export default function EditBlogPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`/api/admin/blog/${id}`)
+    fetch(`/api/chiro/blog/${id}`)
       .then((r) => r.json())
       .then((data) => {
         setTitle(data.title || "");
@@ -35,7 +35,7 @@ export default function EditBlogPage() {
       })
       .catch(() => {
         alert("글을 불러오지 못했습니다.");
-        router.push("/admin/blog");
+        router.push("/chiro/blog");
       });
   }, [id, router]);
 
@@ -44,14 +44,14 @@ export default function EditBlogPage() {
     setSaving(true);
 
     try {
-      const res = await fetch(`/api/admin/blog/${id}`, {
+      const res = await fetch(`/api/chiro/blog/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title, excerpt, category, content, published }),
       });
 
       if (res.ok) {
-        router.push("/admin/blog");
+        router.push("/chiro/blog");
       } else {
         alert("저장에 실패했습니다.");
       }
