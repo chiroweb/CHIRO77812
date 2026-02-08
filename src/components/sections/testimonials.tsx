@@ -81,11 +81,6 @@ export default function Testimonials() {
             </motion.div>
           ))}
         </motion.div>
-
-        {/* Example Notice */}
-        <p className="mt-6 font-[family-name:var(--font-jetbrains-mono)] text-[11px] text-[#9b9b9b] text-right">
-          ※ 서비스 경험을 기반으로 재구성한 예시입니다.
-        </p>
       </div>
     </section>
   );
