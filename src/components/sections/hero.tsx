@@ -92,6 +92,15 @@ export default function Hero() {
                 프로젝트 문의
               </Button>
             </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 1.8 }}
+              className="mt-6 text-[13px] text-[#9b9b9b] tracking-[0.02em]"
+            >
+              신생회사의 열정을 당신의 비즈니스에 적용해 보십시오.
+            </motion.p>
           </div>
 
           {/* Desktop Video — absolute right, hidden on mobile */}
