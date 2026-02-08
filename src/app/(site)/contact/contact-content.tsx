@@ -18,10 +18,28 @@ const fallbackSettings: SiteSettings = {
   response_time: "영업일 기준 24시간 내에 답변을 드립니다.",
 };
 
+const PROJECT_TAGS = [
+  "기업 홈페이지",
+  "브랜드 사이트",
+  "쇼핑몰",
+  "랜딩 페이지",
+  "리뉴얼",
+  "포트폴리오",
+  "블로그 / 매거진",
+  "기타",
+];
+
 export default function ContactContent() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
   const [settings, setSettings] = useState<SiteSettings>(fallbackSettings);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
+  const toggleTag = (tag: string) => {
+    setSelectedTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+    );
+  };
 
   useEffect(() => {
     fetch("/api/settings")
@@ -46,12 +64,13 @@ export default function ContactContent() {
     const name = formData.get("name") as string;
     const email = formData.get("contact") as string;
     const message = formData.get("concern") as string;
+    const projectType = selectedTags.length > 0 ? selectedTags.join(", ") : "미선택";
 
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message }),
+        body: JSON.stringify({ name, email, message, projectType }),
       });
 
       if (res.ok) {
@@ -137,6 +156,31 @@ export default function ContactContent() {
                       placeholder="성함을 입력해 주십시오"
                       className="w-full border-b border-[#E0E0E0] py-3 text-base bg-transparent outline-none focus:border-[#1a1a1a] transition-colors duration-300 placeholder:text-[#9b9b9b]"
                     />
+                  </motion.div>
+
+                  <motion.div variants={fadeInUp}>
+                    <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#9b9b9b] mb-4">
+                      Project Type
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {PROJECT_TAGS.map((tag) => {
+                        const isSelected = selectedTags.includes(tag);
+                        return (
+                          <button
+                            key={tag}
+                            type="button"
+                            onClick={() => toggleTag(tag)}
+                            className={`px-4 py-2 text-sm border transition-all duration-200 cursor-pointer ${
+                              isSelected
+                                ? "border-[#FF4D00] bg-[#FF4D00] text-white"
+                                : "border-[#E0E0E0] text-[#6b6b6b] hover:border-[#1a1a1a] hover:text-[#1a1a1a]"
+                            }`}
+                          >
+                            {tag}
+                          </button>
+                        );
+                      })}
+                    </div>
                   </motion.div>
 
                   <motion.div variants={fadeInUp}>

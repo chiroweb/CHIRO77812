@@ -9,7 +9,7 @@ const NOTIFY_EMAIL = "chiroweb75@gmail.com";
 // POST: Submit contact form (public)
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, message } = await request.json();
+    const { name, email, message, projectType } = await request.json();
 
     if (!name || !email || !message) {
       return NextResponse.json(
@@ -18,10 +18,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Save to database
+    // Save to database (company column stores project type)
     const result = await sql`
       INSERT INTO contact_submissions (name, email, company, message)
-      VALUES (${name}, ${email}, ${null}, ${message})
+      VALUES (${name}, ${email}, ${projectType || null}, ${message})
       RETURNING id
     `;
 
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
             user_email: email,
             phone: email,
             company: "—",
-            project_type: "웹사이트 문의",
+            project_type: projectType || "미선택",
             budget: "—",
             timeline: "—",
             message: message,
