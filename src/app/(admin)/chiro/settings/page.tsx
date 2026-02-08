@@ -5,8 +5,10 @@ import { useEffect, useState } from "react";
 const defaultSettings: Record<string, { label: string; placeholder: string }> = {
   site_title: { label: "사이트 제목", placeholder: "CHIRO — Web Design Studio" },
   site_description: { label: "사이트 설명", placeholder: "기획이 곧 개발이 되는 투명함..." },
-  contact_email: { label: "이메일", placeholder: "hello@chiroweb.kr" },
-  contact_location: { label: "위치", placeholder: "Seoul, South Korea" },
+  contact_email: { label: "이메일", placeholder: "chiroweb75@gmail.com" },
+  contact_phone: { label: "전화번호", placeholder: "010-6815-0775" },
+  contact_representative: { label: "대표자", placeholder: "최정원" },
+  contact_location: { label: "주소", placeholder: "센트럴 비즈한라 2740호" },
   response_time: { label: "응답 시간 안내", placeholder: "영업일 기준 24시간 내에 답변을 드립니다." },
 };
 

@@ -72,8 +72,10 @@ export async function GET() {
     const defaultSettings = [
       { key: "site_title", value: "CHIRO — Web Design Studio" },
       { key: "site_description", value: "기획이 곧 개발이 되는 투명함. 당신의 브랜드에 온전히 몰입합니다." },
-      { key: "contact_email", value: "hello@chiroweb.kr" },
-      { key: "contact_location", value: "Seoul, South Korea" },
+      { key: "contact_email", value: "chiroweb75@gmail.com" },
+      { key: "contact_phone", value: "010-6815-0775" },
+      { key: "contact_representative", value: "최정원" },
+      { key: "contact_location", value: "센트럴 비즈한라 2740호" },
       { key: "response_time", value: "영업일 기준 24시간 내에 답변을 드립니다." },
     ];
 

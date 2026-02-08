@@ -49,8 +49,10 @@ export default function Footer() {
               Contact
             </p>
             <ul className="space-y-2 text-sm text-[#6b6b6b]">
-              <li>hello@chiroweb.kr</li>
-              <li>Seoul, South Korea</li>
+              <li>chiroweb75@gmail.com</li>
+              <li>010-6815-0775</li>
+              <li>대표 최정원</li>
+              <li>센트럴 비즈한라 2740호</li>
             </ul>
           </div>
         </div>

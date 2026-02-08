@@ -13,10 +13,14 @@ interface SiteSettings {
 }
 
 const fallbackSettings: SiteSettings = {
-  contact_email: "hello@chiroweb.kr",
-  contact_location: "Seoul, South Korea",
+  contact_email: "chiroweb75@gmail.com",
+  contact_location: "센트럴 비즈한라 2740호",
   response_time: "영업일 기준 24시간 내에 답변을 드립니다.",
 };
+
+const EMAILJS_SERVICE_ID = "service_chiro";
+const EMAILJS_TEMPLATE_ID = "template_sd1mg8b";
+const EMAILJS_PUBLIC_KEY = "nZdvthms9zRbfn7oq";
 
 const PROJECT_TAGS = [
   "기업 홈페이지",
@@ -67,17 +71,32 @@ export default function ContactContent() {
     const projectType = selectedTags.length > 0 ? selectedTags.join(", ") : "미선택";
 
     try {
-      const res = await fetch("/api/contact", {
+      // 1. DB 저장 (서버)
+      fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, message, projectType }),
+      }).catch(() => {});
+
+      // 2. 이메일 발송 (브라우저에서 직접 — 무료)
+      await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          service_id: EMAILJS_SERVICE_ID,
+          template_id: EMAILJS_TEMPLATE_ID,
+          user_id: EMAILJS_PUBLIC_KEY,
+          template_params: {
+            from_name: name,
+            user_email: email,
+            project_type: projectType,
+            message: message,
+            send_date: new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" }),
+          },
+        }),
       });
 
-      if (res.ok) {
-        setSubmitted(true);
-      } else {
-        setSubmitted(true);
-      }
+      setSubmitted(true);
     } catch {
       setSubmitted(true);
     }
@@ -253,7 +272,19 @@ export default function ContactContent() {
                 </div>
                 <div>
                   <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#6b6b6b] mb-3">
-                    Location
+                    Phone
+                  </p>
+                  <p className="text-sm text-white">010-6815-0775</p>
+                </div>
+                <div>
+                  <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#6b6b6b] mb-3">
+                    Representative
+                  </p>
+                  <p className="text-sm text-white">최정원</p>
+                </div>
+                <div>
+                  <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#6b6b6b] mb-3">
+                    Address
                   </p>
                   <p className="text-sm text-white">{settings.contact_location}</p>
                 </div>
