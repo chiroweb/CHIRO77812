@@ -31,7 +31,7 @@ export default function Hero() {
       <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-8 w-full">
         <div className="flex items-center md:min-h-screen md:py-[120px] py-10">
           {/* Left: Text */}
-          <div className="relative z-20 w-full md:w-[65%] shrink-0">
+          <div className="relative z-20 w-full shrink-0">
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -53,9 +53,7 @@ export default function Hero() {
                 transition={{ duration: 0.5, ease: "easeInOut" }}
                 className="text-[48px] md:text-[80px] lg:text-[100px] tracking-[-0.03em] leading-[1.05] font-extrabold text-[#1a1a1a] max-md:!opacity-100"
               >
-                기다리지
-                <br />
-                마십시오<span className="text-[#FF4D00]">.</span>
+                기다리지 마십시오<span className="text-[#FF4D00]">.</span>
               </motion.h1>
 
               {/* Stroke text (hover) — desktop only */}
@@ -69,9 +67,7 @@ export default function Hero() {
                   WebkitTextFillColor: "transparent",
                 }}
               >
-                기다리지
-                <br />
-                마십시오<span style={{ WebkitTextStroke: "1.5px #FF4D00" }}>.</span>
+                기다리지 마십시오<span style={{ WebkitTextStroke: "1.5px #FF4D00" }}>.</span>
               </motion.h1>
             </div>
 
