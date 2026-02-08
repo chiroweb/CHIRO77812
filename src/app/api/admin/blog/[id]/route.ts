@@ -1,6 +1,6 @@
 import { sql } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
-import slugify from "slugify";
+import { generateSlug } from "@/lib/slug";
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -33,11 +33,15 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: "Title and content are required" }, { status: 400 });
     }
 
-    const slug = slugify(title, { lower: true, strict: true });
+    // Preserve existing slug if title hasn't changed, regenerate if title changed
+    const current = await sql`SELECT title, slug FROM blog_posts WHERE id = ${parseInt(id)}`;
+    let finalSlug = current.rows[0]?.slug || "";
 
-    // Check for duplicate slug (excluding current post)
-    const existing = await sql`SELECT id FROM blog_posts WHERE slug = ${slug} AND id != ${parseInt(id)}`;
-    const finalSlug = existing.rows.length > 0 ? `${slug}-${Date.now()}` : slug;
+    if (!current.rows[0] || current.rows[0].title !== title || !finalSlug) {
+      const slug = generateSlug(title);
+      const existing = await sql`SELECT id FROM blog_posts WHERE slug = ${slug} AND id != ${parseInt(id)}`;
+      finalSlug = existing.rows.length > 0 ? `${slug}-${Date.now()}` : slug;
+    }
 
     const result = await sql`
       UPDATE blog_posts

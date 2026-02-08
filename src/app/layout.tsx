@@ -61,8 +61,11 @@ export const metadata: Metadata = {
     "치로웹디자인",
   ],
   icons: {
-    icon: "https://chiro-web.s3.ap-northeast-2.amazonaws.com/image/chirologo.png",
-    apple: "https://chiro-web.s3.ap-northeast-2.amazonaws.com/image/chirologo.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-icon.png",
   },
   openGraph: {
     title: "치로웹디자인 — 당일 시작, 실시간 확인",

@@ -1,6 +1,6 @@
 import { sql } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
-import slugify from "slugify";
+import { generateSlug } from "@/lib/slug";
 
 // GET: List all blog posts (admin)
 export async function GET(request: NextRequest) {
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Title and content are required" }, { status: 400 });
     }
 
-    const slug = slugify(title, { lower: true, strict: true });
+    const slug = generateSlug(title);
 
     // Check for duplicate slug
     const existing = await sql`SELECT id FROM blog_posts WHERE slug = ${slug}`;
