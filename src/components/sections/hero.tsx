@@ -8,10 +8,28 @@ export default function Hero() {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#fafaf8]">
+    <section className="relative min-h-screen flex flex-col md:flex-row md:items-center overflow-hidden bg-[#fafaf8]">
+      {/* Mobile Video Strip — full width, short height, above text */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2, delay: 0.4, ease: "easeOut" }}
+        className="md:hidden w-full h-[22vh] mt-[72px] -mx-0"
+      >
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+        >
+          <source src="/hero-video.mp4" type="video/mp4" />
+        </video>
+      </motion.div>
+
       {/* Content Container */}
       <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-8 w-full">
-        <div className="flex items-center min-h-screen py-[120px]">
+        <div className="flex items-center md:min-h-screen md:py-[120px] py-10">
           {/* Left: Text */}
           <div className="relative z-20 w-full md:w-[65%] shrink-0">
             <motion.p
@@ -80,12 +98,12 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Right: Video — mobile: small right-aligned, text overlaps */}
+          {/* Desktop Video — absolute right, hidden on mobile */}
           <motion.div
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, delay: 0.6, ease: "easeOut" }}
-            className="absolute right-0 top-1/2 -translate-y-1/2 w-[33%] h-[18vh] md:w-[50%] md:h-[55vh] z-10"
+            className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 w-[50%] h-[55vh] z-10"
           >
             <video
               autoPlay
