@@ -26,9 +26,11 @@ function MenuBar({ editor }: { editor: ReturnType<typeof useEditor> }) {
       const data = await res.json();
       if (data.url) {
         editor.chain().focus().setImage({ src: data.url }).run();
+      } else {
+        alert(data.error || "이미지 업로드에 실패했습니다.");
       }
-    } catch (err) {
-      console.error("Image upload failed:", err);
+    } catch {
+      alert("이미지 업로드 중 오류가 발생했습니다.");
     }
 
     // Reset input
