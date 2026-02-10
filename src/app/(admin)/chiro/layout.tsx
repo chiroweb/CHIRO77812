@@ -7,6 +7,7 @@ const navItems = [
   { href: "/chiro", label: "대시보드", icon: "◻" },
   { href: "/chiro/blog", label: "블로그", icon: "✎" },
   { href: "/chiro/portfolio", label: "포트폴리오", icon: "◈" },
+  { href: "/chiro/notices", label: "공지/배너", icon: "▣" },
   { href: "/chiro/contacts", label: "문의", icon: "✉" },
   { href: "/chiro/settings", label: "설정", icon: "⚙" },
 ];

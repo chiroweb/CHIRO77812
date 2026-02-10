@@ -43,3 +43,20 @@ export interface SiteSetting {
   value: string;
   updated_at: string;
 }
+
+export interface Notice {
+  id: number;
+  title: string;
+  notice_type: "banner" | "popup";
+  size: "small" | "medium" | "large";
+  content: string | null;
+  link_url: string | null;
+  link_text: string | null;
+  image_url: string | null;
+  bg_color: string;
+  text_color: string;
+  published: boolean;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}

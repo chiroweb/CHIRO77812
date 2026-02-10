@@ -39,13 +39,14 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-5 md:px-8 transition-all duration-300 ${
+        style={{ top: "var(--banner-height, 0px)" }}
+        className={`fixed left-0 right-0 z-50 h-16 flex items-center justify-between px-5 md:px-8 transition-all duration-300 ${
           scrolled
             ? "bg-white/90 backdrop-blur-md border-b border-[#E0E0E0]"
             : "bg-transparent"
         }`}
       >
-        <Link href="/" className="relative z-50">
+        <Link href="/" className="relative z-[70]">
           <Image
             src="/logo.svg"
             alt="CHIRO"
@@ -75,7 +76,7 @@ export default function Header() {
         {/* Mobile Hamburger */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="relative z-50 md:hidden w-6 h-6 flex flex-col justify-center gap-[5px] cursor-pointer"
+          className="relative z-[70] md:hidden w-6 h-6 flex flex-col justify-center gap-[5px] cursor-pointer"
           aria-label="메뉴"
         >
           <span
@@ -99,7 +100,7 @@ export default function Header() {
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}
             transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-            className="fixed inset-0 z-40 bg-white flex items-center justify-center"
+            className="fixed inset-0 z-[65] bg-white flex items-center justify-center"
           >
             <nav className="flex flex-col items-center gap-8">
               {navItems.map((item, i) => (

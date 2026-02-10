@@ -15,9 +15,13 @@ CREATE TABLE IF NOT EXISTS blog_posts (
 CREATE TABLE IF NOT EXISTS portfolio_projects (
   id SERIAL PRIMARY KEY,
   name VARCHAR(300) NOT NULL,
+  slug VARCHAR(500) UNIQUE,
   category VARCHAR(200) NOT NULL,
+  client_name VARCHAR(300),
+  site_url TEXT,
   problem TEXT,
   result TEXT,
+  content TEXT,
   year VARCHAR(10),
   image_url TEXT,
   sort_order INTEGER DEFAULT 0,
@@ -41,5 +45,23 @@ CREATE TABLE IF NOT EXISTS contact_submissions (
 CREATE TABLE IF NOT EXISTS site_settings (
   key VARCHAR(200) PRIMARY KEY,
   value TEXT NOT NULL,
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Notices (Banners & Popups)
+CREATE TABLE IF NOT EXISTS notices (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(500) NOT NULL,
+  notice_type VARCHAR(20) NOT NULL DEFAULT 'banner',
+  size VARCHAR(20) NOT NULL DEFAULT 'medium',
+  content TEXT,
+  link_url TEXT,
+  link_text VARCHAR(200),
+  image_url TEXT,
+  bg_color VARCHAR(20) DEFAULT '#1a1a1a',
+  text_color VARCHAR(20) DEFAULT '#ffffff',
+  published BOOLEAN DEFAULT false,
+  sort_order INTEGER DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
