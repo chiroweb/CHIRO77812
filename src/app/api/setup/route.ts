@@ -63,6 +63,25 @@ export async function GET() {
       )
     `;
 
+    await sql`
+      CREATE TABLE IF NOT EXISTS notices (
+        id SERIAL PRIMARY KEY,
+        title VARCHAR(500) NOT NULL,
+        notice_type VARCHAR(20) NOT NULL DEFAULT 'banner',
+        size VARCHAR(20) NOT NULL DEFAULT 'medium',
+        content TEXT,
+        link_url TEXT,
+        link_text VARCHAR(200),
+        image_url TEXT,
+        bg_color VARCHAR(20) DEFAULT '#1a1a1a',
+        text_color VARCHAR(20) DEFAULT '#ffffff',
+        published BOOLEAN DEFAULT false,
+        sort_order INTEGER DEFAULT 0,
+        created_at TIMESTAMPTZ DEFAULT NOW(),
+        updated_at TIMESTAMPTZ DEFAULT NOW()
+      )
+    `;
+
     return NextResponse.json({ message: "Tables created successfully" });
   } catch (error) {
     console.error("Setup error:", error);

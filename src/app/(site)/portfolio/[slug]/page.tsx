@@ -3,6 +3,7 @@ import Link from "next/link";
 import Divider from "@/components/ui/divider";
 import SectionLabel from "@/components/ui/section-label";
 import BlogContent from "@/components/blog-content";
+import { sql } from "@/lib/db";
 
 interface ProjectDetail {
   id: number;
@@ -101,11 +102,28 @@ export async function generateMetadata({ params }: PortfolioDetailPageProps): Pr
 
 async function fetchProject(slug: string) {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
-    const res = await fetch(`${baseUrl}/api/portfolio/${slug}`, {
-      cache: "no-store",
-    });
-    if (res.ok) return await res.json();
+    const decoded = decodeURIComponent(slug);
+
+    // Try slug first
+    let result = await sql`
+      SELECT id, name, slug, category, client_name, site_url, problem, result, content, year, image_url
+      FROM portfolio_projects
+      WHERE slug = ${decoded} AND published = true
+    `;
+
+    // Fall back to id
+    if (result.rows.length === 0) {
+      const id = parseInt(decoded);
+      if (!isNaN(id)) {
+        result = await sql`
+          SELECT id, name, slug, category, client_name, site_url, problem, result, content, year, image_url
+          FROM portfolio_projects
+          WHERE id = ${id} AND published = true
+        `;
+      }
+    }
+
+    if (result.rows.length > 0) return result.rows[0];
   } catch {
     // Fall through
   }
