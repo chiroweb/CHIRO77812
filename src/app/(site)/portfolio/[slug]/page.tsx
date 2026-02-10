@@ -100,7 +100,7 @@ export async function generateMetadata({ params }: PortfolioDetailPageProps): Pr
   };
 }
 
-async function fetchProject(slug: string) {
+async function fetchProject(slug: string): Promise<ProjectDetail | null> {
   try {
     const decoded = decodeURIComponent(slug);
 
@@ -123,7 +123,7 @@ async function fetchProject(slug: string) {
       }
     }
 
-    if (result.rows.length > 0) return result.rows[0];
+    if (result.rows.length > 0) return result.rows[0] as ProjectDetail;
   } catch {
     // Fall through
   }

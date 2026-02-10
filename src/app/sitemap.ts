@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+import { sql } from "@/lib/db";
 
 const BASE_URL = "https://chiroweb.co.kr";
 
@@ -42,42 +43,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // Dynamic pages from DB
   let blogPages: MetadataRoute.Sitemap = [];
   let portfolioPages: MetadataRoute.Sitemap = [];
 
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
+    const blogResult = await sql`
+      SELECT slug, updated_at, created_at FROM blog_posts
+      WHERE published = true ORDER BY created_at DESC
+    `;
+    blogPages = blogResult.rows.map((post) => ({
+      url: `${BASE_URL}/blog/${post.slug}`,
+      lastModified: new Date(post.updated_at || post.created_at),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    }));
 
-    const blogRes = await fetch(`${baseUrl}/api/blog`, {
-      cache: "no-store",
-    });
-    if (blogRes.ok) {
-      const data = await blogRes.json();
-      blogPages = (data.posts || []).map(
-        (post: { slug: string; updated_at?: string; created_at: string }) => ({
-          url: `${BASE_URL}/blog/${post.slug}`,
-          lastModified: new Date(post.updated_at || post.created_at),
-          changeFrequency: "monthly" as const,
-          priority: 0.6,
-        })
-      );
-    }
-
-    const portfolioRes = await fetch(`${baseUrl}/api/portfolio`, {
-      cache: "no-store",
-    });
-    if (portfolioRes.ok) {
-      const data = await portfolioRes.json();
-      portfolioPages = (data.projects || []).map(
-        (p: { slug?: string; id: number; updated_at?: string }) => ({
-          url: `${BASE_URL}/portfolio/${p.slug || p.id}`,
-          lastModified: p.updated_at ? new Date(p.updated_at) : new Date(),
-          changeFrequency: "monthly" as const,
-          priority: 0.7,
-        })
-      );
-    }
+    const portfolioResult = await sql`
+      SELECT slug, id, updated_at FROM portfolio_projects
+      WHERE published = true ORDER BY sort_order ASC
+    `;
+    portfolioPages = portfolioResult.rows.map((p) => ({
+      url: `${BASE_URL}/portfolio/${p.slug || p.id}`,
+      lastModified: p.updated_at ? new Date(p.updated_at) : new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    }));
   } catch {
     // Fallback: only static pages
   }

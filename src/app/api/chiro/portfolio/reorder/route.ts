@@ -6,11 +6,14 @@ export async function PUT(request: NextRequest) {
   try {
     const { orderedIds } = await request.json();
 
-    if (!Array.isArray(orderedIds)) {
-      return NextResponse.json({ error: "orderedIds must be an array" }, { status: 400 });
+    if (!Array.isArray(orderedIds) || orderedIds.length === 0) {
+      return NextResponse.json({ error: "orderedIds must be a non-empty array" }, { status: 400 });
     }
 
-    // Update sort_order for each project
+    if (!orderedIds.every((id: unknown) => typeof id === "number" && Number.isInteger(id))) {
+      return NextResponse.json({ error: "orderedIds must contain only integers" }, { status: 400 });
+    }
+
     for (let i = 0; i < orderedIds.length; i++) {
       await sql`
         UPDATE portfolio_projects

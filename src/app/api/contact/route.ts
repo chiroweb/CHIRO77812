@@ -13,6 +13,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json({ error: "Invalid email format" }, { status: 400 });
+    }
+
+    if (message.length > 5000) {
+      return NextResponse.json({ error: "Message too long (max 5000 chars)" }, { status: 400 });
+    }
+
     // Save to database (company column stores project type)
     const result = await sql`
       INSERT INTO contact_submissions (name, email, company, message)

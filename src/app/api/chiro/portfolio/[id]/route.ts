@@ -9,7 +9,11 @@ interface RouteParams {
 export async function GET(_request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params;
-    const result = await sql`SELECT * FROM portfolio_projects WHERE id = ${parseInt(id)}`;
+    const idNum = parseInt(id, 10);
+    if (isNaN(idNum)) {
+      return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
+    }
+    const result = await sql`SELECT * FROM portfolio_projects WHERE id = ${idNum}`;
 
     if (result.rows.length === 0) {
       return NextResponse.json({ error: "Project not found" }, { status: 404 });
@@ -32,6 +36,11 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: "Name and category are required" }, { status: 400 });
     }
 
+    const idNum = parseInt(id, 10);
+    if (isNaN(idNum)) {
+      return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
+    }
+
     const projectSlug = slug || name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
     const result = await sql`
@@ -42,7 +51,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
           content = ${content || null}, year = ${year || null},
           image_url = ${image_url || null}, published = ${published ?? true},
           updated_at = NOW()
-      WHERE id = ${parseInt(id)}
+      WHERE id = ${idNum}
       RETURNING *
     `;
 
@@ -61,7 +70,11 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
 export async function DELETE(_request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params;
-    const result = await sql`DELETE FROM portfolio_projects WHERE id = ${parseInt(id)} RETURNING id`;
+    const idNum = parseInt(id, 10);
+    if (isNaN(idNum)) {
+      return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
+    }
+    const result = await sql`DELETE FROM portfolio_projects WHERE id = ${idNum} RETURNING id`;
 
     if (result.rows.length === 0) {
       return NextResponse.json({ error: "Project not found" }, { status: 404 });

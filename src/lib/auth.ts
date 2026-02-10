@@ -1,7 +1,10 @@
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 
-const secret = new TextEncoder().encode(process.env.JWT_SECRET || "fallback-secret");
+if (!process.env.JWT_SECRET) {
+  throw new Error("JWT_SECRET environment variable is required");
+}
+const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 const COOKIE_NAME = "admin_token";
 
 export async function createToken(): Promise<string> {
@@ -22,7 +25,10 @@ export async function verifyToken(token: string): Promise<boolean> {
 }
 
 export function checkPassword(password: string): boolean {
-  return password === (process.env.ADMIN_PASSWORD || "0812");
+  if (!process.env.ADMIN_PASSWORD) {
+    throw new Error("ADMIN_PASSWORD environment variable is required");
+  }
+  return password === process.env.ADMIN_PASSWORD;
 }
 
 export async function getTokenFromCookies(): Promise<string | undefined> {

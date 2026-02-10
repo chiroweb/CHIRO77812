@@ -42,19 +42,3 @@ export const viewportConfig = {
   margin: "-100px" as const,
 };
 
-export const slideInRight = {
-  hidden: { opacity: 0, x: 20 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.5, ease: easings.smooth },
-  },
-};
-
-export const timelineFill = {
-  hidden: { scaleY: 0 },
-  visible: {
-    scaleY: 1,
-    transition: { duration: 1.2, ease: easings.smooth },
-  },
-};

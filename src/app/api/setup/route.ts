@@ -1,7 +1,15 @@
 import { sql } from "@/lib/db";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  // Production: require admin token
+  if (process.env.NODE_ENV === "production") {
+    const token = request.headers.get("x-setup-token");
+    if (token !== process.env.JWT_SECRET) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+  }
+
   try {
     await sql`
       CREATE TABLE IF NOT EXISTS blog_posts (
@@ -37,7 +45,6 @@ export async function GET() {
       )
     `;
 
-    // Add new columns if table already exists (migration)
     await sql`ALTER TABLE portfolio_projects ADD COLUMN IF NOT EXISTS slug VARCHAR(300) UNIQUE`;
     await sql`ALTER TABLE portfolio_projects ADD COLUMN IF NOT EXISTS client_name VARCHAR(300)`;
     await sql`ALTER TABLE portfolio_projects ADD COLUMN IF NOT EXISTS site_url TEXT`;

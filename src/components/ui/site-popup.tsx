@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import DOMPurify from "dompurify";
 import type { Notice } from "@/lib/types";
 
 const sizeWidth = {
@@ -123,7 +124,12 @@ export default function SitePopup() {
               {popup.content && (
                 <div
                   className="text-sm text-[#6b6b6b] leading-relaxed mb-4 prose prose-sm max-w-none"
-                  dangerouslySetInnerHTML={{ __html: popup.content }}
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(popup.content, {
+                      ALLOWED_TAGS: ["p", "h2", "h3", "h4", "strong", "em", "a", "ul", "ol", "li", "blockquote", "br", "hr"],
+                      ALLOWED_ATTR: ["href", "target", "rel", "class"],
+                    }),
+                  }}
                 />
               )}
 

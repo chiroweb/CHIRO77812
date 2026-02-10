@@ -1,9 +1,16 @@
 import { sql } from "@/lib/db";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  // Production: require admin token
+  if (process.env.NODE_ENV === "production") {
+    const token = request.headers.get("x-setup-token");
+    if (token !== process.env.JWT_SECRET) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+  }
+
   try {
-    // Seed blog posts
     const blogPosts = [
       {
         title: "아임웹, 카페24를 넘어서: 커스텀 웹사이트가 필요한 순간",
@@ -48,7 +55,6 @@ export async function GET() {
       }
     }
 
-    // Seed portfolio projects
     const portfolioProjects = [
       { name: "Project Alpha", category: "Branding & Web", problem: "브랜드 인지도 부족으로 온라인 전환율이 낮았습니다.", result: "런칭 3개월 내 문의량 240% 증가", year: "2024", sort_order: 0 },
       { name: "Project Beta", category: "UX Redesign", problem: "복잡한 서비스 구조로 사용자 이탈률이 높았습니다.", result: "이탈률 45% 감소, 평균 체류 시간 2배 증가", year: "2024", sort_order: 1 },
@@ -68,7 +74,6 @@ export async function GET() {
       }
     }
 
-    // Seed default settings
     const defaultSettings = [
       { key: "site_title", value: "CHIRO — Web Design Studio" },
       { key: "site_description", value: "기획이 곧 개발이 되는 투명함. 당신의 브랜드에 온전히 몰입합니다." },
