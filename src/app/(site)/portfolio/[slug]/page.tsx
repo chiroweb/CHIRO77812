@@ -155,7 +155,7 @@ export default async function PortfolioDetailPage({
     );
   }
 
-  const project: ProjectDetail = dbProject || fallback;
+  const project = (dbProject || fallback) as ProjectDetail;
 
   return (
     <section className="pt-24 md:pt-32 pb-24 md:pb-32 px-5 md:px-8">
