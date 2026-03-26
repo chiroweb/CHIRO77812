@@ -94,13 +94,13 @@ export default function PortfolioPreview() {
           </div>
         </div>
 
-        {/* 2-Column Image Grid */}
+        {/* 3-Column Image Grid */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={viewportConfig}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5"
         >
           {projects.map((project) => (
             <motion.a
@@ -120,44 +120,44 @@ export default function PortfolioPreview() {
                   />
                 ) : (
                   <div className="w-full h-full bg-[#e8e8e6] flex items-center justify-center">
-                    <span className="text-2xl md:text-3xl font-light tracking-tight text-[#9b9b9b]">
+                    <span className="text-lg md:text-xl font-light tracking-tight text-[#9b9b9b]">
                       {project.name}
                     </span>
                   </div>
                 )}
 
                 {/* Hover Overlay — desktop only */}
-                <div className="hidden md:flex absolute inset-0 bg-[#1a1a1a]/0 group-hover:bg-[#1a1a1a]/60 transition-colors duration-500 items-end p-8">
+                <div className="hidden md:flex absolute inset-0 bg-[#1a1a1a]/0 group-hover:bg-[#1a1a1a]/60 transition-colors duration-500 items-end p-5">
                   <div className="opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
                     {project.problem && (
-                      <p className="text-xs text-white/70 mb-2 leading-relaxed">
+                      <p className="text-[11px] text-white/70 mb-1.5 leading-relaxed">
                         {project.problem}
                       </p>
                     )}
                     {project.result && (
-                      <p className="text-sm text-white leading-relaxed">
+                      <p className="text-xs text-white leading-relaxed">
                         {project.result}
                       </p>
                     )}
                   </div>
-                  <span className="absolute top-8 right-8 text-white text-lg opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-500">
+                  <span className="absolute top-5 right-5 text-white text-base opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-500">
                     &#8599;
                   </span>
                 </div>
               </div>
 
               {/* Project Info */}
-              <div className="p-5 md:p-6">
+              <div className="p-4 md:p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-base md:text-lg font-semibold tracking-tight text-[#1a1a1a]">
+                    <h3 className="text-sm md:text-base font-semibold tracking-tight text-[#1a1a1a]">
                       {project.name}
                     </h3>
-                    <span className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#9b9b9b] mt-1 block">
+                    <span className="font-[family-name:var(--font-jetbrains-mono)] text-[10px] tracking-[0.15em] uppercase text-[#9b9b9b] mt-0.5 block">
                       {project.category}
                     </span>
                   </div>
-                  <span className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] text-[#9b9b9b]">
+                  <span className="font-[family-name:var(--font-jetbrains-mono)] text-[10px] text-[#9b9b9b]">
                     {project.year}
                   </span>
                 </div>
