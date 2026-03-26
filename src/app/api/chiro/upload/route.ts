@@ -3,9 +3,16 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
-    if (!process.env.BLOB_READ_WRITE_TOKEN) {
+    const blobToken =
+      process.env.BLOB_READ_WRITE_TOKEN ||
+      process.env.CHIRO_BLOB_READ_WRITE_TOKEN;
+
+    if (!blobToken) {
       return NextResponse.json(
-        { error: "Image upload is not configured. BLOB_READ_WRITE_TOKEN is missing." },
+        {
+          error:
+            "Image upload is not configured. Set BLOB_READ_WRITE_TOKEN or CHIRO_BLOB_READ_WRITE_TOKEN.",
+        },
         { status: 503 }
       );
     }
@@ -42,6 +49,7 @@ export async function POST(request: NextRequest) {
     const blob = await put(pathname, file, {
       access: "public",
       contentType: file.type,
+      token: blobToken,
     });
 
     return NextResponse.json({ url: blob.url });
