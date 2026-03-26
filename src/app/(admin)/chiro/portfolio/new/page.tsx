@@ -53,6 +53,17 @@ export default function NewPortfolioPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (uploading) {
+      alert("이미지 업로드가 끝난 뒤 저장해 주세요.");
+      return;
+    }
+
+    if (!imageUrl) {
+      alert("대표 이미지를 먼저 업로드해 주세요.");
+      return;
+    }
+
     setSaving(true);
 
     try {
@@ -151,11 +162,18 @@ export default function NewPortfolioPage() {
               <img src={imageUrl} alt="Preview" className="w-48 h-36 object-cover border border-[#e5e5e3]" />
             </div>
           )}
-          <button type="button" onClick={() => fileInputRef.current?.click()} disabled={uploading}
-            className="text-xs px-4 py-2 border border-[#e5e5e3] hover:border-[#1a1a1a] transition-colors cursor-pointer">
-            {uploading ? "업로드 중..." : "이미지 업로드"}
+          <button type="button" onClick={() => fileInputRef.current?.click()} disabled={uploading || saving}
+            className="text-xs px-4 py-2 border border-[#e5e5e3] hover:border-[#1a1a1a] transition-colors disabled:opacity-50 cursor-pointer">
+            {uploading ? "업로드 중..." : imageUrl ? "이미지 다시 업로드" : "이미지 업로드"}
           </button>
           <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
+          <p className="mt-3 text-xs text-[#9b9b9b]">
+            {uploading
+              ? "대표 이미지를 업로드하고 있습니다. 완료 전에는 저장할 수 없습니다."
+              : imageUrl
+                ? "대표 이미지 업로드가 완료되었습니다."
+                : "포트폴리오 목록 썸네일에 노출될 대표 이미지를 먼저 업로드해 주세요."}
+          </p>
         </div>
 
         <div>
@@ -172,9 +190,9 @@ export default function NewPortfolioPage() {
         </div>
 
         <div className="flex gap-3 pt-4">
-          <button type="submit" disabled={saving}
+          <button type="submit" disabled={saving || uploading || !imageUrl}
             className="border border-[#1a1a1a] text-[#1a1a1a] px-8 py-3 text-sm tracking-[0.05em] transition-all duration-300 hover:bg-[#1a1a1a] hover:text-white disabled:opacity-50 cursor-pointer">
-            {saving ? "저장 중..." : "저장"}
+            {uploading ? "이미지 업로드 중..." : saving ? "저장 중..." : "저장"}
           </button>
           <button type="button" onClick={() => router.back()}
             className="border border-[#e5e5e3] text-[#6b6b6b] px-8 py-3 text-sm tracking-[0.05em] transition-all duration-300 hover:border-[#1a1a1a] hover:text-[#1a1a1a] cursor-pointer">
