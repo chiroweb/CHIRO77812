@@ -3,7 +3,11 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
-import { BLOG_CATEGORIES, DEFAULT_BLOG_CATEGORY } from "@/lib/blog-categories";
+import {
+  BLOG_CATEGORIES,
+  DEFAULT_BLOG_CATEGORY,
+  isBlogCategory,
+} from "@/lib/blog-categories";
 
 const TiptapEditor = dynamic(() => import("@/components/admin/tiptap-editor"), {
   ssr: false,
@@ -17,7 +21,7 @@ export default function EditBlogPage() {
 
   const [title, setTitle] = useState("");
   const [excerpt, setExcerpt] = useState("");
-  const [category, setCategory] = useState(DEFAULT_BLOG_CATEGORY);
+  const [category, setCategory] = useState<string>(DEFAULT_BLOG_CATEGORY);
   const [content, setContent] = useState("");
   const [published, setPublished] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -29,11 +33,7 @@ export default function EditBlogPage() {
       .then((data) => {
         setTitle(data.title || "");
         setExcerpt(data.excerpt || "");
-        setCategory(
-          BLOG_CATEGORIES.includes(data.category)
-            ? data.category
-            : DEFAULT_BLOG_CATEGORY
-        );
+        setCategory(isBlogCategory(data.category) ? data.category : DEFAULT_BLOG_CATEGORY);
         setContent(data.content || "");
         setPublished(data.published || false);
         setLoading(false);

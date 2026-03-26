@@ -28,13 +28,26 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "File too large (max 10MB)" }, { status: 400 });
     }
 
-    const blob = await put(file.name, file, {
+    const extension = file.name.includes(".")
+      ? file.name.slice(file.name.lastIndexOf(".")).toLowerCase()
+      : "";
+    const safeBaseName = file.name
+      .replace(/\.[^/.]+$/, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 50) || "image";
+    const pathname = `chiro/${Date.now()}-${safeBaseName}${extension}`;
+
+    const blob = await put(pathname, file, {
       access: "public",
+      contentType: file.type,
     });
 
     return NextResponse.json({ url: blob.url });
   } catch (error) {
     console.error("Upload error:", error);
-    return NextResponse.json({ error: "Upload failed" }, { status: 500 });
+    const message = error instanceof Error ? error.message : "Upload failed";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

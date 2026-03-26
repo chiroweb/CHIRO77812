@@ -5,6 +5,7 @@ import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import { useCallback, useRef } from "react";
+import { uploadImageFile } from "@/lib/upload-client";
 
 interface TiptapEditorProps {
   content: string;
@@ -18,19 +19,11 @@ function MenuBar({ editor }: { editor: ReturnType<typeof useEditor> }) {
     const file = e.target.files?.[0];
     if (!file || !editor) return;
 
-    const formData = new FormData();
-    formData.append("file", file);
-
     try {
-      const res = await fetch("/api/chiro/upload", { method: "POST", body: formData });
-      const data = await res.json();
-      if (data.url) {
-        editor.chain().focus().setImage({ src: data.url }).run();
-      } else {
-        alert(data.error || "이미지 업로드에 실패했습니다.");
-      }
-    } catch {
-      alert("이미지 업로드 중 오류가 발생했습니다.");
+      const url = await uploadImageFile(file);
+      editor.chain().focus().setImage({ src: url }).run();
+    } catch (error) {
+      alert(error instanceof Error ? error.message : "이미지 업로드 중 오류가 발생했습니다.");
     }
 
     // Reset input

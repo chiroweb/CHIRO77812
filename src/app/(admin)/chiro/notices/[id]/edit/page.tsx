@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
+import { uploadImageFile } from "@/lib/upload-client";
 
 const TiptapEditor = dynamic(() => import("@/components/admin/tiptap-editor"), {
   ssr: false,
@@ -60,13 +61,10 @@ export default function EditNoticePage() {
 
     setUploading(true);
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-      const res = await fetch("/api/chiro/upload", { method: "POST", body: formData });
-      const data = await res.json();
-      if (data.url) setImageUrl(data.url);
-    } catch {
-      alert("이미지 업로드에 실패했습니다.");
+      const url = await uploadImageFile(file);
+      setImageUrl(url);
+    } catch (error) {
+      alert(error instanceof Error ? error.message : "이미지 업로드에 실패했습니다.");
     } finally {
       setUploading(false);
     }

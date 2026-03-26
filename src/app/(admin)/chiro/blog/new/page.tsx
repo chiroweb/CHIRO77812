@@ -14,7 +14,7 @@ export default function NewBlogPage() {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [excerpt, setExcerpt] = useState("");
-  const [category, setCategory] = useState(DEFAULT_BLOG_CATEGORY);
+  const [category, setCategory] = useState<string>(DEFAULT_BLOG_CATEGORY);
   const [content, setContent] = useState("");
   const [published, setPublished] = useState(false);
   const [saving, setSaving] = useState(false);

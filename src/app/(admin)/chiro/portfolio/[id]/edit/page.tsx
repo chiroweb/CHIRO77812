@@ -3,6 +3,12 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import TiptapEditor from "@/components/admin/tiptap-editor";
+import { uploadImageFile } from "@/lib/upload-client";
+import {
+  DEFAULT_PORTFOLIO_CATEGORY,
+  PORTFOLIO_CATEGORIES,
+  isPortfolioCategory,
+} from "@/lib/portfolio-categories";
 
 export default function EditPortfolioPage() {
   const router = useRouter();
@@ -12,7 +18,7 @@ export default function EditPortfolioPage() {
 
   const [name, setName] = useState("");
   const [slug, setSlug] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState<string>(DEFAULT_PORTFOLIO_CATEGORY);
   const [clientName, setClientName] = useState("");
   const [siteUrl, setSiteUrl] = useState("");
   const [problem, setProblem] = useState("");
@@ -31,7 +37,9 @@ export default function EditPortfolioPage() {
       .then((data) => {
         setName(data.name || "");
         setSlug(data.slug || "");
-        setCategory(data.category || "");
+        setCategory(
+          isPortfolioCategory(data.category) ? data.category : DEFAULT_PORTFOLIO_CATEGORY
+        );
         setClientName(data.client_name || "");
         setSiteUrl(data.site_url || "");
         setProblem(data.problem || "");
@@ -53,13 +61,10 @@ export default function EditPortfolioPage() {
     if (!file) return;
     setUploading(true);
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-      const res = await fetch("/api/chiro/upload", { method: "POST", body: formData });
-      const data = await res.json();
-      if (data.url) setImageUrl(data.url);
-    } catch {
-      alert("이미지 업로드에 실패했습니다.");
+      const url = await uploadImageFile(file);
+      setImageUrl(url);
+    } catch (error) {
+      alert(error instanceof Error ? error.message : "이미지 업로드에 실패했습니다.");
     } finally {
       setUploading(false);
     }
@@ -121,8 +126,14 @@ export default function EditPortfolioPage() {
         <div className="grid grid-cols-2 gap-8">
           <div>
             <label className="block text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">카테고리</label>
-            <input type="text" value={category} onChange={(e) => setCategory(e.target.value)} required
-              className="w-full border-b border-[#e5e5e3] py-3 text-sm bg-transparent outline-none focus:border-[#1a1a1a] transition-colors" />
+            <select value={category} onChange={(e) => setCategory(e.target.value)} required
+              className="w-full border-b border-[#e5e5e3] py-3 text-sm bg-transparent outline-none focus:border-[#1a1a1a] transition-colors">
+              {PORTFOLIO_CATEGORIES.map((item) => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <label className="block text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">연도</label>

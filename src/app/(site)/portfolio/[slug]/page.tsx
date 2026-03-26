@@ -160,21 +160,23 @@ export default async function PortfolioDetailPage({
   return (
     <section className="pt-24 md:pt-32 pb-24 md:pb-32 px-5 md:px-8">
       <div className="max-w-[1280px] mx-auto">
-        {/* Header */}
-        <SectionLabel number="01" label={project.category || "Portfolio"} />
+        <div className="max-w-4xl mx-auto">
+          <div className="flex justify-center">
+            <SectionLabel number="01" label={project.category || "Portfolio"} />
+          </div>
 
-        <div className="mb-12">
-          <p className="text-xs tracking-wider text-[#9b9b9b] font-[family-name:var(--font-jetbrains-mono)] mb-6">
-            {project.year}
-          </p>
-          <h1 className="font-[family-name:var(--font-space-grotesk)] text-[28px] md:text-[48px] font-light tracking-[0.03em] leading-[1.05] mb-6">
-            {project.name}
-          </h1>
+          <div className="mt-8 text-center">
+            <p className="text-xs tracking-wider text-[#9b9b9b] font-[family-name:var(--font-jetbrains-mono)] mb-6">
+              {project.year}
+            </p>
+            <h1 className="font-[family-name:var(--font-space-grotesk)] text-[28px] md:text-[48px] font-light tracking-[0.03em] leading-[1.05]">
+              {project.name}
+            </h1>
+          </div>
         </div>
 
-        {/* Hero Image */}
         {project.image_url && (
-          <div className="mb-10 md:mb-16 aspect-[16/9] bg-[#f5f5f3] overflow-hidden">
+          <div className="max-w-5xl mx-auto mt-12 md:mt-16 mb-10 md:mb-16 aspect-[16/9] bg-[#f5f5f3] overflow-hidden">
             <img
               src={project.image_url}
               alt={project.name}
@@ -183,98 +185,96 @@ export default async function PortfolioDetailPage({
           </div>
         )}
 
-        <Divider />
+        <div className="max-w-4xl mx-auto">
+          <Divider />
 
-        {/* Project Info Grid */}
-        <div className="mt-10 md:mt-16 grid grid-cols-4 md:grid-cols-12 gap-y-8 gap-x-6 mb-12 md:mb-20">
-          {project.client_name && (
-            <div className="col-span-4 md:col-span-3">
+          <div className="mt-10 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-5 mb-12 md:mb-20">
+            {project.client_name && (
+              <div className="border border-[#E0E0E0] bg-white p-6 md:p-7">
+                <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">
+                  Client
+                </p>
+                <p className="text-sm text-[#1a1a1a] leading-relaxed">
+                  {project.client_name}
+                </p>
+              </div>
+            )}
+
+            <div className="border border-[#E0E0E0] bg-white p-6 md:p-7">
               <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">
-                Client
+                Category
               </p>
               <p className="text-sm text-[#1a1a1a] leading-relaxed">
-                {project.client_name}
+                {project.category}
               </p>
             </div>
-          )}
 
-          <div className="col-span-4 md:col-span-3">
-            <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">
-              Category
-            </p>
-            <p className="text-sm text-[#1a1a1a] leading-relaxed">
-              {project.category}
-            </p>
-          </div>
-
-          <div className="col-span-4 md:col-span-3">
-            <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">
-              Year
-            </p>
-            <p className="text-sm text-[#1a1a1a] font-[family-name:var(--font-jetbrains-mono)]">
-              {project.year}
-            </p>
-          </div>
-
-          {project.site_url && (
-            <div className="col-span-4 md:col-span-3">
+            <div className="border border-[#E0E0E0] bg-white p-6 md:p-7">
               <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">
-                Website
+                Year
               </p>
-              <a
-                href={project.site_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-sm text-[#1a1a1a] border-b border-[#1a1a1a] pb-[1px] hover:border-[#FF4D00] hover:text-[#FF4D00] transition-colors duration-300"
-              >
-                사이트 방문 <span className="text-xs">&#8599;</span>
-              </a>
+              <p className="text-sm text-[#1a1a1a] font-[family-name:var(--font-jetbrains-mono)]">
+                {project.year}
+              </p>
             </div>
-          )}
-        </div>
 
-        {/* Problem & Result */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-[1px] bg-[#E0E0E0] mb-12 md:mb-20">
-          {project.problem && (
-            <div className="bg-white p-8 md:p-10">
-              <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-4">
-                Challenge
-              </p>
-              <p className="text-base text-[#1a1a1a] leading-[1.8]">
-                {project.problem}
-              </p>
-            </div>
-          )}
-          {project.result && (
-            <div className="bg-[#fafaf8] p-8 md:p-10">
-              <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-4">
-                Result
-              </p>
-              <p className="text-base text-[#1a1a1a] leading-[1.8]">
-                {project.result}
-              </p>
-            </div>
-          )}
-        </div>
+            {project.site_url && (
+              <div className="border border-[#E0E0E0] bg-white p-6 md:p-7">
+                <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">
+                  Website
+                </p>
+                <a
+                  href={project.site_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-sm text-[#1a1a1a] border-b border-[#1a1a1a] pb-[1px] hover:border-[#FF4D00] hover:text-[#FF4D00] transition-colors duration-300"
+                >
+                  사이트 방문 <span className="text-xs">&#8599;</span>
+                </a>
+              </div>
+            )}
+          </div>
 
-        {/* Content Area */}
-        {project.content && (
-          <>
-            <Divider />
-            <div className="mt-10 md:mt-16 max-w-3xl">
-              <BlogContent html={project.content} />
-            </div>
-          </>
-        )}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-[1px] bg-[#E0E0E0] mb-12 md:mb-20">
+            {project.problem && (
+              <div className="bg-white p-8 md:p-10">
+                <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-4">
+                  Challenge
+                </p>
+                <p className="text-base text-[#1a1a1a] leading-[1.8]">
+                  {project.problem}
+                </p>
+              </div>
+            )}
+            {project.result && (
+              <div className="bg-[#fafaf8] p-8 md:p-10">
+                <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-4">
+                  Result
+                </p>
+                <p className="text-base text-[#1a1a1a] leading-[1.8]">
+                  {project.result}
+                </p>
+              </div>
+            )}
+          </div>
 
-        {/* Back Link */}
-        <div className="mt-20 pt-12 border-t border-[#E0E0E0]">
-          <Link
-            href="/portfolio"
-            className="inline-flex items-center gap-2 text-sm text-[#1a1a1a] border-b border-[#1a1a1a] pb-[2px] hover:border-transparent transition-colors duration-300"
-          >
-            &larr; 포트폴리오로 돌아가기
-          </Link>
+          {project.content && (
+            <>
+              <Divider />
+              <div className="mt-10 md:mt-16 max-w-3xl mx-auto">
+                <BlogContent html={project.content} />
+              </div>
+            </>
+          )}
+
+          <div className="mt-20 pt-12 border-t border-[#E0E0E0] text-center">
+            <Link
+              href="/portfolio"
+              className="inline-flex items-center gap-2 text-sm text-[#1a1a1a] border-b border-[#1a1a1a] pb-[2px] hover:border-transparent transition-colors duration-300"
+            >
+              &larr; 포트폴리오로 돌아가기
+            </Link>
+          </div>
         </div>
       </div>
     </section>

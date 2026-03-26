@@ -5,4 +5,10 @@ export const BLOG_CATEGORIES = [
   "개인이야기",
 ] as const;
 
-export const DEFAULT_BLOG_CATEGORY = BLOG_CATEGORIES[0];
+export type BlogCategory = (typeof BLOG_CATEGORIES)[number];
+
+export const DEFAULT_BLOG_CATEGORY: BlogCategory = BLOG_CATEGORIES[0];
+
+export function isBlogCategory(value: string): value is BlogCategory {
+  return BLOG_CATEGORIES.includes(value as BlogCategory);
+}

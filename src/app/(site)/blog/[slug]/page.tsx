@@ -95,30 +95,36 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostJsonLd) }}
       />
       <div className="max-w-[1280px] mx-auto">
-        <SectionLabel number="01" label={category || "Blog"} />
+        <div className="max-w-3xl mx-auto">
+          <div className="flex justify-center">
+            <SectionLabel number="01" label={category || "Blog"} />
+          </div>
 
-        <div className="max-w-2xl">
-          <p className="text-xs tracking-wider text-[#9b9b9b] font-[family-name:var(--font-jetbrains-mono)] mb-6">
-            {date}
-          </p>
-          <h1 className="font-[family-name:var(--font-space-grotesk)] text-[28px] md:text-[44px] font-light tracking-[0.03em] leading-[1.05] mb-12">
-            {title}
-          </h1>
-        </div>
+          <div className="mt-8 text-center">
+            <p className="text-xs tracking-wider text-[#9b9b9b] font-[family-name:var(--font-jetbrains-mono)] mb-6">
+              {date}
+            </p>
+            <h1 className="font-[family-name:var(--font-space-grotesk)] text-[28px] md:text-[44px] font-light tracking-[0.03em] leading-[1.05]">
+              {title}
+            </h1>
+          </div>
 
-        <Divider />
+          <div className="mt-12">
+            <Divider />
+          </div>
 
-        <div className="mt-10 md:mt-16 max-w-2xl">
-          <BlogContent html={contentHtml} />
-        </div>
+          <div className="mt-10 md:mt-16">
+            <BlogContent html={contentHtml} />
+          </div>
 
-        <div className="mt-10 md:mt-16">
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-2 text-sm text-[#1a1a1a] border-b border-[#1a1a1a] pb-[2px] hover:border-transparent transition-colors duration-300"
-          >
-            &larr; 블로그로 돌아가기
-          </Link>
+          <div className="mt-12 md:mt-16 text-center">
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 text-sm text-[#1a1a1a] border-b border-[#1a1a1a] pb-[2px] hover:border-transparent transition-colors duration-300"
+            >
+              &larr; 블로그로 돌아가기
+            </Link>
+          </div>
         </div>
       </div>
     </section>
