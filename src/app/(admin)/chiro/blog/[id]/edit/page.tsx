@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
+import { BLOG_CATEGORIES, DEFAULT_BLOG_CATEGORY } from "@/lib/blog-categories";
 
 const TiptapEditor = dynamic(() => import("@/components/admin/tiptap-editor"), {
   ssr: false,
@@ -16,7 +17,7 @@ export default function EditBlogPage() {
 
   const [title, setTitle] = useState("");
   const [excerpt, setExcerpt] = useState("");
-  const [category, setCategory] = useState("Insight");
+  const [category, setCategory] = useState(DEFAULT_BLOG_CATEGORY);
   const [content, setContent] = useState("");
   const [published, setPublished] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -28,7 +29,11 @@ export default function EditBlogPage() {
       .then((data) => {
         setTitle(data.title || "");
         setExcerpt(data.excerpt || "");
-        setCategory(data.category || "Insight");
+        setCategory(
+          BLOG_CATEGORIES.includes(data.category)
+            ? data.category
+            : DEFAULT_BLOG_CATEGORY
+        );
         setContent(data.content || "");
         setPublished(data.published || false);
         setLoading(false);
@@ -92,12 +97,17 @@ export default function EditBlogPage() {
             <label className="block text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">
               카테고리
             </label>
-            <input
-              type="text"
+            <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               className="w-full border-b border-[#e5e5e3] py-3 text-sm bg-transparent outline-none focus:border-[#1a1a1a] transition-colors"
-            />
+            >
+              {BLOG_CATEGORIES.map((item) => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="flex items-end pb-3">
             <label className="flex items-center gap-3 cursor-pointer">

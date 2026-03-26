@@ -44,20 +44,23 @@ const bankGothic = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL("https://chiroweb.co.kr"),
   title: {
-    default: "치로웹디자인 — 당일 시작, 실시간 확인 | 웹 디자인 스튜디오",
+    default:
+      "웹사이트 제작 비용 하나로 마케팅까지 끝내는 솔루션 | CHIRO 치로웹디자인",
     template: "%s | 치로웹디자인",
   },
   description:
-    "상담 당일 빌드 시작, 실시간 링크로 제작 과정을 직접 확인. 소수 프로젝트에 깊이 집중하는 프리미엄 웹 디자인 스튜디오 치로.",
+    "비싼 제작비와 유지비에 속지 마세요. 호주 유학생 출신 기획자의 글로벌 마케팅 세팅부터 홈페이지 제작까지, 타사 대비 30% 저렴한 풀패키지로 당신의 비즈니스를 온라인에 완벽하게 정착시켜 드립니다.",
   keywords: [
-    "홈페이지 제작",
-    "웹디자인",
-    "웹사이트 제작",
-    "맞춤형 홈페이지",
-    "웹디자인 스튜디오",
-    "반응형 웹사이트",
-    "기업 홈페이지",
-    "브랜드 사이트",
+    "홈페이지 제작 비용",
+    "홈페이지 유지비",
+    "매출 오르는 홈페이지",
+    "중소기업 홈페이지 제작",
+    "중소기업 마케팅 세팅",
+    "해외 마케팅 대행",
+    "가성비 홈페이지",
+    "홈페이지 리뉴얼 비용",
+    "소상공인 홈페이지",
+    "온라인 마케팅 세팅",
     "치로웹디자인",
   ],
   icons: {
@@ -68,28 +71,28 @@ export const metadata: Metadata = {
     apple: "/apple-icon.png",
   },
   openGraph: {
-    title: "치로웹디자인 — 당일 시작, 실시간 확인",
+    title: "웹사이트 제작 비용 하나로 마케팅까지 끝내는 솔루션 CHIRO",
     description:
-      "상담 당일 빌드 시작, 실시간 링크로 제작 과정을 직접 확인. 기다리지 않는 웹 디자인 스튜디오.",
+      "호주 유학생 출신 기획자의 글로벌 마케팅 세팅 + 타사 대비 30% 저렴한 풀패키지. 비싼 유지비 없이 매출이 오르는 홈페이지를 만들어 드립니다.",
     url: "https://chiroweb.co.kr",
     siteName: "치로웹디자인",
     type: "website",
     locale: "ko_KR",
     images: [
       {
-        url: "https://chiro-web.s3.ap-northeast-2.amazonaws.com/image/ogphoto.png",
+        url: "https://chiroweb.co.kr/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "치로웹디자인 — 웹 디자인 스튜디오",
+        alt: "웹사이트 제작 비용 하나로 마케팅까지 끝내는 솔루션 CHIRO",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "치로웹디자인 — 당일 시작, 실시간 확인",
+    title: "웹사이트 제작 비용 하나로 마케팅까지 끝내는 솔루션 CHIRO",
     description:
-      "상담 당일 빌드 시작, 실시간 링크로 제작 과정을 직접 확인. 기다리지 않는 웹 디자인 스튜디오.",
-    images: ["https://chiro-web.s3.ap-northeast-2.amazonaws.com/image/ogphoto.png"],
+      "호주 유학생 출신 기획자의 글로벌 마케팅 세팅 + 타사 대비 30% 저렴한 풀패키지. 비싼 유지비 없이 매출이 오르는 홈페이지를 만들어 드립니다.",
+    images: ["https://chiroweb.co.kr/opengraph-image"],
   },
   verification: {
     google: "google856a1b8c4d5e6f2a",
@@ -118,9 +121,14 @@ export default function RootLayout({
     alternateName: "CHIRO Web Design Studio",
     url: "https://chiroweb.co.kr",
     description:
-      "상담 당일 빌드 시작, 실시간 링크로 제작 과정을 직접 확인. 소수 프로젝트에 깊이 집중하는 프리미엄 웹 디자인 스튜디오.",
+      "웹사이트 제작 비용 하나로 글로벌 마케팅 세팅까지. 호주 유학생 출신 기획자가 타사 대비 30% 저렴한 풀패키지로 비즈니스를 온라인에 정착시켜 드립니다.",
     areaServed: "KR",
-    serviceType: "웹 디자인",
+    serviceType: [
+      "웹사이트 제작",
+      "Marketing Consulting",
+      "Business Setup Service",
+      "글로벌 마케팅 세팅",
+    ],
     priceRange: "₩₩",
     address: {
       "@type": "PostalAddress",
