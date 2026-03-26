@@ -188,9 +188,9 @@ export default async function PortfolioDetailPage({
         <div className="max-w-4xl mx-auto">
           <Divider />
 
-          <div className="mt-10 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-5 mb-12 md:mb-20">
+          <div className="mt-10 md:mt-16 grid grid-cols-1 md:grid-cols-4 gap-4 mb-10 md:mb-16">
             {project.client_name && (
-              <div className="border border-[#E0E0E0] bg-white p-6 md:p-7">
+              <div className="border border-[#E0E0E0] bg-white p-5 md:p-6 min-h-[132px]">
                 <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">
                   Client
                 </p>
@@ -200,7 +200,7 @@ export default async function PortfolioDetailPage({
               </div>
             )}
 
-            <div className="border border-[#E0E0E0] bg-white p-6 md:p-7">
+            <div className="border border-[#E0E0E0] bg-white p-5 md:p-6 min-h-[132px]">
               <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">
                 Category
               </p>
@@ -209,7 +209,7 @@ export default async function PortfolioDetailPage({
               </p>
             </div>
 
-            <div className="border border-[#E0E0E0] bg-white p-6 md:p-7">
+            <div className="border border-[#E0E0E0] bg-white p-5 md:p-6 min-h-[132px]">
               <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">
                 Year
               </p>
@@ -219,7 +219,7 @@ export default async function PortfolioDetailPage({
             </div>
 
             {project.site_url && (
-              <div className="border border-[#E0E0E0] bg-white p-6 md:p-7">
+              <div className="border border-[#E0E0E0] bg-white p-5 md:p-6 min-h-[132px]">
                 <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">
                   Website
                 </p>
@@ -235,9 +235,9 @@ export default async function PortfolioDetailPage({
             )}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-[1px] bg-[#E0E0E0] mb-12 md:mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12 md:mb-18">
             {project.problem && (
-              <div className="bg-white p-8 md:p-10">
+              <div className="border border-[#E0E0E0] bg-white p-6 md:p-7 min-h-[168px]">
                 <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-4">
                   Challenge
                 </p>
@@ -247,7 +247,7 @@ export default async function PortfolioDetailPage({
               </div>
             )}
             {project.result && (
-              <div className="bg-[#fafaf8] p-8 md:p-10">
+              <div className="border border-[#E0E0E0] bg-[#fafaf8] p-6 md:p-7 min-h-[168px]">
                 <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-4">
                   Result
                 </p>

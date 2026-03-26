@@ -1,6 +1,8 @@
 import { sql } from "@/lib/db";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 // GET: Published portfolio projects (public)
 export async function GET() {
   try {
