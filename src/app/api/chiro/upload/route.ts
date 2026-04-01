@@ -25,25 +25,34 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate file type
-    const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp", "image/svg+xml"];
+    const allowedTypes = [
+      "image/jpeg", "image/png", "image/gif", "image/webp", "image/svg+xml",
+      "video/mp4", "video/webm", "video/quicktime",
+    ];
     if (!allowedTypes.includes(file.type)) {
       return NextResponse.json({ error: "Invalid file type" }, { status: 400 });
     }
 
-    // Max 10MB
-    if (file.size > 10 * 1024 * 1024) {
-      return NextResponse.json({ error: "File too large (max 10MB)" }, { status: 400 });
+    // Max 50MB for video, 10MB for images
+    const isVideo = file.type.startsWith("video/");
+    const maxSize = isVideo ? 50 * 1024 * 1024 : 10 * 1024 * 1024;
+    if (file.size > maxSize) {
+      return NextResponse.json(
+        { error: `File too large (max ${isVideo ? "50MB" : "10MB"})` },
+        { status: 400 }
+      );
     }
 
     const extension = file.name.includes(".")
       ? file.name.slice(file.name.lastIndexOf(".")).toLowerCase()
       : "";
+    const isVideoFile = file.type.startsWith("video/");
     const safeBaseName = file.name
       .replace(/\.[^/.]+$/, "")
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-+|-+$/g, "")
-      .slice(0, 50) || "image";
+      .slice(0, 50) || (isVideoFile ? "video" : "image");
     const pathname = `chiro/${Date.now()}-${safeBaseName}${extension}`;
 
     const blob = await put(pathname, file, {

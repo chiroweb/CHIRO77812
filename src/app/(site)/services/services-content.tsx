@@ -10,7 +10,6 @@ import {
 import SectionLabel from "@/components/ui/section-label";
 import Divider from "@/components/ui/divider";
 import Button from "@/components/ui/button";
-import Placeholder from "@/components/ui/placeholder";
 import SubCtaBand from "@/components/ui/sub-cta-band";
 
 /* ─────────────────────────────────────
@@ -30,6 +29,7 @@ const services = [
       "문의 전환율을 높이는 CTA 설계",
       "관리자가 직접 수정할 수 있는 CMS 연동",
     ],
+    image: "/services/homepage.png",
     targets: [
       { name: "기업 홈페이지", desc: "신뢰를 전달하는 기업의 디지털 거점을 설계합니다." },
       { name: "브랜드 사이트", desc: "브랜드의 고유한 결을 디지털 위에 옮깁니다." },
@@ -48,6 +48,7 @@ const services = [
       "빠른 로딩 속도 (LCP 1.5초 이내)",
       "모바일 전용 네비게이션 및 CTA 배치",
     ],
+    image: "/services/responsive.png",
     targets: [
       { name: "모바일 웹", desc: "앱 설치 없이 브라우저에서 완벽한 경험을 제공합니다." },
       { name: "PWA", desc: "앱처럼 설치 가능한 프로그레시브 웹앱을 구축합니다." },
@@ -66,6 +67,7 @@ const services = [
       "크로스 브라우저 호환성 보장",
       "유연한 그리드 시스템 적용",
     ],
+    image: "/services/responsive.png",
     targets: [
       { name: "기업/브랜드", desc: "PC와 모바일 모두에서 일관된 브랜드 경험을 전달합니다." },
       { name: "이커머스", desc: "어떤 기기에서든 끊김 없는 구매 경험을 만듭니다." },
@@ -84,6 +86,7 @@ const services = [
       "콘텐츠 수정 및 페이지 추가 지원",
       "고속 호스팅 환경 제공 (Vercel / AWS)",
     ],
+    image: "/services/maintenance.png",
     targets: [
       { name: "정기 유지보수", desc: "월 단위로 사이트 상태를 점검하고 최적화합니다." },
       { name: "긴급 대응", desc: "장애 발생 시 빠르게 진단하고 복구합니다." },
@@ -279,7 +282,11 @@ export default function ServicesContent() {
                 </ul>
               </div>
               <div className="col-span-4 md:col-span-6 md:col-start-7">
-                <Placeholder type="image" aspectRatio="video" />
+                <img
+                  src={activeService.image}
+                  alt={activeService.title}
+                  className="w-full rounded-sm object-cover"
+                />
               </div>
             </div>
 

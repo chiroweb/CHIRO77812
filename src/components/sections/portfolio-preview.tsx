@@ -69,7 +69,7 @@ export default function PortfolioPreview() {
       .then((r) => r.json())
       .then((data) => {
         if (data.projects && data.projects.length > 0) {
-          setProjects(data.projects.slice(0, 6));
+          setProjects(data.projects.slice(0, 4));
         }
       })
       .catch(() => {});
@@ -100,7 +100,7 @@ export default function PortfolioPreview() {
           initial="hidden"
           whileInView="visible"
           viewport={viewportConfig}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5"
+          className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-5"
         >
           {projects.map((project) => (
             <motion.a
@@ -111,8 +111,17 @@ export default function PortfolioPreview() {
               className="group relative block overflow-hidden bg-[#f5f5f3]"
             >
               {/* Image Container */}
-              <div className="relative aspect-[4/3] overflow-hidden">
-                {project.image_url ? (
+              <div className="relative aspect-[4/5] overflow-hidden">
+                {project.image_url && /\.(mp4|webm|mov)(\?|$)/i.test(project.image_url) ? (
+                  <video
+                    src={project.image_url}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                  />
+                ) : project.image_url ? (
                   <img
                     src={project.image_url}
                     alt={project.name}

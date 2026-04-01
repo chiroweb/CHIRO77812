@@ -18,7 +18,7 @@ export async function uploadImageFile(file: File): Promise<string> {
   }
 
   if (!res.ok || !payload?.url) {
-    throw new Error(payload?.error || "이미지 업로드에 실패했습니다.");
+    throw new Error(payload?.error || "파일 업로드에 실패했습니다.");
   }
 
   return payload.url;

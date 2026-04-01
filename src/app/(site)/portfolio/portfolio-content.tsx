@@ -90,8 +90,17 @@ export default function PortfolioContent() {
               className="group relative block overflow-hidden bg-[#f5f5f3]"
             >
               {/* Image */}
-              <div className="relative aspect-[4/3] overflow-hidden">
-                {project.image_url ? (
+              <div className="relative aspect-[4/5] overflow-hidden">
+                {project.image_url && /\.(mp4|webm|mov)(\?|$)/i.test(project.image_url) ? (
+                  <video
+                    src={project.image_url}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                  />
+                ) : project.image_url ? (
                   <img
                     src={project.image_url}
                     alt={project.name}

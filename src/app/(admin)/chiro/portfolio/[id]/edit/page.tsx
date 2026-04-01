@@ -195,20 +195,24 @@ export default function EditPortfolioPage() {
               <label className="block text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-3">대표 이미지</label>
               {imageUrl && (
                 <div className="mb-3">
-                  <img src={imageUrl} alt="Preview" className="w-full aspect-[4/3] object-cover border border-[#e5e5e3]" />
+                  {/\.(mp4|webm|mov)(\?|$)/i.test(imageUrl) ? (
+                    <video src={imageUrl} autoPlay muted loop playsInline className="w-full aspect-[4/5] object-cover border border-[#e5e5e3]" />
+                  ) : (
+                    <img src={imageUrl} alt="Preview" className="w-full aspect-[4/5] object-cover border border-[#e5e5e3]" />
+                  )}
                 </div>
               )}
               <button type="button" onClick={() => fileInputRef.current?.click()} disabled={uploading || saving}
                 className="w-full text-xs px-4 py-2.5 border border-[#e5e5e3] hover:border-[#1a1a1a] transition-colors disabled:opacity-50 cursor-pointer">
-                {uploading ? "업로드 중..." : imageUrl ? "이미지 다시 업로드" : "이미지 업로드"}
+                {uploading ? "업로드 중..." : imageUrl ? "다시 업로드" : "이미지/동영상 업로드"}
               </button>
-              <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
+              <input ref={fileInputRef} type="file" accept="image/*,video/mp4,video/webm,video/quicktime" onChange={handleImageUpload} className="hidden" />
               <p className="mt-2 text-[11px] text-[#9b9b9b] leading-relaxed">
                 {uploading
                   ? "업로드 중... 완료 전에는 저장할 수 없습니다."
                   : imageUrl
                     ? "업로드 완료"
-                    : "목록 썸네일에 노출될 대표 이미지"}
+                    : "이미지 또는 동영상 (mp4, webm)"}
               </p>
             </div>
 
