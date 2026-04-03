@@ -5,7 +5,7 @@ import { fadeInUp, viewportConfig } from "@/lib/motion";
 
 export default function SubCtaBand() {
   return (
-    <section className="py-[72px] md:py-[100px] px-5 md:px-8 bg-[#1a1a1a]">
+    <section id="cta-band" className="py-[72px] md:py-[100px] px-5 md:px-8 bg-[#1a1a1a]">
       <div className="max-w-[1280px] mx-auto">
         <motion.div
           initial="hidden"

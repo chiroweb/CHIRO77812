@@ -41,23 +41,32 @@ export default function Hero() {
               Web Design Studio
             </motion.p>
 
+            {/* SEO H1 — visually hidden */}
+            <h1 className="sr-only">
+              심리학으로 설계하고 코드로 구현하는 웹 에이전시, 치로웹디자인
+            </h1>
+
             <div
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
               className="relative"
             >
               {/* Filled text (default) — mobile always visible */}
-              <motion.h1
+              <motion.p
+                role="presentation"
+                aria-hidden="true"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: isHovered ? 0 : 1, y: 0 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
                 className="text-[48px] md:text-[80px] lg:text-[100px] tracking-[-0.03em] leading-[1.05] font-extrabold text-[#1a1a1a] max-md:!opacity-100"
               >
                 기다리지 마십시오<span className="text-[#FF4D00]">.</span>
-              </motion.h1>
+              </motion.p>
 
               {/* Stroke text (hover) — desktop only */}
-              <motion.h1
+              <motion.p
+                role="presentation"
+                aria-hidden="true"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: isHovered ? 1 : 0 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -68,7 +77,7 @@ export default function Hero() {
                 }}
               >
                 기다리지 마십시오<span style={{ WebkitTextStroke: "1.5px #FF4D00" }}>.</span>
-              </motion.h1>
+              </motion.p>
             </div>
 
             <motion.p

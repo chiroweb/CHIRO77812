@@ -7,12 +7,36 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
-  { label: "Services", href: "/services" },
-  { label: "Portfolio", href: "/portfolio" },
-  { label: "About", href: "/about" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "/contact" },
+  { label: "서비스", href: "/services" },
+  { label: "포트폴리오", href: "/portfolio" },
+  { label: "후기", href: "/reviews" },
+  { label: "요금제", href: "/pricing" },
+  { label: "소개", href: "/about" },
+  { label: "블로그", href: "/blog" },
 ];
+
+const serviceSubItems = [
+  { label: "홈페이지 제작", href: "/services/website" },
+  { label: "홈페이지 리모델링", href: "/services/remodeling" },
+  { label: "SEO/AEO 자동화", href: "/services/seo-aeo" },
+];
+
+const mobileNavItems = [
+  { label: "서비스", href: "/services", isSectionHeader: true },
+  { label: "홈페이지 제작", href: "/services/website", isSubItem: true },
+  { label: "홈페이지 리모델링", href: "/services/remodeling", isSubItem: true },
+  { label: "SEO/AEO 자동화", href: "/services/seo-aeo", isSubItem: true },
+  { label: "포트폴리오", href: "/portfolio" },
+  { label: "후기", href: "/reviews" },
+  { label: "요금제", href: "/pricing" },
+  { label: "소개", href: "/about" },
+  { label: "블로그", href: "/blog" },
+  { label: "문의", href: "/contact" },
+];
+
+function isActive(pathname: string, href: string) {
+  return href === "/" ? pathname === "/" : pathname.startsWith(href);
+}
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -58,19 +82,58 @@ export default function Header() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => (
+        <nav className="hidden md:flex items-center gap-7">
+          {/* 서비스 with dropdown */}
+          <div className="relative group">
+            <Link
+              href="/services"
+              className="relative text-[13px] tracking-[0.1em] uppercase text-[#1a1a1a] hover:opacity-50 transition-opacity duration-300 pb-1"
+            >
+              서비스
+              {isActive(pathname, "/services") && (
+                <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[#FF4D00]" />
+              )}
+            </Link>
+            <div className="absolute top-full left-0 hidden group-hover:block pt-2">
+              <div className="bg-white border border-[#E0E0E0] min-w-[200px] py-2 shadow-sm">
+                {serviceSubItems.map((sub) => (
+                  <Link
+                    key={sub.href}
+                    href={sub.href}
+                    className={`block px-4 py-2 text-sm hover:bg-[#fafaf8] transition-colors duration-200 ${
+                      isActive(pathname, sub.href)
+                        ? "text-[#FF4D00]"
+                        : "text-[#1a1a1a]"
+                    }`}
+                  >
+                    {sub.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Other nav items */}
+          {navItems.slice(1).map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className="relative text-[13px] tracking-[0.1em] uppercase text-[#1a1a1a] hover:opacity-50 transition-opacity duration-300 pb-1"
             >
               {item.label}
-              {pathname === item.href && (
+              {isActive(pathname, item.href) && (
                 <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[#FF4D00]" />
               )}
             </Link>
           ))}
+
+          {/* 문의 CTA button */}
+          <Link
+            href="/contact"
+            className="text-[13px] tracking-[0.1em] uppercase bg-[#1a1a1a] text-white px-4 py-1.5 hover:bg-[#FF4D00] transition-colors duration-300"
+          >
+            문의
+          </Link>
         </nav>
 
         {/* Mobile Hamburger */}
@@ -102,23 +165,27 @@ export default function Header() {
             transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
             className="fixed inset-0 z-[65] bg-white flex items-center justify-center"
           >
-            <nav className="flex flex-col items-center gap-8">
-              {navItems.map((item, i) => (
+            <nav className="flex flex-col items-center gap-5">
+              {mobileNavItems.map((item, i) => (
                 <motion.div
                   key={item.href}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 + i * 0.05, duration: 0.4 }}
+                  transition={{ delay: 0.2 + i * 0.04, duration: 0.4 }}
+                  className={item.isSubItem ? "pl-4" : ""}
                 >
                   <Link
                     href={item.href}
                     onClick={() => setMenuOpen(false)}
-                    className="relative text-4xl font-light tracking-tight text-[#1a1a1a]"
+                    className={`relative font-light tracking-tight text-[#1a1a1a] ${
+                      item.isSubItem ? "text-xl text-[#6b6b6b]" : "text-3xl"
+                    }`}
                   >
                     {item.label}
-                    {pathname === item.href && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#FF4D00]" />
-                    )}
+                    {isActive(pathname, item.href) &&
+                      !item.isSubItem && (
+                        <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#FF4D00]" />
+                      )}
                   </Link>
                 </motion.div>
               ))}

@@ -116,7 +116,8 @@ export default function RootLayout({
 }>) {
   const organizationJsonLd = {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
+    "@type": ["ProfessionalService", "Organization"],
+    "@id": "https://chiroweb.co.kr/#organization",
     name: "치로웹디자인",
     alternateName: "CHIRO Web Design Studio",
     url: "https://chiroweb.co.kr",
@@ -135,7 +136,28 @@ export default function RootLayout({
       addressLocality: "Seoul",
       addressCountry: "KR",
     },
+    founder: {
+      "@type": "Person",
+      name: "최정원",
+      jobTitle: "Creative Director",
+    },
+    foundingDate: "2024",
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: "info@chiroweb.co.kr",
+      contactType: "customer service",
+      availableLanguage: ["Korean", "English"],
+    },
     sameAs: [],
+  };
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://chiroweb.co.kr/#website",
+    name: "치로웹디자인",
+    url: "https://chiroweb.co.kr",
+    publisher: { "@id": "https://chiroweb.co.kr/#organization" },
   };
 
   return (
@@ -145,6 +167,11 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+        <link rel="alternate" hrefLang="ko" href="https://chiroweb.co.kr" />
       </head>
       <body
         className={`${pretendard.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} ${bankGothic.variable} font-[family-name:var(--font-pretendard),system-ui,sans-serif] antialiased`}

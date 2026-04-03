@@ -5,8 +5,14 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function MobileCtaBar() {
   const [showBar, setShowBar] = useState(false);
+  const [hideOnPage, setHideOnPage] = useState(false);
 
   useEffect(() => {
+    if (document.querySelector('[data-hide-mobile-cta]')) {
+      setHideOnPage(true);
+      return;
+    }
+
     const ctaBand = document.getElementById("cta-band");
 
     const observer = new IntersectionObserver(
@@ -40,7 +46,7 @@ export default function MobileCtaBar() {
 
   return (
     <AnimatePresence>
-      {showBar && (
+      {showBar && !hideOnPage && (
         <motion.div
           initial={{ y: "100%" }}
           animate={{ y: 0 }}

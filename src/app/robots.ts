@@ -24,7 +24,20 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: "Googlebot-Image",
         allow: ["/portfolio/"],
       },
+      {
+        userAgent: "GPTBot",
+        allow: "/",
+      },
+      {
+        userAgent: "ClaudeBot",
+        allow: "/",
+      },
+      {
+        userAgent: "PerplexityBot",
+        allow: "/",
+      },
     ],
     sitemap: "https://chiroweb.co.kr/sitemap.xml",
+    // llms.txt available at https://chiroweb.co.kr/llms.txt
   };
 }

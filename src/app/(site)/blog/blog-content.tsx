@@ -1,14 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import SectionLabel from "@/components/ui/section-label";
 import Divider from "@/components/ui/divider";
 import SubCtaBand from "@/components/ui/sub-cta-band";
+import Breadcrumbs from "@/components/seo/breadcrumbs";
+import FAQSection from "@/components/seo/faq-section";
+import InternalLinks from "@/components/seo/internal-links";
 
-interface Post {
+interface BlogPost {
   id: number;
   title: string;
   slug: string;
@@ -17,30 +20,45 @@ interface Post {
   created_at: string;
 }
 
-const fallbackPosts = [
+interface BlogContentProps {
+  posts: BlogPost[];
+}
+
+const CATEGORIES = ["전체", "홈페이지 관리법", "마케팅", "웹사이트 제작", "개인이야기"] as const;
+
+const blogFAQ = [
   {
-    id: 1,
-    slug: "why-custom-website",
-    title: "아임웹, 카페24를 넘어서: 커스텀 웹사이트가 필요한 순간",
-    excerpt: "템플릿 기반 빌더의 한계와 커스텀 빌드가 브랜드에 가져다주는 실질적인 차이를 이야기합니다.",
-    created_at: "2025-01-15",
-    category: "Insight",
+    question: "블로그 글은 얼마나 자주 올라오나요?",
+    answer:
+      "매주 1-2편의 새로운 인사이트를 공유합니다. 웹 디자인, SEO, 마케팅 트렌드 등 실전에 도움이 되는 주제를 다룹니다.",
   },
   {
-    id: 2,
-    slug: "web-performance-matters",
-    title: "3초의 법칙: 웹사이트 속도가 매출에 미치는 영향",
-    excerpt: "로딩 속도 1초 개선이 전환율에 어떤 영향을 미치는지, 실제 데이터를 기반으로 분석합니다.",
-    created_at: "2025-01-08",
-    category: "Performance",
+    question: "글을 참고해서 직접 적용해도 되나요?",
+    answer:
+      "물론입니다. 치로웹디자인의 블로그는 직접 적용 가능한 실전 가이드를 지향합니다. 추가 도움이 필요하시면 무료 상담을 신청해 주세요.",
   },
   {
-    id: 3,
-    slug: "design-trust",
-    title: "디자인이 신뢰를 만드는 방법",
-    excerpt: "방문자가 웹사이트에 머무르는 이유와 떠나는 이유. 신뢰를 설계하는 디자인 원칙을 정리합니다.",
-    created_at: "2024-12-20",
-    category: "Design",
+    question: "특정 주제에 대한 글을 요청할 수 있나요?",
+    answer:
+      "네, 문의 페이지를 통해 다뤄줬으면 하는 주제를 제안해 주시면 우선적으로 작성합니다.",
+  },
+];
+
+const internalLinks = [
+  {
+    title: "서비스 안내",
+    href: "/services",
+    description: "치로웹디자인이 제공하는 웹 디자인, 개발, SEO 서비스를 확인하세요.",
+  },
+  {
+    title: "무료 상담 신청",
+    href: "/contact",
+    description: "프로젝트에 대해 편하게 이야기 나눠보세요. 무료 상담을 제공합니다.",
+  },
+  {
+    title: "치로웹디자인 소개",
+    href: "/about",
+    description: "치로웹디자인의 철학과 작업 방식에 대해 알아보세요.",
   },
 ];
 
@@ -49,24 +67,20 @@ function formatDate(dateStr: string): string {
   return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`;
 }
 
-export default function BlogContent() {
-  const [posts, setPosts] = useState<Post[]>(fallbackPosts);
+export default function BlogContent({ posts }: BlogContentProps) {
+  const [activeCategory, setActiveCategory] = useState<string>("전체");
 
-  useEffect(() => {
-    fetch("/api/blog")
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.posts && data.posts.length > 0) {
-          setPosts(data.posts);
-        }
-      })
-      .catch(() => {});
-  }, []);
+  const filteredPosts =
+    activeCategory === "전체"
+      ? posts
+      : posts.filter((p) => p.category === activeCategory);
 
   return (
     <>
       <section className="pt-24 md:pt-32 pb-16 md:pb-24 px-5 md:px-8">
         <div className="max-w-[1280px] mx-auto">
+          <Breadcrumbs pathname="/blog" />
+
           <SectionLabel number="01" label="Blog" />
 
           <motion.div
@@ -92,37 +106,59 @@ export default function BlogContent() {
 
           <Divider />
 
+          {/* Category Filter */}
+          <motion.div
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+            className="mt-10 md:mt-16 mb-10 md:mb-16 flex flex-wrap gap-2"
+          >
+            {CATEGORIES.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-4 py-2 text-sm tracking-tight transition-colors duration-200 cursor-pointer border ${
+                  activeCategory === cat
+                    ? "bg-[#1a1a1a] text-white border-[#1a1a1a]"
+                    : "bg-white text-[#6b6b6b] border-[#E0E0E0] hover:border-[#1a1a1a] hover:text-[#1a1a1a]"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </motion.div>
+
           {/* Featured Post (first) */}
-          {posts.length > 0 && (
+          {filteredPosts.length > 0 && (
             <motion.div
               variants={fadeInUp}
               initial="hidden"
               whileInView="visible"
               viewport={viewportConfig}
-              className="mt-10 md:mt-16"
             >
               <Link
-                href={`/blog/${posts[0].slug}`}
+                href={`/blog/${filteredPosts[0].slug}`}
                 className="group block bg-[#1a1a1a] p-8 md:p-12 -mx-5 md:mx-0"
               >
                 <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#FF4D00] mb-4">
-                  Latest — {posts[0].category}
+                  Latest — {filteredPosts[0].category}
                 </p>
                 <h2 className="font-[family-name:var(--font-space-grotesk)] text-[22px] md:text-[36px] font-light tracking-[0.03em] leading-[1.15] text-white mb-4 group-hover:opacity-70 transition-opacity duration-300">
-                  {posts[0].title}
+                  {filteredPosts[0].title}
                 </h2>
                 <p className="text-sm text-white/50 leading-[1.7] max-w-lg mb-6">
-                  {posts[0].excerpt}
+                  {filteredPosts[0].excerpt}
                 </p>
                 <span className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] text-[#6b6b6b]">
-                  {formatDate(posts[0].created_at)}
+                  {formatDate(filteredPosts[0].created_at)}
                 </span>
               </Link>
             </motion.div>
           )}
 
           {/* Rest of posts */}
-          {posts.length > 1 && (
+          {filteredPosts.length > 1 && (
             <motion.div
               variants={staggerContainer}
               initial="hidden"
@@ -130,7 +166,7 @@ export default function BlogContent() {
               viewport={viewportConfig}
               className="mt-10 md:mt-16"
             >
-              {posts.slice(1).map((post, index) => (
+              {filteredPosts.slice(1).map((post, index) => (
                 <motion.div key={post.id} variants={fadeInUp}>
                   <Link
                     href={`/blog/${post.slug}`}
@@ -166,8 +202,34 @@ export default function BlogContent() {
               ))}
             </motion.div>
           )}
+
+          {/* Empty state */}
+          {filteredPosts.length === 0 && (
+            <motion.div
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+              className="mt-10 md:mt-16 py-20 text-center"
+            >
+              <p className="text-[#9b9b9b] text-sm">
+                해당 카테고리의 글이 아직 없습니다.
+              </p>
+            </motion.div>
+          )}
         </div>
       </section>
+
+      {/* ── FAQ ── */}
+      <FAQSection
+        questions={blogFAQ}
+        sectionNumber="02"
+        sectionLabel="FAQ"
+        heading="Questions"
+      />
+
+      {/* ── Internal Links ── */}
+      <InternalLinks links={internalLinks} heading="함께 보면 좋은 페이지" />
 
       {/* ── CTA Band ── */}
       <SubCtaBand />

@@ -19,6 +19,7 @@ export interface PortfolioProject {
   site_url: string | null;
   problem: string | null;
   result: string | null;
+  solution: string | null;
   content: string | null;
   year: string | null;
   image_url: string | null;
@@ -34,6 +35,8 @@ export interface ContactSubmission {
   email: string;
   company: string | null;
   message: string;
+  type: 'contact' | 'diagnosis';
+  website_url: string | null;
   read: boolean;
   created_at: string;
 }

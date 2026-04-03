@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS portfolio_projects (
   site_url TEXT,
   problem TEXT,
   result TEXT,
+  solution TEXT,
   content TEXT,
   year VARCHAR(10),
   image_url TEXT,
@@ -37,6 +38,8 @@ CREATE TABLE IF NOT EXISTS contact_submissions (
   email VARCHAR(300) NOT NULL,
   company VARCHAR(300),
   message TEXT NOT NULL,
+  type VARCHAR(50) DEFAULT 'contact',
+  website_url TEXT,
   read BOOLEAN DEFAULT false,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );

@@ -1,12 +1,23 @@
 import Link from "next/link";
 import Divider from "@/components/ui/divider";
 
-const footerLinks = [
-  { label: "Services", href: "/services" },
-  { label: "Portfolio", href: "/portfolio" },
-  { label: "About", href: "/about" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "/contact" },
+const serviceLinks = [
+  { label: "홈페이지 제작", href: "/services/website" },
+  { label: "홈페이지 리모델링", href: "/services/remodeling" },
+  { label: "SEO/AEO 자동화", href: "/services/seo-aeo" },
+];
+
+const infoLinks = [
+  { label: "포트폴리오", href: "/portfolio" },
+  { label: "후기", href: "/reviews" },
+  { label: "요금제", href: "/pricing" },
+  { label: "소개", href: "/about" },
+];
+
+const resourceLinks = [
+  { label: "블로그", href: "/blog" },
+  { label: "무료 진단", href: "/free-diagnosis" },
+  { label: "문의", href: "/contact" },
 ];
 
 export default function Footer() {
@@ -16,7 +27,7 @@ export default function Footer() {
       <div className="max-w-[1280px] mx-auto pt-16 pb-8">
         <div className="grid grid-cols-4 md:grid-cols-12 gap-6">
           {/* Brand */}
-          <div className="col-span-4 md:col-span-4">
+          <div className="col-span-4 md:col-span-3">
             <p className="text-sm text-[#6b6b6b] leading-relaxed max-w-xs">
               기획이 곧 개발이 되는 투명함.
               <br />
@@ -24,13 +35,51 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Navigation */}
-          <div className="col-span-2 md:col-span-2 md:col-start-7">
+          {/* 서비스 */}
+          <div className="col-span-2 md:col-span-2 md:col-start-5">
             <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-4">
-              Menu
+              서비스
             </p>
             <ul className="space-y-2">
-              {footerLinks.map((link) => (
+              {serviceLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-[#6b6b6b] hover:text-[#1a1a1a] transition-colors duration-300"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* 정보 */}
+          <div className="col-span-2 md:col-span-2 md:col-start-7">
+            <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-4">
+              정보
+            </p>
+            <ul className="space-y-2">
+              {infoLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-[#6b6b6b] hover:text-[#1a1a1a] transition-colors duration-300"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* 리소스 */}
+          <div className="col-span-2 md:col-span-2 md:col-start-9">
+            <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-4">
+              리소스
+            </p>
+            <ul className="space-y-2">
+              {resourceLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -44,7 +93,7 @@ export default function Footer() {
           </div>
 
           {/* Contact Info */}
-          <div className="col-span-2 md:col-span-3 md:col-start-10">
+          <div className="col-span-2 md:col-span-2 md:col-start-11">
             <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-4">
               Contact
             </p>

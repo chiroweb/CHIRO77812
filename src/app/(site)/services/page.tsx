@@ -2,15 +2,9 @@ import type { Metadata } from "next";
 import ServicesContent from "./services-content";
 
 export const metadata: Metadata = {
-  title: "서비스 — 홈페이지 제작, 반응형 웹, 유지보수",
+  title: "서비스 — 홈페이지 제작, 리모델링, SEO/AEO",
   description:
-    "홈페이지 제작부터 모바일 최적화, 반응형 웹, 유지보수까지. 상담 당일 실시간 빌드를 시작하는 치로웹디자인의 서비스를 확인하세요.",
-  openGraph: {
-    title: "서비스 — 홈페이지 제작, 반응형 웹, 유지보수 | 치로웹디자인",
-    description:
-      "홈페이지 제작부터 모바일 최적화, 반응형 웹, 유지보수까지. 상담 당일 실시간 빌드를 시작합니다.",
-    url: "https://chiroweb.co.kr/services",
-  },
+    "치로웹디자인의 3가지 핵심 서비스: 홈페이지 제작, 홈페이지 리모델링, SEO/AEO 자동화. 심리학 기반 설계와 코드 레벨 최적화를 제공합니다.",
   alternates: {
     canonical: "https://chiroweb.co.kr/services",
   },

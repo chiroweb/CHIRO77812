@@ -68,7 +68,7 @@ export default function Numbers() {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-[120px] px-8">
+    <section className="py-[72px] md:py-[120px] px-5 md:px-8">
       <Divider />
       <div ref={ref} className="max-w-[1280px] mx-auto pt-24">
         <motion.div

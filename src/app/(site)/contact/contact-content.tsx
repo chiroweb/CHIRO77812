@@ -5,6 +5,11 @@ import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import SectionLabel from "@/components/ui/section-label";
 import Divider from "@/components/ui/divider";
+import { sendEmail } from "@/lib/emailjs";
+import Breadcrumbs from "@/components/seo/breadcrumbs";
+import FAQSection from "@/components/seo/faq-section";
+import InternalLinks from "@/components/seo/internal-links";
+import { JsonLd, generateLocalBusinessSchema, generateFAQSchema, generatePageSchema } from "@/lib/schema-helpers";
 
 interface SiteSettings {
   contact_email: string;
@@ -18,10 +23,6 @@ const fallbackSettings: SiteSettings = {
   response_time: "영업일 기준 24시간 내에 답변을 드립니다.",
 };
 
-const EMAILJS_SERVICE_ID = "service_chiro";
-const EMAILJS_TEMPLATE_ID = "template_sd1mg8b";
-const EMAILJS_PUBLIC_KEY = "nZdvthms9zRbfn7oq";
-
 const PROJECT_TAGS = [
   "기업 홈페이지",
   "브랜드 사이트",
@@ -33,11 +34,28 @@ const PROJECT_TAGS = [
   "기타",
 ];
 
+const faqQuestions = [
+  { question: "상담은 어떻게 진행되나요?", answer: "문의 폼을 제출하시면 24시간 이내에 이메일 또는 카카오톡으로 연락드립니다. 전화, 메일, 카카오톡 중 편한 방법으로 상담을 진행합니다." },
+  { question: "응답까지 얼마나 걸리나요?", answer: "평균 24시간 이내에 응답합니다. 영업일 기준 당일 또는 익일 중 연락드립니다." },
+  { question: "견적만 물어봐도 되나요?", answer: "물론입니다. 견적 확인만으로도 부담 없이 문의해 주세요. 프로젝트 규모에 맞는 플랜과 예상 비용을 안내드립니다." },
+];
+
+const internalLinks = [
+  { title: "요금 안내", href: "/pricing", description: "프로젝트 규모에 맞는 플랜과 예상 비용을 확인하세요." },
+  { title: "무료 진단", href: "/free-diagnosis", description: "현재 웹사이트의 성능과 SEO 상태를 무료로 진단받으세요." },
+  { title: "서비스 소개", href: "/services", description: "치로웹디자인이 제공하는 웹 디자인·개발·SEO 서비스를 확인하세요." },
+];
+
 export default function ContactContent() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
   const [settings, setSettings] = useState<SiteSettings>(fallbackSettings);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
+  const localBusinessSchema = generateLocalBusinessSchema();
+  const faqSchema = generateFAQSchema(faqQuestions);
+  const schemas = [localBusinessSchema, faqSchema].filter(Boolean);
+  const pageSchema = schemas.length > 0 ? generatePageSchema(schemas as object[]) : null;
 
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) =>
@@ -79,21 +97,12 @@ export default function ContactContent() {
       }).catch(() => {});
 
       // 2. 이메일 발송 (브라우저에서 직접 — 무료)
-      await fetch("https://api.emailjs.com/api/v1.0/email/send", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          service_id: EMAILJS_SERVICE_ID,
-          template_id: EMAILJS_TEMPLATE_ID,
-          user_id: EMAILJS_PUBLIC_KEY,
-          template_params: {
-            from_name: name,
-            user_email: email,
-            project_type: projectType,
-            message: message,
-            send_date: new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" }),
-          },
-        }),
+      await sendEmail({
+        from_name: name,
+        user_email: email,
+        project_type: projectType,
+        message: message,
+        send_date: new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" }),
       });
 
       setSubmitted(true);
@@ -104,9 +113,12 @@ export default function ContactContent() {
 
   return (
     <>
+      {pageSchema && <JsonLd data={pageSchema} />}
+
       {/* ── Header ── */}
       <section className="pt-24 md:pt-32 pb-16 md:pb-24 px-5 md:px-8">
         <div className="max-w-[1280px] mx-auto">
+          <Breadcrumbs pathname="/contact" />
           <SectionLabel number="01" label="Contact" />
 
           <motion.div
@@ -303,6 +315,15 @@ export default function ContactContent() {
           </div>
         </div>
       </section>
+
+      <FAQSection
+        questions={faqQuestions}
+        sectionNumber="02"
+        sectionLabel="FAQ"
+        heading="Questions"
+      />
+
+      <InternalLinks links={internalLinks} />
     </>
   );
 }

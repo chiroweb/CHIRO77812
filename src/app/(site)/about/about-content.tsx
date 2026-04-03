@@ -6,13 +6,79 @@ import SectionLabel from "@/components/ui/section-label";
 import Divider from "@/components/ui/divider";
 import Placeholder from "@/components/ui/placeholder";
 import SubCtaBand from "@/components/ui/sub-cta-band";
+import Breadcrumbs from "@/components/seo/breadcrumbs";
+import FAQSection from "@/components/seo/faq-section";
+import InternalLinks from "@/components/seo/internal-links";
+import { JsonLd, generatePageSchema } from "@/lib/schema-helpers";
+
+const personSchema = {
+  "@type": "Person",
+  "@id": "https://chiroweb.co.kr/#director",
+  name: "최정원",
+  jobTitle: "Creative Director",
+  worksFor: { "@id": "https://chiroweb.co.kr/#organization" },
+  description:
+    "심리학 전공, 호주 유학 경험을 바탕으로 심리학 기반 웹 설계를 전문으로 하는 디렉터",
+};
+
+const aboutPageSchema = {
+  "@type": "AboutPage",
+  "@id": "https://chiroweb.co.kr/about",
+  name: "치로웹디자인 소개",
+  url: "https://chiroweb.co.kr/about",
+  mainEntity: { "@id": "https://chiroweb.co.kr/#organization" },
+};
+
+const aboutFAQs = [
+  {
+    question: "치로웹디자인은 어떤 회사인가요?",
+    answer:
+      "치로웹디자인은 심리학 전공 디렉터가 이끄는 웹 에이전시입니다. 심리학 기반 UI/UX 기획과 코드 레벨 SEO/AEO 최적화를 결합하여 전환율 높은 웹사이트를 설계합니다.",
+  },
+  {
+    question: "1인 에이전시인데 품질이 괜찮나요?",
+    answer:
+      "기획부터 디자인, 개발까지 한 사람이 일관되게 진행하기 때문에 오히려 커뮤니케이션 비용이 없고 품질이 균일합니다. 글로벌 호텔 브랜드 계열사 프로젝트도 수행한 실력을 갖추고 있습니다.",
+  },
+  {
+    question: "어떤 기술 스택을 사용하나요?",
+    answer:
+      "Next.js, React, TypeScript, Tailwind CSS를 기반으로 커스텀 코딩합니다. 아임웹이나 카페24 같은 빌더를 사용하지 않아 기술적 제약 없이 자유로운 구현이 가능합니다.",
+  },
+];
+
+const aboutInternalLinks = [
+  {
+    title: "서비스",
+    href: "/services",
+    description:
+      "치로웹디자인이 제공하는 웹 디자인, 개발, SEO 최적화 서비스를 확인하세요.",
+  },
+  {
+    title: "포트폴리오",
+    href: "/portfolio",
+    description:
+      "치로웹디자인이 진행한 프로젝트와 결과물을 확인하세요.",
+  },
+  {
+    title: "문의하기",
+    href: "/contact",
+    description:
+      "프로젝트 상담을 원하시면 편하게 연락해 주세요.",
+  },
+];
 
 export default function AboutContent() {
+  const pageSchema = generatePageSchema([personSchema, aboutPageSchema]);
+
   return (
     <>
+      {pageSchema && <JsonLd data={pageSchema} />}
+
       {/* ── Hero Header ── */}
       <section className="pt-24 md:pt-32 pb-16 md:pb-24 px-5 md:px-8">
         <div className="max-w-[1280px] mx-auto">
+          <Breadcrumbs pathname="/about" />
           <SectionLabel number="01" label="About" />
 
           <motion.div
@@ -20,15 +86,43 @@ export default function AboutContent() {
             initial="hidden"
             whileInView="visible"
             viewport={viewportConfig}
-            className="mb-12 md:mb-20"
+            className="mb-10 md:mb-16"
           >
             <motion.h1
               variants={fadeInUp}
               className="font-[family-name:var(--font-space-grotesk)] text-[28px] md:text-[44px] font-light tracking-[0.03em] leading-[1.05]"
             >
-              디렉터의 편지<span className="text-[#FF4D00]">.</span>
+              치로웹디자인은 어떤 회사인가요<span className="text-[#FF4D00]">?</span>
             </motion.h1>
           </motion.div>
+
+          {/* Entity Definition Block */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-[1px] bg-[#E0E0E0] mb-12 md:mb-20">
+            <div className="bg-white p-6">
+              <p className="font-[family-name:var(--font-jetbrains-mono)] text-[10px] tracking-[0.15em] uppercase text-[#9b9b9b] mb-2">
+                회사명
+              </p>
+              <p className="text-sm font-medium">치로웹디자인</p>
+            </div>
+            <div className="bg-white p-6">
+              <p className="font-[family-name:var(--font-jetbrains-mono)] text-[10px] tracking-[0.15em] uppercase text-[#9b9b9b] mb-2">
+                대표
+              </p>
+              <p className="text-sm font-medium">최정원</p>
+            </div>
+            <div className="bg-white p-6">
+              <p className="font-[family-name:var(--font-jetbrains-mono)] text-[10px] tracking-[0.15em] uppercase text-[#9b9b9b] mb-2">
+                전문 분야
+              </p>
+              <p className="text-sm font-medium">심리학 기반 웹 설계</p>
+            </div>
+            <div className="bg-white p-6">
+              <p className="font-[family-name:var(--font-jetbrains-mono)] text-[10px] tracking-[0.15em] uppercase text-[#9b9b9b] mb-2">
+                설립
+              </p>
+              <p className="text-sm font-medium">2024</p>
+            </div>
+          </div>
 
           <Divider />
 
@@ -182,6 +276,18 @@ export default function AboutContent() {
           </motion.div>
         </div>
       </section>
+
+      {/* ── FAQ ── */}
+      <FAQSection
+        questions={aboutFAQs}
+        sectionNumber="03"
+        sectionLabel="FAQ"
+        heading="Questions"
+        showDivider
+      />
+
+      {/* ── Internal Links ── */}
+      <InternalLinks links={aboutInternalLinks} />
 
       {/* ── CTA Band ── */}
       <SubCtaBand />

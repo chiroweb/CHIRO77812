@@ -4,11 +4,20 @@ import { NextRequest, NextResponse } from "next/server";
 // POST: Submit contact form (public)
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, message, projectType } = await request.json();
+    const { name, email, message, projectType, type = 'contact', website_url } = await request.json();
 
-    if (!name || !email || !message) {
+    const isDiagnosis = type === 'diagnosis';
+
+    if (!isDiagnosis && (!name || !email || !message)) {
       return NextResponse.json(
         { error: "Name, contact, and message are required" },
+        { status: 400 }
+      );
+    }
+
+    if (isDiagnosis && !email) {
+      return NextResponse.json(
+        { error: "Email is required" },
         { status: 400 }
       );
     }
@@ -18,14 +27,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid email format" }, { status: 400 });
     }
 
-    if (message.length > 5000) {
+    const finalMessage = message || (isDiagnosis ? "무료 진단 신청" : "");
+
+    if (finalMessage.length > 5000) {
       return NextResponse.json({ error: "Message too long (max 5000 chars)" }, { status: 400 });
     }
 
     // Save to database (company column stores project type)
     const result = await sql`
-      INSERT INTO contact_submissions (name, email, company, message)
-      VALUES (${name}, ${email}, ${projectType || null}, ${message})
+      INSERT INTO contact_submissions (name, email, company, message, type, website_url)
+      VALUES (${name || ''}, ${email}, ${projectType || null}, ${finalMessage}, ${type}, ${website_url || null})
       RETURNING id
     `;
 

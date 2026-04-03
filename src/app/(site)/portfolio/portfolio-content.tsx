@@ -1,46 +1,55 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import SectionLabel from "@/components/ui/section-label";
 import Divider from "@/components/ui/divider";
 import SubCtaBand from "@/components/ui/sub-cta-band";
+import Breadcrumbs from "@/components/seo/breadcrumbs";
+import FAQSection from "@/components/seo/faq-section";
+import InternalLinks from "@/components/seo/internal-links";
+import type { PortfolioProject } from "@/lib/types";
 
-interface Project {
-  id: number;
-  name: string;
-  slug: string | null;
-  category: string;
-  client_name: string | null;
-  problem: string | null;
-  result: string | null;
-  year: string | null;
-  image_url: string | null;
+interface PortfolioContentProps {
+  projects: PortfolioProject[];
 }
 
-const fallbackProjects: Project[] = [
-  { id: 1, name: "NBPKOREA", slug: "nbpkorea", category: "Branding & Web", client_name: "NBPKOREA", problem: "글로벌 시장 진출을 위한 브랜드 사이트 필요", result: "브랜드 아이덴티티 구축 및 웹사이트 런칭", year: "2024", image_url: "/portfolio/nbpkorea.png" },
-  { id: 2, name: "Man Solution", slug: "man-solution", category: "Corporate Site", client_name: "Man Solution", problem: "기업 신뢰도를 전달할 홈페이지 부재", result: "전문성을 강조한 기업 사이트 구축", year: "2024", image_url: "/portfolio/mansolution.png" },
-  { id: 3, name: "FUNI", slug: "funi", category: "E-commerce", client_name: "FUNI", problem: "온라인 판매 채널 확장 필요", result: "브랜드 감성을 살린 이커머스 구축", year: "2024", image_url: "/portfolio/funi.png" },
-  { id: 4, name: "STUDIO", slug: "studio", category: "Portfolio Site", client_name: "STUDIO", problem: "크리에이티브 포트폴리오 사이트 필요", result: "미니멀 디자인의 포트폴리오 사이트 런칭", year: "2025", image_url: "/portfolio/studio.png" },
+const portfolioFAQs = [
+  {
+    question: "포트폴리오에 있는 프로젝트들은 실제 운영 중인 사이트인가요?",
+    answer: "네, 치로웹디자인의 포트폴리오에 소개된 프로젝트들은 실제 클라이언트와 함께 작업하여 운영 중인 사이트입니다. 각 프로젝트는 클라이언트의 비즈니스 목표에 맞춰 기획, 디자인, 개발되었습니다.",
+  },
+  {
+    question: "저희 업종과 비슷한 프로젝트 사례가 있나요?",
+    answer: "기업 홈페이지, 브랜드 사이트, 이커머스 등 다양한 업종의 프로젝트를 진행해왔습니다. 카테고리 필터를 통해 유사한 프로젝트를 찾아보실 수 있으며, 상담 시 더 자세한 사례를 공유해드립니다.",
+  },
+  {
+    question: "포트폴리오 프로젝트의 제작 기간은 어느 정도인가요?",
+    answer: "프로젝트의 규모와 요구사항에 따라 다르지만, 일반적으로 기업 홈페이지는 4~6주, 브랜드 사이트는 6~8주, 이커머스는 8~12주 정도 소요됩니다. 정확한 일정은 무료 상담을 통해 안내해드립니다.",
+  },
 ];
 
-export default function PortfolioContent() {
-  const [projects, setProjects] = useState<Project[]>(fallbackProjects);
+const internalLinks = [
+  { title: "서비스 안내", href: "/services", description: "홈페이지 제작, 리모델링, SEO/AEO 등 치로웹디자인의 서비스를 확인하세요." },
+  { title: "요금 안내", href: "/pricing", description: "프로젝트 유형별 요금과 포함 사항을 투명하게 안내합니다." },
+  { title: "문의하기", href: "/contact", description: "프로젝트 상담부터 견적까지, 편하게 문의해주세요." },
+];
 
-  useEffect(() => {
-    fetch("/api/portfolio")
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.projects && data.projects.length > 0) {
-          setProjects(data.projects);
-        }
-      })
-      .catch(() => {});
-  }, []);
+export default function PortfolioContent({ projects }: PortfolioContentProps) {
+  const categories = useMemo(() => {
+    const cats = Array.from(new Set(projects.map((p) => p.category)));
+    return ["전체", ...cats];
+  }, [projects]);
 
-  function getProjectLink(project: Project) {
+  const [activeCategory, setActiveCategory] = useState("전체");
+
+  const filteredProjects = useMemo(() => {
+    if (activeCategory === "전체") return projects;
+    return projects.filter((p) => p.category === activeCategory);
+  }, [projects, activeCategory]);
+
+  function getProjectLink(project: PortfolioProject) {
     return `/portfolio/${project.slug || project.id}`;
   }
 
@@ -48,6 +57,7 @@ export default function PortfolioContent() {
     <>
     <section className="pt-24 md:pt-32 pb-16 md:pb-24 px-5 md:px-8">
       <div className="max-w-[1280px] mx-auto">
+        <Breadcrumbs pathname="/portfolio" />
         <SectionLabel number="01" label="Portfolio" />
 
         <motion.div
@@ -74,14 +84,31 @@ export default function PortfolioContent() {
 
         <Divider />
 
+        {/* Category Filter */}
+        <div className="mt-10 md:mt-12 flex flex-wrap gap-2 md:gap-3">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-4 py-2 text-xs tracking-[0.1em] uppercase border transition-colors duration-300 cursor-pointer ${
+                activeCategory === cat
+                  ? "bg-[#1a1a1a] text-white border-[#1a1a1a]"
+                  : "bg-white text-[#6b6b6b] border-[#E0E0E0] hover:border-[#1a1a1a] hover:text-[#1a1a1a]"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={viewportConfig}
-          className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
+          className="mt-10 md:mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
         >
-          {projects.map((project) => (
+          {filteredProjects.map((project) => (
             <motion.a
               key={project.id}
               href={getProjectLink(project)}
@@ -186,6 +213,17 @@ export default function PortfolioContent() {
         </motion.div>
       </div>
     </section>
+
+    {/* ── FAQ ── */}
+    <FAQSection
+      questions={portfolioFAQs}
+      sectionNumber="03"
+      sectionLabel="FAQ"
+      heading="Questions"
+    />
+
+    {/* ── Internal Links ── */}
+    <InternalLinks links={internalLinks} />
 
     {/* ── CTA Band ── */}
     <SubCtaBand />
