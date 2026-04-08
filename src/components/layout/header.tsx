@@ -1,37 +1,25 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
   { label: "서비스", href: "/services" },
   { label: "포트폴리오", href: "/portfolio" },
-  { label: "후기", href: "/reviews" },
   { label: "요금제", href: "/pricing" },
-  { label: "소개", href: "/about" },
   { label: "블로그", href: "/blog" },
-];
-
-const serviceSubItems = [
-  { label: "홈페이지 제작", href: "/services/website" },
-  { label: "홈페이지 리모델링", href: "/services/remodeling" },
-  { label: "SEO/AEO 자동화", href: "/services/seo-aeo" },
+  { label: "소개", href: "/about" },
 ];
 
 const mobileNavItems = [
-  { label: "서비스", href: "/services", isSectionHeader: true },
-  { label: "홈페이지 제작", href: "/services/website", isSubItem: true },
-  { label: "홈페이지 리모델링", href: "/services/remodeling", isSubItem: true },
-  { label: "SEO/AEO 자동화", href: "/services/seo-aeo", isSubItem: true },
+  { label: "서비스", href: "/services" },
   { label: "포트폴리오", href: "/portfolio" },
-  { label: "후기", href: "/reviews" },
   { label: "요금제", href: "/pricing" },
-  { label: "소개", href: "/about" },
   { label: "블로그", href: "/blog" },
-  { label: "문의", href: "/contact" },
+  { label: "소개", href: "/about" },
+  { label: "문의하기", href: "/contact" },
 ];
 
 function isActive(pathname: string, href: string) {
@@ -40,156 +28,199 @@ function isActive(pathname: string, href: string) {
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
   const pathname = usePathname();
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      setScrolled(currentY > 60);
+      setHidden(currentY > lastScrollY.current && currentY > 200);
+      lastScrollY.current = currentY;
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+    const darkSections = document.querySelectorAll('[data-theme="dark"]');
+    if (darkSections.length === 0) {
+      setDarkMode(false);
+      return;
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const isInDark = entries.some(
+          (entry) => entry.isIntersecting && entry.intersectionRatio > 0
+        );
+        setDarkMode(isInDark);
+      },
+      {
+        rootMargin: "-0px 0px -95% 0px",
+        threshold: [0, 0.01],
+      }
+    );
+
+    darkSections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
   return (
     <>
       <header
         style={{ top: "var(--banner-height, 0px)" }}
-        className={`fixed left-0 right-0 z-50 h-16 flex items-center justify-between px-5 md:px-8 transition-all duration-300 ${
-          scrolled
-            ? "bg-white/90 backdrop-blur-md border-b border-[#E0E0E0]"
-            : "bg-transparent"
+        className={`fixed left-0 right-0 z-50 transition-all duration-500 ${
+          hidden ? "-translate-y-full" : "translate-y-0"
         }`}
       >
-        <Link href="/" className="relative z-[70]">
-          <Image
-            src="/logo.svg"
-            alt="CHIRO"
-            width={80}
-            height={24}
-            className="h-6 w-auto"
-            priority
-          />
-        </Link>
-
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-7">
-          {/* 서비스 with dropdown */}
-          <div className="relative group">
-            <Link
-              href="/services"
-              className="relative text-[13px] tracking-[0.1em] uppercase text-[#1a1a1a] hover:opacity-50 transition-opacity duration-300 pb-1"
-            >
-              서비스
-              {isActive(pathname, "/services") && (
-                <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[#FF4D00]" />
-              )}
-            </Link>
-            <div className="absolute top-full left-0 hidden group-hover:block pt-2">
-              <div className="bg-white border border-[#E0E0E0] min-w-[200px] py-2 shadow-sm">
-                {serviceSubItems.map((sub) => (
-                  <Link
-                    key={sub.href}
-                    href={sub.href}
-                    className={`block px-4 py-2 text-sm hover:bg-[#fafaf8] transition-colors duration-200 ${
-                      isActive(pathname, sub.href)
-                        ? "text-[#FF4D00]"
-                        : "text-[#1a1a1a]"
-                    }`}
-                  >
-                    {sub.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Other nav items */}
-          {navItems.slice(1).map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="relative text-[13px] tracking-[0.1em] uppercase text-[#1a1a1a] hover:opacity-50 transition-opacity duration-300 pb-1"
-            >
-              {item.label}
-              {isActive(pathname, item.href) && (
-                <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[#FF4D00]" />
-              )}
-            </Link>
-          ))}
-
-          {/* 문의 CTA button */}
-          <Link
-            href="/contact"
-            className="text-[13px] tracking-[0.1em] uppercase bg-[#1a1a1a] text-white px-4 py-1.5 hover:bg-[#FF4D00] transition-colors duration-300"
-          >
-            문의
-          </Link>
-        </nav>
-
-        {/* Mobile Hamburger */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="relative z-[70] md:hidden w-6 h-6 flex flex-col justify-center gap-[5px] cursor-pointer"
-          aria-label="메뉴"
+        {/* Pill container — expands when not scrolled, contracts to pill when scrolled */}
+        <div
+          className={`transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] mx-auto ${
+            scrolled
+              ? "max-w-[720px] mt-4 rounded-full px-3 py-1 shadow-lg border"
+              : "max-w-[1400px] mt-0 rounded-none px-5 md:px-8 lg:px-12 py-0"
+          } ${
+            scrolled
+              ? darkMode
+                ? "bg-[#0a0a0a]/70 backdrop-blur-2xl border-white/[0.08]"
+                : "bg-white/70 backdrop-blur-2xl border-black/[0.06]"
+              : "bg-transparent border-transparent"
+          }`}
         >
-          <span
-            className={`block w-full h-[1px] bg-[#1a1a1a] transition-all duration-300 ${
-              menuOpen ? "rotate-45 translate-y-[3px]" : ""
-            }`}
-          />
-          <span
-            className={`block w-full h-[1px] bg-[#1a1a1a] transition-all duration-300 ${
-              menuOpen ? "-rotate-45 -translate-y-[3px]" : ""
-            }`}
-          />
-        </button>
+          <div className={`flex items-center justify-between transition-all duration-500 ${
+            scrolled ? "h-[48px]" : "h-[56px]"
+          }`}>
+            {/* Left: Nav links */}
+            <nav className="hidden md:flex items-center gap-0.5">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`relative px-3.5 py-1.5 text-[13px] tracking-[0.01em] transition-all duration-300 rounded-full ${
+                    isActive(pathname, item.href)
+                      ? scrolled
+                        ? darkMode ? "text-white bg-white/10" : "text-[#1a1a1a] bg-black/[0.05]"
+                        : "text-white"
+                      : scrolled
+                        ? darkMode
+                          ? "text-white/60 hover:text-white hover:bg-white/[0.06]"
+                          : "text-[#6b6b6b] hover:text-[#1a1a1a] hover:bg-black/[0.03]"
+                        : "text-white/70 hover:text-white"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+
+            {/* Center: Logo */}
+            <div className={`transition-all duration-500 ${scrolled ? "" : "absolute left-1/2 -translate-x-1/2"}`}>
+              <Link href="/" className="relative z-[70]">
+                <span className={`text-[18px] md:text-[20px] font-extrabold tracking-[0.08em] transition-colors duration-300 ${
+                  scrolled
+                    ? darkMode ? "text-white" : "text-[#1a1a1a]"
+                    : "text-white"
+                }`}>
+                  CHIRO
+                </span>
+              </Link>
+            </div>
+
+            {/* Right: CTA */}
+            <div className="hidden md:flex items-center">
+              <Link
+                href="/contact"
+                className={`text-[12px] tracking-[0.02em] px-4 py-2 rounded-full transition-all duration-300 ${
+                  scrolled
+                    ? darkMode
+                      ? "bg-white text-[#0a0a0a] hover:bg-[#FF4D00] hover:text-white"
+                      : "bg-[#1a1a1a] text-white hover:bg-[#FF4D00]"
+                    : "bg-white/15 text-white border border-white/20 hover:bg-white/25"
+                }`}
+              >
+                프로젝트 문의
+              </Link>
+            </div>
+
+            {/* Mobile Hamburger */}
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="relative z-[70] md:hidden w-7 h-7 flex flex-col items-center justify-center gap-[6px] cursor-pointer"
+              aria-label="메뉴"
+            >
+              <span
+                className={`block w-5 h-[1.5px] rounded-full transition-all duration-300 origin-center ${
+                  menuOpen
+                    ? "rotate-45 translate-y-[3.75px] bg-[#1a1a1a]"
+                    : scrolled
+                      ? darkMode ? "bg-white" : "bg-[#1a1a1a]"
+                      : "bg-white"
+                }`}
+              />
+              <span
+                className={`block w-5 h-[1.5px] rounded-full transition-all duration-300 origin-center ${
+                  menuOpen
+                    ? "-rotate-45 -translate-y-[3.75px] bg-[#1a1a1a]"
+                    : scrolled
+                      ? darkMode ? "bg-white" : "bg-[#1a1a1a]"
+                      : "bg-white"
+                }`}
+              />
+            </button>
+          </div>
+        </div>
       </header>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu — full screen */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ clipPath: "inset(0 0 100% 0)" }}
-            animate={{ clipPath: "inset(0 0 0% 0)" }}
-            exit={{ clipPath: "inset(0 0 100% 0)" }}
-            transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-            className="fixed inset-0 z-[65] bg-white flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+            className="fixed inset-0 z-[65] bg-[#fafaf8] flex flex-col justify-center px-8"
           >
-            <nav className="flex flex-col items-center gap-5">
+            <nav className="flex flex-col gap-1">
               {mobileNavItems.map((item, i) => (
                 <motion.div
                   key={item.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 + i * 0.04, duration: 0.4 }}
-                  className={item.isSubItem ? "pl-4" : ""}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.1 + i * 0.05, duration: 0.4 }}
                 >
                   <Link
                     href={item.href}
                     onClick={() => setMenuOpen(false)}
-                    className={`relative font-light tracking-tight text-[#1a1a1a] ${
-                      item.isSubItem ? "text-xl text-[#6b6b6b]" : "text-3xl"
+                    className={`block py-3 text-[32px] font-light tracking-[-0.02em] transition-colors duration-300 ${
+                      isActive(pathname, item.href)
+                        ? "text-[#FF4D00]"
+                        : "text-[#1a1a1a] hover:text-[#FF4D00]"
                     }`}
                   >
                     {item.label}
-                    {isActive(pathname, item.href) &&
-                      !item.isSubItem && (
-                        <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#FF4D00]" />
-                      )}
                   </Link>
                 </motion.div>
               ))}
             </nav>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.4 }}
+              className="absolute bottom-12 left-8 text-[11px] tracking-[0.1em] text-[#9b9b9b] uppercase font-[family-name:var(--font-jetbrains-mono)]"
+            >
+              © 2025 CHIRO Web Design
+            </motion.p>
           </motion.div>
         )}
       </AnimatePresence>

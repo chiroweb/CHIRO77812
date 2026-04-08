@@ -42,3 +42,14 @@ export const viewportConfig = {
   margin: "-100px" as const,
 };
 
+export const wordSlideUp = {
+  enter: { y: 40, opacity: 0 },
+  center: { y: 0, opacity: 1 },
+  exit: { y: -40, opacity: 0 },
+};
+
+export const wordTransition = {
+  duration: 0.5,
+  ease: easings.smooth,
+};
+

@@ -30,7 +30,7 @@ export default function FAQSection({
   const pageSchema = faqSchema ? generatePageSchema([faqSchema]) : null;
 
   return (
-    <section className="py-[72px] md:py-[120px] px-5 md:px-8">
+    <section className="py-[120px] md:py-[160px] px-5 md:px-8 lg:px-16">
       {pageSchema && <JsonLd data={pageSchema} />}
       {showDivider && <Divider />}
       <div className="max-w-[1280px] mx-auto pt-16 md:pt-24">
@@ -45,7 +45,7 @@ export default function FAQSection({
                 initial="hidden"
                 whileInView="visible"
                 viewport={viewportConfig}
-                className="font-[family-name:var(--font-space-grotesk)] font-light text-[28px] md:text-[44px] tracking-[0.03em] leading-[1.05]"
+                className="text-[28px] md:text-[44px] lg:text-[56px] font-extrabold tracking-[-0.03em] leading-[1.1]"
               >
                 {heading}<span className="text-[#FF4D00]">.</span>
               </motion.h2>

@@ -1,0 +1,264 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1775039020364,
+  "projectRoot": "/Users/choejeong-won/Desktop/chiroweb77812",
+  "techStack": {
+    "languages": [
+      {
+        "name": "JavaScript/TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "package.json"
+        ]
+      },
+      {
+        "name": "TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "tsconfig.json"
+        ]
+      }
+    ],
+    "frameworks": [
+      {
+        "name": "next",
+        "version": "16.1.6",
+        "category": "fullstack"
+      },
+      {
+        "name": "react",
+        "version": "19.2.3",
+        "category": "frontend"
+      },
+      {
+        "name": "react-dom",
+        "version": "19.2.3",
+        "category": "frontend"
+      }
+    ],
+    "packageManager": "npm",
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": "npm run build",
+    "testCommand": null,
+    "lintCommand": "npm run lint",
+    "devCommand": "npm run dev",
+    "scripts": {
+      "dev": "next dev",
+      "build": "next build",
+      "start": "next start",
+      "lint": "eslint"
+    }
+  },
+  "conventions": {
+    "namingStyle": "camelCase",
+    "importStyle": "ES modules",
+    "testPattern": null,
+    "fileOrganization": "type-based"
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "public",
+      "scripts",
+      "src"
+    ],
+    "gitBranches": null
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "bankgothic-md-bt": {
+      "path": "bankgothic-md-bt",
+      "purpose": null,
+      "fileCount": 5,
+      "lastAccessed": 1775039020303,
+      "keyFiles": [
+        "Bank Gothic Light Regular.otf",
+        "BankGothic Bold.ttf",
+        "BankGothic Md BT.ttf",
+        "BankGothicMediumBT.ttf",
+        "bank gothic medium bt.ttf"
+      ]
+    },
+    "public": {
+      "path": "public",
+      "purpose": "Public files",
+      "fileCount": 4,
+      "lastAccessed": 1775039020304,
+      "keyFiles": [
+        "google856a1b8c4d5e6f2a.html",
+        "hero-video.mp4",
+        "logo.svg",
+        "naverfe9f2a8d8c1f58e2a98d1c8e2547d8eb.html"
+      ]
+    },
+    "scripts": {
+      "path": "scripts",
+      "purpose": "Build/utility scripts",
+      "fileCount": 0,
+      "lastAccessed": 1775039020323,
+      "keyFiles": []
+    },
+    "src": {
+      "path": "src",
+      "purpose": "Source code",
+      "fileCount": 1,
+      "lastAccessed": 1775039020324,
+      "keyFiles": [
+        "middleware.ts"
+      ]
+    },
+    "src/app": {
+      "path": "src/app",
+      "purpose": "Application code",
+      "fileCount": 8,
+      "lastAccessed": 1775039020326,
+      "keyFiles": [
+        "apple-icon.png",
+        "favicon.ico",
+        "globals.css"
+      ]
+    },
+    "src/components": {
+      "path": "src/components",
+      "purpose": "UI components",
+      "fileCount": 1,
+      "lastAccessed": 1775039020327,
+      "keyFiles": [
+        "blog-content.tsx"
+      ]
+    },
+    "src/lib": {
+      "path": "src/lib",
+      "purpose": "Library code",
+      "fileCount": 9,
+      "lastAccessed": 1775039020328,
+      "keyFiles": [
+        "auth.ts",
+        "blog-categories.ts",
+        "db.ts"
+      ]
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "src/app/(site)/services/services-content.tsx",
+      "accessCount": 7,
+      "lastAccessed": 1775039774091,
+      "type": "file"
+    },
+    {
+      "path": "src/components/sections/portfolio-preview.tsx",
+      "accessCount": 5,
+      "lastAccessed": 1775039576345,
+      "type": "file"
+    },
+    {
+      "path": "src/app/api/chiro/upload/route.ts",
+      "accessCount": 4,
+      "lastAccessed": 1775039539404,
+      "type": "file"
+    },
+    {
+      "path": "",
+      "accessCount": 3,
+      "lastAccessed": 1775039463756,
+      "type": "directory"
+    },
+    {
+      "path": "src/lib/upload-client.ts",
+      "accessCount": 3,
+      "lastAccessed": 1775039544763,
+      "type": "file"
+    },
+    {
+      "path": "src/app/(admin)/chiro/portfolio/new/page.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1775039558168,
+      "type": "file"
+    },
+    {
+      "path": "src/app/(admin)/chiro/portfolio/[id]/edit/page.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1775039568164,
+      "type": "file"
+    },
+    {
+      "path": "src/app/(site)/portfolio/portfolio-content.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1775039584139,
+      "type": "file"
+    },
+    {
+      "path": "src/app/(admin)/chiro/portfolio/page.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1775039466499,
+      "type": "file"
+    },
+    {
+      "path": "src/app/api/chiro/portfolio/route.ts",
+      "accessCount": 1,
+      "lastAccessed": 1775039469958,
+      "type": "file"
+    },
+    {
+      "path": "src/app/(site)/portfolio/[slug]/page.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1775039474360,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/schema.sql",
+      "accessCount": 1,
+      "lastAccessed": 1775039477752,
+      "type": "file"
+    },
+    {
+      "path": "src/app/api/chiro/portfolio/[id]/route.ts",
+      "accessCount": 1,
+      "lastAccessed": 1775039478169,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/types.ts",
+      "accessCount": 1,
+      "lastAccessed": 1775039478399,
+      "type": "file"
+    },
+    {
+      "path": "src/components/admin/sortable-portfolio.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1775039481704,
+      "type": "file"
+    },
+    {
+      "path": "src/app/api/portfolio/route.ts",
+      "accessCount": 1,
+      "lastAccessed": 1775039481799,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/db.ts",
+      "accessCount": 1,
+      "lastAccessed": 1775039485511,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/portfolio-categories.ts",
+      "accessCount": 1,
+      "lastAccessed": 1775039485622,
+      "type": "file"
+    },
+    {
+      "path": "src/app/api/chiro/portfolio/reorder/route.ts",
+      "accessCount": 1,
+      "lastAccessed": 1775039487984,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}

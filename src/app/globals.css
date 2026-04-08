@@ -1,6 +1,24 @@
+@import "lenis/dist/lenis.css";
 @import "tailwindcss";
 
 @theme inline {
+  /* Dark sections — Deep Navy */
+  --color-dark-bg: #001F3F;
+  --color-dark-text: #F5F5F5;
+  --color-dark-divider: rgba(255,255,255,0.12);
+  --color-dark-overlay: rgba(0,31,63,0.55);
+
+  /* Light sections — Clinical White */
+  --color-light-bg: #f5f5f0;
+  --color-light-text: #111111;
+  --color-light-divider: rgba(0,0,0,0.08);
+
+  /* Shared */
+  --color-caption: #6B7280;
+  --color-silver: #C0C0C0;
+  --color-accent: #00D2FF;
+
+  /* Legacy compat */
   --color-background: #ffffff;
   --color-foreground: #1a1a1a;
   --color-foreground-secondary: #6b6b6b;
@@ -8,12 +26,11 @@
   --color-surface: #fafaf8;
   --color-border: #e5e5e3;
   --color-border-active: #1a1a1a;
-  --color-accent: #FF4D00;
   --color-divider: #E0E0E0;
   --color-hover-bg: #F9F9F9;
 
   --font-sans: "Pretendard", system-ui, sans-serif;
-  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-display: "Pretendard", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 }
 
@@ -43,6 +60,73 @@ body {
 ::selection {
   background: #1a1a1a;
   color: #ffffff;
+}
+
+/* Code ticker infinite scroll */
+.code-ticker-scroll {
+  display: flex;
+  flex-direction: column;
+  animation: code-ticker-up var(--code-ticker-speed, 30s) linear infinite;
+}
+
+@keyframes code-ticker-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .code-ticker-scroll {
+    animation-play-state: paused;
+  }
+}
+
+/* Client marquee scroll */
+.client-marquee {
+  animation: client-marquee 50s linear infinite;
+}
+
+@keyframes client-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Tagline marquee scroll */
+.tagline-scroll {
+  animation: tagline-marquee 20s linear infinite;
+}
+
+@keyframes tagline-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* CTA text pulse */
+@keyframes textPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+/* Case study text fade up */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hide scrollbar but keep scroll */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
 /* Grid paper pattern for hero hover effect */

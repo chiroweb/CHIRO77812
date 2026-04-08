@@ -2,8 +2,6 @@
 
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
-import SectionLabel from "@/components/ui/section-label";
-import Divider from "@/components/ui/divider";
 
 const testimonials = [
   {
@@ -31,52 +29,52 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="py-[72px] md:py-[120px] px-5 md:px-8">
-      <Divider />
-      <div className="max-w-[1280px] mx-auto pt-16 md:pt-24">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row mb-10 md:mb-16">
-          <div className="md:w-[30%] md:pr-12 mb-8 md:mb-0">
-            <SectionLabel number="04" label="Testimonials" />
-          </div>
-          <div className="md:w-[70%] md:border-l md:border-[#E0E0E0] md:pl-12">
-            <motion.div
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewportConfig}
-            >
-              <motion.h2
-                variants={fadeInUp}
-                className="font-[family-name:var(--font-space-grotesk)] font-light text-[28px] md:text-[44px] tracking-[0.03em] leading-[1.05]"
-              >
-                What We Hear<span className="text-[#FF4D00]">.</span>
-              </motion.h2>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Full-width quotes */}
+    <section className="min-h-[80vh] flex items-center py-[120px] md:py-[160px] px-5 md:px-8 lg:px-16 bg-[#fafaf8]">
+      <div className="max-w-[1280px] mx-auto w-full">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={viewportConfig}
-          className="space-y-0 border-t border-[#E0E0E0]"
         >
-          {testimonials.map((t) => (
+          <motion.h2
+            variants={fadeInUp}
+            className="text-[36px] md:text-[56px] lg:text-[72px] font-extrabold tracking-[-0.03em] leading-[1.1] text-[#1a1a1a] mb-16 md:mb-24"
+          >
+            What We Hear<span className="text-[#FF4D00]">.</span>
+          </motion.h2>
+        </motion.div>
+
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportConfig}
+          className="space-y-0"
+        >
+          {testimonials.map((t, i) => (
             <motion.div
               key={t.name}
               variants={fadeInUp}
-              className="py-12 md:py-16 border-b border-[#E0E0E0]"
+              className={`py-12 md:py-16 ${i < testimonials.length - 1 ? "border-b border-[#E0E0E0]" : ""}`}
             >
-              <blockquote className="text-[22px] md:text-[32px] font-bold tracking-tight leading-[1.4] text-[#1a1a1a] md:max-w-4xl mb-6">
+              <blockquote className="text-[24px] md:text-[36px] font-bold tracking-tight leading-[1.35] text-[#1a1a1a] md:max-w-4xl mb-8">
                 &ldquo;{t.quote}&rdquo;
               </blockquote>
-              <div className="flex items-center gap-3">
-                <span className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#9b9b9b]">
-                  — {t.name}, {t.title}, {t.year}
-                </span>
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-full bg-[#1a1a1a] flex items-center justify-center">
+                  <span className="text-white text-sm font-bold">
+                    {t.name.charAt(0)}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-[#1a1a1a]">
+                    {t.name}
+                  </p>
+                  <p className="font-[family-name:var(--font-jetbrains-mono)] text-[10px] tracking-[0.15em] uppercase text-[#9b9b9b]">
+                    {t.title} · {t.year}
+                  </p>
+                </div>
               </div>
             </motion.div>
           ))}

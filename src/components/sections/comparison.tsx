@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
-import SectionLabel from "@/components/ui/section-label";
 
 const comparisons = [
   {
@@ -39,15 +38,12 @@ const comparisons = [
 
 export default function Comparison() {
   return (
-    <section className="py-[72px] md:py-[120px] px-5 md:px-8 bg-[#1a1a1a]">
+    <section className="py-[120px] md:py-[160px] px-5 md:px-8 lg:px-16 bg-[#1a1a1a]" data-theme="dark">
       <div className="max-w-[1280px] mx-auto">
         {/* Header */}
         <div className="flex flex-col md:flex-row mb-10 md:mb-16">
           <div className="md:w-[30%] md:pr-12 mb-8 md:mb-0">
             <div className="mb-12">
-              <span className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#6b6b6b]">
-                03 — Why CHIRO
-              </span>
             </div>
           </div>
           <div className="md:w-[70%] md:border-l md:border-[#333] md:pl-12">
@@ -59,7 +55,7 @@ export default function Comparison() {
             >
               <motion.h2
                 variants={fadeInUp}
-                className="font-[family-name:var(--font-space-grotesk)] font-light text-[32px] md:text-[52px] tracking-[0.03em] leading-[1.05] text-white mb-3"
+                className="text-[32px] md:text-[52px] lg:text-[64px] font-extrabold tracking-[-0.03em] leading-[1.1] text-white mb-3"
               >
                 Different Process<span className="text-[#FF4D00]">.</span>
               </motion.h2>

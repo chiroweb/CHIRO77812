@@ -55,6 +55,7 @@ async function getBlogPosts() {
       FROM blog_posts
       WHERE published = true
       ORDER BY created_at DESC
+      LIMIT 50
     `;
     if (result.rows.length > 0) {
       return result.rows as BlogPost[];

@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import { generateBreadcrumbSchema, JsonLd } from '@/lib/schema-helpers';
+import { generateBreadcrumbSchema, generatePageSchema, JsonLd } from '@/lib/schema-helpers';
 import { getBreadcrumbItems } from '@/data/site-navigation';
+import { SITE_URL } from '@/lib/constants';
 
 interface BreadcrumbsProps {
   pathname: string;
@@ -12,10 +13,11 @@ export default function Breadcrumbs({ pathname }: BreadcrumbsProps) {
   if (items.length <= 1) return null;
 
   const schema = generateBreadcrumbSchema(items);
+  const pageSchema = schema ? generatePageSchema([schema]) : null;
 
   return (
     <>
-      {schema && <JsonLd data={schema} />}
+      {pageSchema && <JsonLd data={pageSchema} />}
       <nav aria-label="Breadcrumb" className="mb-6 md:mb-8 overflow-x-auto">
         <ol className="flex items-center gap-2 whitespace-nowrap font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase">
           {items.map((item, index) => {
@@ -27,7 +29,7 @@ export default function Breadcrumbs({ pathname }: BreadcrumbsProps) {
                   <span className="text-[#1a1a1a]">{item.name}</span>
                 ) : (
                   <Link
-                    href={item.url.replace('https://chiroweb.co.kr', '')}
+                    href={item.url.replace(SITE_URL, '')}
                     className="text-[#9b9b9b] hover:text-[#6b6b6b] transition-colors"
                   >
                     {item.name}

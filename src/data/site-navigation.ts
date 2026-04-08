@@ -1,9 +1,5 @@
-const SITE_URL = 'https://chiroweb.co.kr';
-
-interface BreadcrumbItem {
-  name: string;
-  url: string;
-}
+import { SITE_URL } from '@/lib/constants';
+import type { BreadcrumbItem } from '@/lib/schema-helpers';
 
 export const siteNavigation: Record<string, { name: string; parent?: string }> = {
   '/': { name: '홈' },

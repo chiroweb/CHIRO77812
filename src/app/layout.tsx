@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono, Cormorant_Garamond } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -29,6 +29,14 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
+  display: "swap",
+});
+
 const bankGothic = localFont({
   src: [
     {
@@ -49,7 +57,7 @@ export const metadata: Metadata = {
     template: "%s | 치로웹디자인",
   },
   description:
-    "비싼 제작비와 유지비에 속지 마세요. 호주 유학생 출신 기획자의 글로벌 마케팅 세팅부터 홈페이지 제작까지, 타사 대비 30% 저렴한 풀패키지로 당신의 비즈니스를 온라인에 완벽하게 정착시켜 드립니다.",
+    "치로웹디자인은 심리학 기반 UI/UX 기획과 SEO/AEO 자동화를 기본 제공하는 올인원 웹 에이전시입니다. 99만원부터 시작하는 정찰제, 평균 3.8일 제작.",
   keywords: [
     "홈페이지 제작 비용",
     "홈페이지 유지비",
@@ -122,7 +130,7 @@ export default function RootLayout({
     alternateName: "CHIRO Web Design Studio",
     url: "https://chiroweb.co.kr",
     description:
-      "웹사이트 제작 비용 하나로 글로벌 마케팅 세팅까지. 호주 유학생 출신 기획자가 타사 대비 30% 저렴한 풀패키지로 비즈니스를 온라인에 정착시켜 드립니다.",
+      "심리학 기반 UI/UX 기획과 SEO/AEO 자동화를 기본 제공하는 올인원 웹 에이전시. 99만원부터 시작하는 정찰제, 평균 3.8일 제작.",
     areaServed: "KR",
     serviceType: [
       "웹사이트 제작",
@@ -161,7 +169,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="ko">
+    <html lang="ko" className="overflow-x-hidden">
       <head>
         <script
           type="application/ld+json"
@@ -174,7 +182,7 @@ export default function RootLayout({
         <link rel="alternate" hrefLang="ko" href="https://chiroweb.co.kr" />
       </head>
       <body
-        className={`${pretendard.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} ${bankGothic.variable} font-[family-name:var(--font-pretendard),system-ui,sans-serif] antialiased`}
+        className={`${pretendard.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} ${bankGothic.variable} ${cormorant.variable} font-[family-name:var(--font-pretendard),system-ui,sans-serif] antialiased`}
       >
         {children}
       </body>

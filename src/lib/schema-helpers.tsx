@@ -1,4 +1,5 @@
-const SITE_URL = 'https://chiroweb.co.kr';
+import { SITE_URL } from '@/lib/constants';
+
 const ORG_ID = `${SITE_URL}/#organization`;
 
 export interface FAQItem {
@@ -18,14 +19,14 @@ export interface ServiceData {
   provider?: string;
 }
 
-export interface ReviewData {
+export interface ReviewSchemaInput {
   author: string;
   reviewBody: string;
   ratingValue: number;
   datePublished: string;
 }
 
-export interface PricingPlan {
+export interface OfferSchemaInput {
   name: string;
   description: string;
   price: string;
@@ -85,7 +86,7 @@ export function generateServiceSchema(service: ServiceData) {
   };
 }
 
-export function generateReviewSchema(review: ReviewData) {
+export function generateReviewSchema(review: ReviewSchemaInput) {
   if (!review) return null;
   return {
     '@type': 'Review',
@@ -102,7 +103,7 @@ export function generateReviewSchema(review: ReviewData) {
   };
 }
 
-export function generateOfferSchema(plan: PricingPlan) {
+export function generateOfferSchema(plan: OfferSchemaInput) {
   if (!plan) return null;
   return {
     '@type': 'Offer',
@@ -137,11 +138,14 @@ export function generateArticleSchema(article: ArticleData) {
 export function generateLocalBusinessSchema() {
   return {
     '@type': 'LocalBusiness',
-    '@id': ORG_ID,
+    '@id': `${SITE_URL}/#localbusiness`,
     name: '치로웹디자인',
     alternateName: 'CHIRO Web Design Studio',
     url: SITE_URL,
     logo: `${SITE_URL}/logo.png`,
+    parentOrganization: {
+      '@id': ORG_ID,
+    },
   };
 }
 
@@ -154,12 +158,12 @@ export function generatePageSchema(schemas: (object | null | undefined)[]) {
   };
 }
 
-export function JsonLd({ data }: { data: object }) {
+export function JsonLd({ data }: { data: object | null }) {
   if (!data) return null;
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/<\//g, '<\\/') }}
     />
   );
 }

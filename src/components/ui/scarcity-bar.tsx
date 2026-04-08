@@ -2,19 +2,34 @@
 
 import { useState, useEffect } from "react";
 
+interface SettingRow {
+  key: string;
+  value: string;
+}
+
+let cachedCount: number | null = null;
+
 export default function ScarcityBar() {
-  const [count, setCount] = useState<number | null>(null);
+  const [count, setCount] = useState<number | null>(cachedCount);
 
   useEffect(() => {
+    if (cachedCount !== null) {
+      setCount(cachedCount);
+      return;
+    }
     fetch("/api/settings")
-      .then((res) => res.json())
-      .then((settings) => {
+      .then((res) => {
+        if (!res.ok) throw new Error(res.statusText);
+        return res.json();
+      })
+      .then((settings: SettingRow[]) => {
         const setting = settings.find(
-          (s: any) => s.key === "available_project_count"
+          (s) => s.key === "available_project_count"
         );
         if (setting) {
           const value = parseInt(setting.value, 10);
           if (!isNaN(value) && value > 0) {
+            cachedCount = value;
             setCount(value);
           }
         }

@@ -14,10 +14,10 @@ import Divider from "@/components/ui/divider";
 import SubCtaBand from "@/components/ui/sub-cta-band";
 import {
   generateServiceSchema,
-  generateBreadcrumbSchema,
   generatePageSchema,
   JsonLd,
 } from "@/lib/schema-helpers";
+import { getServiceBySlug } from "@/data/services";
 
 /* ─────────────────────────────────────
    Data
@@ -85,43 +85,7 @@ const comparisonRows = [
   { feature: "코드 수준 SEO", imweb: "✗", cafe24: "✗", chiro: "✓" },
 ];
 
-const faqs = [
-  {
-    question: "SEO와 AEO의 차이점은 무엇인가요?",
-    answer:
-      "SEO는 구글, 네이버 같은 검색엔진에 최적화하는 것이고, AEO는 ChatGPT, Perplexity 같은 AI 엔진이 사이트 정보를 정확히 이해하고 인용할 수 있도록 최적화하는 것입니다. 치로는 두 가지를 동시에 세팅합니다.",
-  },
-  {
-    question: "아임웹이나 카페24로는 SEO가 안 되나요?",
-    answer:
-      "기본적인 메타태그 설정은 가능하지만, 구조화 데이터(JSON-LD), 시맨틱 HTML, llms.txt 같은 코드 레벨 SEO는 플랫폼 제약으로 구현이 어렵습니다. 치로는 코드를 직접 작성하기 때문에 이러한 제약이 없습니다.",
-  },
-  {
-    question: "SEO 효과는 얼마나 걸리나요?",
-    answer:
-      "구조화 데이터와 사이트맵 제출 후, 일반적으로 2~4주 내에 검색 인덱싱이 시작됩니다. 키워드 경쟁도에 따라 순위 상승에는 1~3개월이 소요될 수 있습니다.",
-  },
-  {
-    question: "AEO가 중요한 이유는 무엇인가요?",
-    answer:
-      "AI 검색(ChatGPT, Perplexity 등)의 사용량이 급증하고 있습니다. AI가 답변을 생성할 때 신뢰할 수 있는 출처로 인용되려면, 구조화 데이터와 llms.txt를 통해 사이트 정보를 명확하게 제공해야 합니다.",
-  },
-  {
-    question: "치로의 SEO 세팅은 다른 업체와 뭐가 다른가요?",
-    answer:
-      "대부분의 업체는 SEO 플러그인이나 외부 도구에 의존합니다. 치로는 코드 자체에 SEO를 내장합니다. 구조화 데이터, 시맨틱 HTML, 메타태그가 빌드 시점에 자동 생성되므로, 플러그인 없이도 검색엔진과 AI 모두에게 최적화된 결과를 제공합니다.",
-  },
-  {
-    question: "구조화 데이터가 왜 중요한가요?",
-    answer:
-      "구조화 데이터(JSON-LD)는 검색엔진이 사이트 콘텐츠를 정확히 이해하도록 돕습니다. 리치 스니펫(별점, FAQ, 가격 등)으로 검색 결과에서 클릭률을 높이고, AI 엔진이 정보를 인용할 때도 핵심 근거가 됩니다.",
-  },
-  {
-    question: "SEO/AEO 세팅 비용은 별도인가요?",
-    answer:
-      "치로의 모든 홈페이지 제작 플랜에 SEO/AEO 기본 세팅이 포함됩니다. 별도의 추가 비용이 발생하지 않습니다. 기존 사이트에 대한 단독 SEO/AEO 세팅은 별도 상담을 통해 안내드립니다.",
-  },
-];
+const service = getServiceBySlug("seo-aeo")!;
 
 const internalLinks = [
   {
@@ -155,14 +119,8 @@ const serviceSchema = generateServiceSchema({
   url: "https://chiroweb.co.kr/services/seo-aeo",
 });
 
-const breadcrumbSchema = generateBreadcrumbSchema([
-  { name: "홈", url: "https://chiroweb.co.kr" },
-  { name: "서비스", url: "https://chiroweb.co.kr/services" },
-  { name: "SEO/AEO", url: "https://chiroweb.co.kr/services/seo-aeo" },
-]);
-
 const pageSchema = generatePageSchema(
-  [serviceSchema, breadcrumbSchema].filter(Boolean) as object[]
+  [serviceSchema].filter(Boolean)
 );
 
 /* ─────────────────────────────────────
@@ -409,7 +367,7 @@ export default function SeoAeoContent() {
 
       {/* ── Section 5: FAQ ── */}
       <FAQSection
-        questions={faqs}
+        questions={service.faqs}
         sectionNumber="05"
         sectionLabel="FAQ"
         heading="Questions"

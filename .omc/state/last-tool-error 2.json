@@ -1,0 +1,7 @@
+{
+  "tool_name": "Read",
+  "tool_input_preview": "{\"file_path\":\"/Users/choejeong-won/Desktop/chiroweb77812/src/app\"}",
+  "error": "EISDIR: illegal operation on a directory, read '/Users/choejeong-won/Desktop/chiroweb77812/src/app'",
+  "timestamp": "2026-04-01T10:31:03.071Z",
+  "retry_count": 1
+}

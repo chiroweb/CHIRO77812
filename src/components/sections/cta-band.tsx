@@ -2,12 +2,52 @@
 
 import { motion } from "framer-motion";
 import { fadeInUp, viewportConfig } from "@/lib/motion";
-import Button from "@/components/ui/button";
+import CodeTicker from "@/components/ui/code-ticker";
+
+const ctaCode = `// chiro::launch_day
+async function deployWithConfidence() {
+  await runLighthouseAudit();
+  // score: 97
+  await validateStructuredData();
+  await checkMobileResponsive();
+  await goLive({ downtime: 0 });
+  return "your site is live.";
+}
+
+// chiro::seo_automation
+function setupSearchOptimization() {
+  generateSitemap(allPages);
+  createLlmsTxt(siteInfo);
+  injectJsonLd(schemas);
+  validateBreadcrumbs(routes);
+  return { indexed: true };
+}
+
+// chiro::conversion_engine
+const results = {
+  lighthouseScore: 97,
+  structuredData: "valid",
+  mobileReady: true,
+  seoScore: "A+",
+  launchTime: "0ms downtime",
+};`;
 
 export default function CtaBand() {
   return (
-    <section id="cta-band" className="py-[72px] md:py-[120px] px-5 md:px-8 bg-[#1a1a1a]">
-      <div className="max-w-[1280px] mx-auto">
+    <section id="cta-band" className="relative py-[120px] md:py-[160px] px-5 md:px-8 lg:px-16 bg-[#1a1a1a] overflow-hidden" data-theme="dark">
+      {/* Background Code Ticker — desktop only */}
+      <div className="hidden md:block absolute right-0 top-0 bottom-0 w-[300px] opacity-20 pointer-events-none">
+        <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-[#1a1a1a] to-transparent z-10" />
+        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#1a1a1a] to-transparent z-10" />
+        <CodeTicker
+          code={ctaCode}
+          className="w-full h-full"
+          speed={25}
+          variant="dark"
+        />
+      </div>
+
+      <div className="max-w-[1280px] mx-auto relative z-10">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -21,7 +61,7 @@ export default function CtaBand() {
               <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#6b6b6b] mb-6">
                 Start Your Project
               </p>
-              <h2 className="font-[family-name:var(--font-space-grotesk)] font-light text-[28px] md:text-[44px] tracking-[0.03em] leading-[1.05] text-white mb-3">
+              <h2 className="text-[28px] md:text-[44px] lg:text-[56px] font-extrabold tracking-[-0.03em] leading-[1.1] text-white mb-3">
                 Let&apos;s Begin<span className="text-[#FF4D00]">.</span>
               </h2>
               <p className="text-[18px] md:text-[22px] font-medium text-white/50 tracking-tight leading-[1.5] md:max-w-md">
@@ -34,7 +74,7 @@ export default function CtaBand() {
             >
               <a
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 border border-[#FF4D00] text-white w-full md:w-auto px-8 py-3.5 text-sm tracking-[0.05em] transition-all duration-300 hover:bg-[#FF4D00] cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 border border-[#FF4D00] text-white w-full md:w-auto px-8 py-3.5 text-sm tracking-[0.05em] rounded-full transition-all duration-300 hover:bg-[#FF4D00] cursor-pointer"
               >
                 무료 진단 신청
               </a>

@@ -1,11 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
-import SectionLabel from "@/components/ui/section-label";
-import Divider from "@/components/ui/divider";
-import Button from "@/components/ui/button";
+import { fadeInUp, viewportConfig } from "@/lib/motion";
 
 interface Project {
   id: number;
@@ -76,102 +74,121 @@ export default function PortfolioPreview() {
   }, []);
 
   return (
-    <section className="py-[72px] md:py-[120px] px-5 md:px-8">
-      <Divider />
-      <div className="max-w-[1280px] mx-auto pt-16 md:pt-24">
+    <section className="py-[120px] md:py-[160px] px-5 md:px-8 lg:px-16 bg-[#fafaf8]">
+      <div className="max-w-[1280px] mx-auto">
         {/* Header */}
-        <div className="flex flex-col md:flex-row mb-10 md:mb-16">
-          <div className="md:w-[30%] md:pr-12 mb-8 md:mb-0">
-            <SectionLabel number="01" label="Portfolio" />
-          </div>
-          <div className="md:w-[70%] md:border-l md:border-[#E0E0E0] md:pl-12 flex items-end justify-between">
-            <h2 className="font-[family-name:var(--font-space-grotesk)] font-light text-[36px] md:text-[72px] tracking-[0.03em] leading-[1.05]">
-              Selected Works<span className="text-[#FF4D00]">.</span>
-            </h2>
-            <Button href="/portfolio" variant="text" className="hidden md:inline-flex">
-              모든 프로젝트 보기
-            </Button>
-          </div>
-        </div>
-
-        {/* 3-Column Image Grid */}
         <motion.div
-          variants={staggerContainer}
+          variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
           viewport={viewportConfig}
-          className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-5"
+          className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 md:mb-24"
         >
-          {projects.map((project) => (
-            <motion.a
+          <h2 className="text-[36px] md:text-[56px] lg:text-[72px] font-extrabold tracking-[-0.03em] leading-[1.1] text-[#1a1a1a]">
+            Selected Works<span className="text-[#FF4D00]">.</span>
+          </h2>
+          <Link
+            href="/portfolio"
+            className="inline-flex items-center gap-3 text-sm text-[#1a1a1a] hover:text-[#FF4D00] transition-colors duration-300 group shrink-0"
+          >
+            <span className="w-8 h-8 rounded-full border border-[#1a1a1a] flex items-center justify-center group-hover:border-[#FF4D00] transition-colors duration-300">
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 12 12"
+                fill="none"
+                className="group-hover:translate-x-0.5 transition-transform duration-300"
+              >
+                <path
+                  d="M2 6h8M7 3l3 3-3 3"
+                  stroke="currentColor"
+                  strokeWidth="1.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </span>
+            <span className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase">
+              모든 프로젝트 보기
+            </span>
+          </Link>
+        </motion.div>
+
+        {/* Grid — 1x4 on desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-5 md:gap-6">
+          {projects.map((project, i) => (
+            <motion.div
               key={project.id}
-              href={`/portfolio/${project.slug || project.id}`}
-              variants={fadeInUp}
-              data-cursor="view"
-              className="group relative block overflow-hidden bg-[#f5f5f3]"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
             >
-              {/* Image Container */}
-              <div className="relative aspect-[4/5] overflow-hidden">
-                {project.image_url && /\.(mp4|webm|mov)(\?|$)/i.test(project.image_url) ? (
-                  <video
-                    src={project.image_url}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                  />
-                ) : project.image_url ? (
-                  <img
-                    src={project.image_url}
-                    alt={project.name}
-                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                  />
-                ) : (
-                  <div className="w-full h-full bg-[#e8e8e6] flex items-center justify-center">
-                    <span className="text-lg md:text-xl font-light tracking-tight text-[#9b9b9b]">
-                      {project.name}
-                    </span>
-                  </div>
-                )}
+              <Link
+                href={`/portfolio/${project.slug || project.id}`}
+                data-cursor="view"
+                className="group block overflow-hidden rounded-lg"
+              >
+                {/* Image */}
+                <div className="relative aspect-[3/4] overflow-hidden bg-[#e8e8e6]">
+                  {project.image_url &&
+                  /\.(mp4|webm|mov)(\?|$)/i.test(project.image_url) ? (
+                    <video
+                      src={project.image_url}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                    />
+                  ) : project.image_url ? (
+                    <img
+                      src={project.image_url}
+                      alt={project.name}
+                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <span className="text-2xl font-light tracking-tight text-[#9b9b9b]">
+                        {project.name}
+                      </span>
+                    </div>
+                  )}
 
-                {/* Hover Overlay — desktop only */}
-                <div className="hidden md:flex absolute inset-0 bg-[#1a1a1a]/0 group-hover:bg-[#1a1a1a]/60 transition-colors duration-500 items-end p-5">
-                  <div className="opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
-                    {project.problem && (
-                      <p className="text-[11px] text-white/70 mb-1.5 leading-relaxed">
-                        {project.problem}
-                      </p>
-                    )}
-                    {project.result && (
-                      <p className="text-xs text-white leading-relaxed">
-                        {project.result}
-                      </p>
-                    )}
+                  {/* Hover Overlay — desktop only */}
+                  <div className="hidden md:flex absolute inset-0 bg-[#1a1a1a]/0 group-hover:bg-[#1a1a1a]/60 transition-colors duration-500 items-end p-8">
+                    <div className="opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+                      {project.problem && (
+                        <p className="text-sm text-white/70 mb-2 leading-relaxed">
+                          {project.problem}
+                        </p>
+                      )}
+                      {project.result && (
+                        <p className="text-sm text-white leading-relaxed font-medium">
+                          → {project.result}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                  <span className="absolute top-5 right-5 text-white text-base opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-500">
-                    &#8599;
-                  </span>
                 </div>
-              </div>
 
-              {/* Project Info */}
-              <div className="p-4 md:p-4">
-                <div className="flex items-center justify-between">
+                {/* Info — minimal */}
+                <div className="flex items-center justify-between py-4">
                   <div>
-                    <h3 className="text-sm md:text-base font-semibold tracking-tight text-[#1a1a1a]">
+                    <h3 className="text-base md:text-lg font-semibold tracking-tight text-[#1a1a1a]">
                       {project.name}
                     </h3>
                     <span className="font-[family-name:var(--font-jetbrains-mono)] text-[10px] tracking-[0.15em] uppercase text-[#9b9b9b] mt-0.5 block">
                       {project.category}
                     </span>
                   </div>
-                  <span className="font-[family-name:var(--font-jetbrains-mono)] text-[10px] text-[#9b9b9b]">
+                  <span className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] text-[#9b9b9b]">
                     {project.year}
                   </span>
                 </div>
-                {/* Mobile-only: problem/result info */}
-                <div className="mt-3 md:hidden">
+
+                {/* Mobile info */}
+                <div className="md:hidden pb-2">
                   {project.problem && (
                     <p className="text-xs text-[#6b6b6b] leading-[1.6] mb-1">
                       {project.problem}
@@ -179,20 +196,13 @@ export default function PortfolioPreview() {
                   )}
                   {project.result && (
                     <p className="text-xs text-[#1a1a1a] leading-[1.6]">
-                      &rarr; {project.result}
+                      → {project.result}
                     </p>
                   )}
                 </div>
-              </div>
-            </motion.a>
+              </Link>
+            </motion.div>
           ))}
-        </motion.div>
-
-        {/* Mobile CTA */}
-        <div className="mt-8 md:hidden">
-          <Button href="/portfolio" variant="text">
-            모든 프로젝트 보기
-          </Button>
         </div>
       </div>
     </section>

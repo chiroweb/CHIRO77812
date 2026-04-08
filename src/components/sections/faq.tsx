@@ -56,5 +56,5 @@ const faqs = [
 ];
 
 export default function Faq() {
-  return <FAQSection questions={faqs} sectionNumber="06" />;
+  return <FAQSection questions={faqs} sectionNumber="10" />;
 }
