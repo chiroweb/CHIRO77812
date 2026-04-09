@@ -4,13 +4,14 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import SubpageHero from "@/components/sections/subpage-hero";
+import SubNav from "@/components/ui/sub-nav";
 import ContactCtaSection from "@/components/sections/contact-cta-section";
 
 interface BlogPost {
   id: number;
   slug: string;
   title: string;
-  excerpt: string;
+  excerpt: string | null;
   category: string;
   created_at: string;
 }
@@ -29,13 +30,19 @@ export default function BlogContent({ posts }: { posts: BlogPost[] }) {
         label="( Insights )"
       />
 
+      <SubNav pageLabel="BLOG MENU" items={[
+        { label: "FEATURED", href: "#featured" },
+        { label: "ALL POSTS", href: "#posts" },
+      ]} />
+
       {/* Featured Post */}
       {featured && (
-        <section className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[160px] md:py-[200px]">
+        <section id="featured" className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[160px] md:py-[200px]">
           <div className="max-w-[1400px] mx-auto">
-            <p className="text-[11px] tracking-[0.08em] uppercase text-[#999] mb-8 font-[family-name:var(--font-jetbrains-mono)]">
+            <p className="text-[11px] tracking-[0.08em] uppercase text-[#999] mb-4 font-[family-name:var(--font-jetbrains-mono)]">
               ( FEATURED )
             </p>
+            <p className="text-[14px] text-[#999] mt-0 mb-8">추천 아티클</p>
             <Link href={`/blog/${featured.slug}`} className="group block">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -63,7 +70,7 @@ export default function BlogContent({ posts }: { posts: BlogPost[] }) {
       )}
 
       {/* Filter + Post List */}
-      <section className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 pb-[200px] md:pb-[260px]">
+      <section id="posts" className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 pb-[200px] md:pb-[260px]">
         <div className="max-w-[1400px] mx-auto">
           {/* Category Tabs */}
           <div className="flex gap-2 mb-10 overflow-x-auto pb-2">

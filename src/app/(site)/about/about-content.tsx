@@ -175,7 +175,7 @@ export default function AboutContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={viewportConfig}
                 transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-                className="text-[48px] md:text-[72px] lg:text-[96px] font-extrabold tracking-[-0.03em] leading-[0.9] text-[#111] uppercase mb-10 md:mb-14"
+                className="text-[48px] md:text-[72px] lg:text-[96px] font-extrabold tracking-[-0.03em] leading-[0.9] text-[#111] uppercase mb-4"
               >
                 BEAUTIFULLY
                 <br />
@@ -183,6 +183,16 @@ export default function AboutContent() {
                 <br />
                 BUSINESS.
               </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportConfig}
+                transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
+                className="text-[14px] md:text-[15px] mt-4 mb-10 md:mb-14"
+                style={{ color: "#999" }}
+              >
+                당신의 비즈니스를 위한 아름다움.
+              </motion.p>
 
               {/* Body paragraphs */}
               <motion.div
@@ -285,12 +295,19 @@ export default function AboutContent() {
 
               <motion.h2
                 variants={fadeInUp}
-                className="text-[36px] md:text-[56px] lg:text-[72px] font-extrabold tracking-[-0.03em] leading-[0.95] uppercase text-white mb-10 md:mb-14"
+                className="text-[36px] md:text-[56px] lg:text-[72px] font-extrabold tracking-[-0.03em] leading-[0.95] uppercase text-white mb-4"
               >
                 DIRECTOR
                 <br />
                 MESSAGE
               </motion.h2>
+              <motion.p
+                variants={fadeInUp}
+                className="text-[14px] md:text-[15px] mt-4 mb-10 md:mb-14"
+                style={{ color: "rgba(255,255,255,0.35)" }}
+              >
+                디렉터 메시지
+              </motion.p>
 
               <motion.div
                 variants={staggerContainer}
@@ -343,6 +360,7 @@ export default function AboutContent() {
         <NumberedSection
           label="( VALUES )"
           heading="CORE VALUES."
+          subheading="핵심 가치"
           items={valuesItems}
           dark={true}
         />
@@ -361,9 +379,19 @@ export default function AboutContent() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={viewportConfig}
             transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-            className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase text-[#999] mb-12 md:mb-16"
+            className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase text-[#999] mb-6"
           >
             ( HISTORY )
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewportConfig}
+            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1], delay: 0.05 }}
+            className="text-[14px] md:text-[15px] mt-4 mb-12 md:mb-16"
+            style={{ color: "#999" }}
+          >
+            치로웹디자인의 역사
           </motion.p>
 
           {/* Timeline rows */}
@@ -413,10 +441,20 @@ export default function AboutContent() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={viewportConfig}
             transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-            className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase mb-12 md:mb-16"
+            className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase mb-6"
             style={{ color: "rgba(255,255,255,0.3)" }}
           >
             ( COMPANY )
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewportConfig}
+            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1], delay: 0.05 }}
+            className="text-[14px] md:text-[15px] mt-4 mb-12 md:mb-16"
+            style={{ color: "rgba(255,255,255,0.35)" }}
+          >
+            회사 정보
           </motion.p>
 
           {/* Key-value table */}

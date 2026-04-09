@@ -12,6 +12,7 @@ interface ProcessStep {
 interface ProcessTimelineProps {
   label?: string;
   heading?: string;
+  subheading?: string;
   steps: ProcessStep[];
   dark?: boolean;
 }
@@ -19,6 +20,7 @@ interface ProcessTimelineProps {
 export default function ProcessTimeline({
   label,
   heading,
+  subheading,
   steps,
   dark = false,
 }: ProcessTimelineProps) {
@@ -57,6 +59,15 @@ export default function ProcessTimeline({
               >
                 {heading}
               </motion.h2>
+            )}
+            {subheading && (
+              <motion.p
+                variants={fadeInUp}
+                className="text-[14px] md:text-[15px] mt-4"
+                style={{ color: isDark ? "rgba(255,255,255,0.35)" : "#999" }}
+              >
+                {subheading}
+              </motion.p>
             )}
           </motion.div>
         )}

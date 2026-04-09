@@ -1,6 +1,7 @@
 "use client";
 
 import SubpageHero from "@/components/sections/subpage-hero";
+import SubNav from "@/components/ui/sub-nav";
 import StatsRow from "@/components/sections/stats-row";
 import PortfolioGrid from "@/components/sections/portfolio-grid";
 import ContactCtaSection from "@/components/sections/contact-cta-section";
@@ -32,8 +33,14 @@ export default function PortfolioHubContent({ projects }: PortfolioHubContentPro
         title="PORTFOLIO"
         label="( Our Work )"
       />
-      <StatsRow stats={STATS} />
-      <PortfolioGrid projects={projects} />
+
+      <SubNav pageLabel="PORTFOLIO MENU" items={[
+        { label: "STATS", href: "#stats" },
+        { label: "PROJECTS", href: "#projects" },
+      ]} />
+
+      <div id="stats"><StatsRow stats={STATS} /></div>
+      <div id="projects"><PortfolioGrid projects={projects} /></div>
       <ContactCtaSection />
     </>
   );

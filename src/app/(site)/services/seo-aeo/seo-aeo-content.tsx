@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import SubpageHero from "@/components/sections/subpage-hero";
+import SubNav from "@/components/ui/sub-nav";
 import NumberedSection from "@/components/sections/numbered-section";
 import ComparisonTable from "@/components/sections/comparison-table";
 import StatsRow from "@/components/sections/stats-row";
@@ -117,8 +118,18 @@ export default function SeoAeoContent() {
         label="( Search Optimization )"
       />
 
+      {/* SubNav */}
+      <SubNav pageLabel="SEO/AEO MENU" items={[
+        { label: "WHAT", href: "#what" },
+        { label: "WHY CODE", href: "#why-code" },
+        { label: "INCLUDED", href: "#included" },
+        { label: "COMPARE", href: "#compare" },
+        { label: "FAQ", href: "#faq" },
+      ]} />
+
       {/* 2. Direct Answer Block — Light */}
       <section
+        id="what"
         className="py-[200px] md:py-[260px] px-5 md:px-12 lg:px-20"
         style={{ backgroundColor: "#f5f5f0" }}
       >
@@ -132,10 +143,16 @@ export default function SeoAeoContent() {
           >
             <motion.h2
               variants={fadeInUp}
-              className="text-[28px] md:text-[40px] lg:text-[52px] font-extrabold tracking-[-0.03em] leading-[1.1] text-[#111] mb-8"
+              className="text-[28px] md:text-[40px] lg:text-[52px] font-extrabold tracking-[-0.03em] leading-[1.1] text-[#111] mb-4"
             >
               AEO(Answer Engine Optimization)란.
             </motion.h2>
+            <motion.p
+              variants={fadeInUp}
+              className="text-[14px] md:text-[15px] text-[#999] mb-8"
+            >
+              AI 검색 최적화란 무엇인가.
+            </motion.p>
             <motion.p
               variants={fadeInUp}
               className="text-[15px] md:text-[17px] leading-[1.9] text-[#555]"
@@ -150,6 +167,7 @@ export default function SeoAeoContent() {
 
       {/* 3. 코드 레벨 이유 — Dark */}
       <section
+        id="why-code"
         className="py-[200px] md:py-[260px] px-5 md:px-12 lg:px-20"
         style={{ backgroundColor: "#1a1a1a" }}
         data-theme="dark"
@@ -171,10 +189,16 @@ export default function SeoAeoContent() {
 
             <motion.h2
               variants={fadeInUp}
-              className="text-[36px] md:text-[60px] lg:text-[80px] font-extrabold tracking-[-0.03em] leading-[1.05] text-white uppercase mb-12 md:mb-16 whitespace-pre-line"
+              className="text-[36px] md:text-[60px] lg:text-[80px] font-extrabold tracking-[-0.03em] leading-[1.05] text-white uppercase whitespace-pre-line"
             >
               {`왜 코드 레벨에서\n시작해야 하는가.`}
             </motion.h2>
+            <motion.p
+              variants={fadeInUp}
+              className="text-[14px] md:text-[15px] text-white/35 mt-4 mb-12 md:mb-16"
+            >
+              빌더 플랫폼의 한계.
+            </motion.p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
               <motion.p
@@ -200,21 +224,26 @@ export default function SeoAeoContent() {
       </section>
 
       {/* 4. 기본 제공 항목 — NumberedSection (dark) */}
-      <NumberedSection
-        label="( INCLUDED )"
-        heading={"WHAT'S\nINCLUDED."}
-        items={includedItems}
-        dark={true}
-      />
+      <div id="included">
+        <NumberedSection
+          label="( INCLUDED )"
+          heading={"WHAT'S\nINCLUDED."}
+          subheading="기본 제공 항목."
+          items={includedItems}
+          dark={true}
+        />
+      </div>
 
       {/* 5. 비교표 — ComparisonTable */}
-      <ComparisonTable
-        label="( COMPARISON )"
-        heading={"플랫폼\n비교."}
-        columns={comparisonColumns}
-        rows={comparisonRows}
-        highlightColumn={2}
-      />
+      <div id="compare">
+        <ComparisonTable
+          label="( COMPARISON )"
+          heading={"플랫폼\n비교."}
+          columns={comparisonColumns}
+          rows={comparisonRows}
+          highlightColumn={2}
+        />
+      </div>
 
       {/* 6. 플랫폼별 전략 — Light */}
       <section
@@ -274,12 +303,15 @@ export default function SeoAeoContent() {
       <StatsRow stats={stats} dark={false} />
 
       {/* 8. FaqTwoColumn */}
-      <FaqTwoColumn
-        faqs={faqs}
-        sectionLabel="( FAQ )"
-        heading={"FREQUENTLY\nASKED."}
-        dark={false}
-      />
+      <div id="faq">
+        <FaqTwoColumn
+          faqs={faqs}
+          sectionLabel="( FAQ )"
+          heading={"FREQUENTLY\nASKED."}
+          subheading="자주 묻는 질문."
+          dark={false}
+        />
+      </div>
 
       {/* 9. ContactCtaSection */}
       <ContactCtaSection variant="diagnosis" />

@@ -11,6 +11,7 @@ interface NumberedItem {
 interface NumberedSectionProps {
   label: string;
   heading?: string;
+  subheading?: string;
   items: NumberedItem[];
   dark?: boolean;
 }
@@ -18,6 +19,7 @@ interface NumberedSectionProps {
 export default function NumberedSection({
   label,
   heading,
+  subheading,
   items,
   dark = true,
 }: NumberedSectionProps) {
@@ -53,6 +55,15 @@ export default function NumberedSection({
             >
               {heading}
             </motion.h2>
+          )}
+          {subheading && (
+            <motion.p
+              variants={fadeInUp}
+              className="text-[14px] md:text-[15px] mt-4"
+              style={{ color: isDark ? "rgba(255,255,255,0.35)" : "#999" }}
+            >
+              {subheading}
+            </motion.p>
           )}
         </motion.div>
 

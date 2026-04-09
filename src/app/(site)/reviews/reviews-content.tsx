@@ -5,6 +5,7 @@ import SubpageHero from "@/components/sections/subpage-hero";
 import ReviewGrid from "@/components/sections/review-grid";
 import FaqTwoColumn from "@/components/sections/faq-two-column";
 import ContactCtaSection from "@/components/sections/contact-cta-section";
+import SubNav from "@/components/ui/sub-nav";
 import { motion } from "framer-motion";
 
 const reviewFaqs = [
@@ -26,8 +27,15 @@ export default function ReviewsContent() {
         label="( Client Reviews )"
       />
 
+      <SubNav pageLabel="REVIEWS MENU" items={[
+        { label: "RATING", href: "#rating" },
+        { label: "REVIEWS", href: "#reviews" },
+        { label: "EXTERNAL", href: "#external" },
+        { label: "FAQ", href: "#faq" },
+      ]} />
+
       {/* Average Rating */}
-      <section className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[120px] md:py-[160px]">
+      <section id="rating" className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[120px] md:py-[160px]">
         <div className="max-w-[1400px] mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -47,14 +55,15 @@ export default function ReviewsContent() {
       </section>
 
       {/* Review Grid */}
-      <ReviewGrid reviews={reviews.map(r => ({ name: r.name, company: r.company, projectType: r.projectType, rating: r.rating, quote: r.quote }))} />
+      <div id="reviews"><ReviewGrid reviews={reviews.map(r => ({ name: r.name, company: r.company, projectType: r.projectType, rating: r.rating, quote: r.quote }))} /></div>
 
       {/* External Links */}
-      <section className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[160px] md:py-[200px]">
+      <section id="external" className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[160px] md:py-[200px]">
         <div className="max-w-[1400px] mx-auto">
-          <p className="text-[11px] tracking-[0.08em] uppercase text-[#999] mb-8 font-[family-name:var(--font-jetbrains-mono)]">
+          <p className="text-[11px] tracking-[0.08em] uppercase text-[#999] mb-4 font-[family-name:var(--font-jetbrains-mono)]">
             ( EXTERNAL )
           </p>
+          <p className="text-[14px] text-[#999] mt-0 mb-8">외부 플랫폼 후기</p>
           <div className="flex flex-col md:flex-row gap-4">
             <a href="https://kmong.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-6 py-4 bg-white border border-[#e5e5e5] rounded-xl hover:border-[#111] transition-colors">
               <span className="text-[15px] font-medium text-[#111]">크몽에서 후기 보기</span>
@@ -68,7 +77,7 @@ export default function ReviewsContent() {
         </div>
       </section>
 
-      <FaqTwoColumn faqs={reviewFaqs} />
+      <div id="faq"><FaqTwoColumn faqs={reviewFaqs} /></div>
       <ContactCtaSection />
     </>
   );

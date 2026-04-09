@@ -26,3 +26,9 @@
 {"t":0,"agent":"a79a9f0","agent_type":"executor","event":"agent_stop","success":true,"duration_ms":198622}
 {"t":0,"agent":"a4e85f2","agent_type":"executor","event":"agent_start","parent_mode":"none"}
 {"t":0,"agent":"a3e44a9","agent_type":"executor","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"a903f7d","agent_type":"executor","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"a863f0e","agent_type":"executor","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"a358110","agent_type":"executor","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"a358110","agent_type":"executor","event":"agent_stop","success":true,"duration_ms":160209}
+{"t":0,"agent":"a903f7d","agent_type":"executor","event":"agent_stop","success":true,"duration_ms":270139}
+{"t":0,"agent":"a863f0e","agent_type":"executor","event":"agent_stop","success":true,"duration_ms":384893}

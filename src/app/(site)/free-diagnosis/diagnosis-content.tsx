@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import SubpageHero from "@/components/sections/subpage-hero";
+import SubNav from "@/components/ui/sub-nav";
 import NumberedSection from "@/components/sections/numbered-section";
 import FaqTwoColumn from "@/components/sections/faq-two-column";
 import { sendEmail } from "@/lib/emailjs";
@@ -71,25 +72,35 @@ export default function DiagnosisContent() {
         dark
       />
 
+      <SubNav pageLabel="DIAGNOSIS MENU" items={[
+        { label: "CHECK", href: "#check" },
+        { label: "REPORT", href: "#report" },
+        { label: "APPLY", href: "#apply" },
+        { label: "FAQ", href: "#faq" },
+      ]} />
+
       {/* Diagnosis Items */}
-      <NumberedSection
-        label="( WHAT WE CHECK )"
-        heading={"4가지 영역을\n진단합니다."}
-        items={[
-          { title: "모바일 호환성", description: "반응형 디자인, 터치 최적화, 뷰포트 설정을 확인합니다." },
-          { title: "SEO 점수", description: "메타태그, 구조화 데이터, 시맨틱 HTML, 사이트맵을 검사합니다." },
-          { title: "로딩 속도", description: "Core Web Vitals, LCP, CLS, 이미지 최적화를 측정합니다." },
-          { title: "AEO 준비도", description: "AI 검색 엔진 노출 가능성, FAQ 스키마, llms.txt를 확인합니다." },
-        ]}
-        dark
-      />
+      <div id="check">
+        <NumberedSection
+          label="( WHAT WE CHECK )"
+          heading={"4가지 영역을\n진단합니다."}
+          items={[
+            { title: "모바일 호환성", description: "반응형 디자인, 터치 최적화, 뷰포트 설정을 확인합니다." },
+            { title: "SEO 점수", description: "메타태그, 구조화 데이터, 시맨틱 HTML, 사이트맵을 검사합니다." },
+            { title: "로딩 속도", description: "Core Web Vitals, LCP, CLS, 이미지 최적화를 측정합니다." },
+            { title: "AEO 준비도", description: "AI 검색 엔진 노출 가능성, FAQ 스키마, llms.txt를 확인합니다." },
+          ]}
+          dark
+        />
+      </div>
 
       {/* Report Preview */}
-      <section className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[160px] md:py-[200px]">
+      <section id="report" className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[160px] md:py-[200px]">
         <div className="max-w-[1400px] mx-auto">
-          <p className="text-[11px] tracking-[0.08em] uppercase text-[#999] mb-8 font-[family-name:var(--font-jetbrains-mono)]">
+          <p className="text-[11px] tracking-[0.08em] uppercase text-[#999] mb-4 font-[family-name:var(--font-jetbrains-mono)]">
             ( REPORT PREVIEW )
           </p>
+          <p className="text-[14px] text-[#999] mt-0 mb-8">진단 리포트 미리보기</p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -111,11 +122,12 @@ export default function DiagnosisContent() {
       </section>
 
       {/* Form */}
-      <section className="bg-[#1a1a1a] px-5 md:px-12 lg:px-20 py-[200px] md:py-[260px]" data-theme="dark">
+      <section id="apply" className="bg-[#1a1a1a] px-5 md:px-12 lg:px-20 py-[200px] md:py-[260px]" data-theme="dark">
         <div className="max-w-[1400px] mx-auto">
-          <p className="text-[11px] tracking-[0.08em] uppercase text-white/30 mb-6 font-[family-name:var(--font-jetbrains-mono)]">
+          <p className="text-[11px] tracking-[0.08em] uppercase text-white/30 mb-4 font-[family-name:var(--font-jetbrains-mono)]">
             ( APPLY )
           </p>
+          <p className="text-[14px] text-white/35 mt-0 mb-6">무료 진단 신청</p>
           <h2 className="text-[32px] md:text-[48px] font-extrabold text-white tracking-[-0.03em] leading-[1.0] uppercase mb-12">
             GET YOUR
             <br />
@@ -192,7 +204,7 @@ export default function DiagnosisContent() {
         </div>
       </section>
 
-      <FaqTwoColumn faqs={diagnosisFaqs} />
+      <div id="faq"><FaqTwoColumn faqs={diagnosisFaqs} /></div>
     </>
   );
 }

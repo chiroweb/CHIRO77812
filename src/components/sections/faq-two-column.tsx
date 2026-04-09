@@ -13,6 +13,7 @@ interface FaqTwoColumnProps {
   faqs: FaqItem[];
   sectionLabel?: string;
   heading?: string;
+  subheading?: string;
   dark?: boolean;
 }
 
@@ -88,6 +89,7 @@ export default function FaqTwoColumn({
   faqs,
   sectionLabel = "( FAQ )",
   heading = "FREQUENTLY\nASKED.",
+  subheading,
   dark = false,
 }: FaqTwoColumnProps) {
   const mid = Math.ceil(faqs.length / 2);
@@ -119,17 +121,28 @@ export default function FaqTwoColumn({
           >
             {sectionLabel}
           </motion.p>
-          <motion.h2
-            variants={fadeInUp}
-            className={`text-[32px] md:text-[48px] lg:text-[64px] font-extrabold ${headingColor} tracking-[-0.03em] leading-[1.0] uppercase md:text-right`}
-          >
-            {headingLines.map((line, i) => (
-              <span key={i}>
-                {line}
-                {i < headingLines.length - 1 && <br />}
-              </span>
-            ))}
-          </motion.h2>
+          <div className="flex flex-col md:items-end">
+            <motion.h2
+              variants={fadeInUp}
+              className={`text-[32px] md:text-[48px] lg:text-[64px] font-extrabold ${headingColor} tracking-[-0.03em] leading-[1.0] uppercase md:text-right`}
+            >
+              {headingLines.map((line, i) => (
+                <span key={i}>
+                  {line}
+                  {i < headingLines.length - 1 && <br />}
+                </span>
+              ))}
+            </motion.h2>
+            {subheading && (
+              <motion.p
+                variants={fadeInUp}
+                className="text-[14px] md:text-[15px] mt-4 md:text-right"
+                style={{ color: dark ? "rgba(255,255,255,0.35)" : "#999" }}
+              >
+                {subheading}
+              </motion.p>
+            )}
+          </div>
         </motion.div>
 
         {/* Two-column accordion */}

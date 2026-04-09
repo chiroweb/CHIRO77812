@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { plans, pricingComparison } from "@/data/pricing";
 import SubpageHero from "@/components/sections/subpage-hero";
+import SubNav from "@/components/ui/sub-nav";
 import NumberedSection from "@/components/sections/numbered-section";
 import ComparisonTable from "@/components/sections/comparison-table";
 import FaqTwoColumn from "@/components/sections/faq-two-column";
@@ -61,6 +62,14 @@ export default function PricingContent() {
         label="( Plans & Pricing )"
       />
 
+      <SubNav pageLabel="PRICING MENU" items={[
+        { label: "PLANS", href: "#plans" },
+        { label: "INCLUDED", href: "#included" },
+        { label: "COMPARE", href: "#compare" },
+        { label: "FOR WHO", href: "#for-who" },
+        { label: "FAQ", href: "#faq" },
+      ]} />
+
       {/* Direct Answer Block */}
       <section className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[140px] md:py-[180px]">
         <div className="max-w-[1400px] mx-auto text-center">
@@ -87,7 +96,7 @@ export default function PricingContent() {
       </section>
 
       {/* Plan Cards */}
-      <section className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 pb-[200px] md:pb-[260px]">
+      <section id="plans" className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 pb-[200px] md:pb-[260px]">
         <div className="max-w-[1400px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {plans.map((plan, i) => {
@@ -160,40 +169,48 @@ export default function PricingContent() {
       </section>
 
       {/* Included in All */}
-      <NumberedSection
-        label="( INCLUDED IN ALL )"
-        heading={"EVERY PROJECT\nINCLUDES."}
-        items={[
-          { title: "반응형 웹 디자인", description: "모든 디바이스에서 완벽하게 작동하는 반응형 설계. 데스크톱, 태블릿, 모바일 최적화." },
-          { title: "SEO 초기 세팅", description: "메타 태그, 사이트맵, robots.txt, 시맨틱 HTML 구조 기본 포함." },
-          { title: "AEO 스키마 마크업", description: "Organization, FAQPage, BreadcrumbList 스키마와 llms.txt를 코드 레벨에서 직접 작성." },
-          { title: "구조화 데이터", description: "구글 리치 결과에 노출될 수 있도록 페이지별 구조화 데이터 설계." },
-          { title: "사이트맵 & robots.txt", description: "검색 엔진이 사이트를 정확히 크롤링할 수 있도록 자동 생성." },
-          { title: "llms.txt", description: "2026년 신규 표준. AI 검색 엔진이 사이트를 인식할 수 있도록 설정." },
-        ]}
-        dark
-      />
+      <div id="included">
+        <NumberedSection
+          label="( INCLUDED IN ALL )"
+          heading={"EVERY PROJECT\nINCLUDES."}
+          subheading="모든 프로젝트에 기본 포함됩니다."
+          items={[
+            { title: "반응형 웹 디자인", description: "모든 디바이스에서 완벽하게 작동하는 반응형 설계. 데스크톱, 태블릿, 모바일 최적화." },
+            { title: "SEO 초기 세팅", description: "메타 태그, 사이트맵, robots.txt, 시맨틱 HTML 구조 기본 포함." },
+            { title: "AEO 스키마 마크업", description: "Organization, FAQPage, BreadcrumbList 스키마와 llms.txt를 코드 레벨에서 직접 작성." },
+            { title: "구조화 데이터", description: "구글 리치 결과에 노출될 수 있도록 페이지별 구조화 데이터 설계." },
+            { title: "사이트맵 & robots.txt", description: "검색 엔진이 사이트를 정확히 크롤링할 수 있도록 자동 생성." },
+            { title: "llms.txt", description: "2026년 신규 표준. AI 검색 엔진이 사이트를 인식할 수 있도록 설정." },
+          ]}
+          dark
+        />
+      </div>
 
       {/* Comparison */}
-      <ComparisonTable
-        label="( COMPARISON )"
-        heading={"WHY CHIRO."}
-        columns={["일반 에이전시 A", "일반 에이전시 B", "치로"]}
-        rows={comparisonRows}
-        highlightColumn={2}
-      />
+      <div id="compare">
+        <ComparisonTable
+          label="( COMPARISON )"
+          heading={"WHY CHIRO."}
+          columns={["일반 에이전시 A", "일반 에이전시 B", "치로"]}
+          rows={comparisonRows}
+          highlightColumn={2}
+        />
+      </div>
 
       {/* Recommend Targets */}
-      <section className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[200px] md:py-[260px]">
+      <section id="for-who" className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[200px] md:py-[260px]">
         <div className="max-w-[1400px] mx-auto">
           <p className="text-[11px] tracking-[0.08em] uppercase text-[#999] mb-6 font-[family-name:var(--font-jetbrains-mono)]">
             ( RECOMMENDED FOR )
           </p>
-          <h2 className="text-[32px] md:text-[48px] font-extrabold text-[#111] tracking-[-0.03em] leading-[1.0] uppercase mb-16">
+          <h2 className="text-[32px] md:text-[48px] font-extrabold text-[#111] tracking-[-0.03em] leading-[1.0] uppercase mb-4">
             WHO IS IT
             <br />
             FOR.
           </h2>
+          <p className="text-[14px] md:text-[15px] mt-4 mb-16" style={{ color: "#999" }}>
+            어떤 분에게 맞는 플랜인지 확인하세요.
+          </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
             {recommendTargets.map((group, i) => (
@@ -222,7 +239,9 @@ export default function PricingContent() {
       </section>
 
       {/* FAQ */}
-      <FaqTwoColumn faqs={pricingFaqs} />
+      <div id="faq">
+        <FaqTwoColumn faqs={pricingFaqs} />
+      </div>
 
       {/* CTA */}
       <ContactCtaSection />

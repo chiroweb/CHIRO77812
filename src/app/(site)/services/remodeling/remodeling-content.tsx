@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import SubpageHero from "@/components/sections/subpage-hero";
+import SubNav from "@/components/ui/sub-nav";
 import ProcessTimeline from "@/components/sections/process-timeline";
 import FaqTwoColumn from "@/components/sections/faq-two-column";
 import ContactCtaSection from "@/components/sections/contact-cta-section";
@@ -114,8 +115,18 @@ export default function RemodelingContent() {
         dark={true}
       />
 
+      {/* SubNav */}
+      <SubNav pageLabel="REMODELING MENU" items={[
+        { label: "WHY", href: "#why" },
+        { label: "CHECK", href: "#check" },
+        { label: "BEFORE/AFTER", href: "#before-after" },
+        { label: "PROCESS", href: "#process" },
+        { label: "FAQ", href: "#faq" },
+      ]} />
+
       {/* 2. 리모델링이 필요한 이유 — Dark */}
       <section
+        id="why"
         className="py-[200px] md:py-[260px] px-5 md:px-12 lg:px-20"
         style={{ backgroundColor: "#1a1a1a" }}
         data-theme="dark"
@@ -139,10 +150,19 @@ export default function RemodelingContent() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={viewportConfig}
             transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
-            className="text-[32px] md:text-[52px] lg:text-[68px] font-extrabold tracking-[-0.03em] leading-[1.1] text-white mb-16 md:mb-20 whitespace-pre-line"
+            className="text-[32px] md:text-[52px] lg:text-[68px] font-extrabold tracking-[-0.03em] leading-[1.1] text-white whitespace-pre-line"
           >
             {"방치된 홈페이지는\n매일 고객을 잃고 있습니다."}
           </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewportConfig}
+            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 }}
+            className="text-[14px] md:text-[15px] text-white/35 mt-4 mb-16 md:mb-20"
+          >
+            리모델링이 필요한 이유.
+          </motion.p>
 
           {/* 4 Pain Points */}
           <motion.div
@@ -192,6 +212,7 @@ export default function RemodelingContent() {
 
       {/* 3. 자가 진단 체크리스트 — Light */}
       <section
+        id="check"
         className="py-[200px] md:py-[260px] px-5 md:px-12 lg:px-20"
         style={{ backgroundColor: "#f5f5f0" }}
       >
@@ -213,10 +234,19 @@ export default function RemodelingContent() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={viewportConfig}
             transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
-            className="text-[36px] md:text-[56px] lg:text-[72px] font-extrabold tracking-[-0.03em] leading-[1.0] text-[#111] mb-16 md:mb-20"
+            className="text-[36px] md:text-[56px] lg:text-[72px] font-extrabold tracking-[-0.03em] leading-[1.0] text-[#111]"
           >
             리모델링이 필요한 신호.
           </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewportConfig}
+            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 }}
+            className="text-[14px] md:text-[15px] text-[#999] mt-4 mb-16 md:mb-20"
+          >
+            자가 진단 체크리스트.
+          </motion.p>
 
           {/* Checklist */}
           <motion.div
@@ -272,21 +302,31 @@ export default function RemodelingContent() {
 
       {/* 4. Before / After — Dark */}
       <section
+        id="before-after"
         className="py-[200px] md:py-[260px] px-5 md:px-12 lg:px-20"
         style={{ backgroundColor: "#111111" }}
         data-theme="dark"
       >
         <div className="max-w-[1400px] mx-auto">
-          {/* Label */}
+          {/* Label + subtitle */}
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={viewportConfig}
             transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-            className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase mb-16 md:mb-20"
+            className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase mb-4"
             style={{ color: "rgba(255,255,255,0.3)" }}
           >
             ( BEFORE &amp; AFTER )
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewportConfig}
+            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
+            className="text-[14px] md:text-[15px] text-white/35 mb-16 md:mb-20"
+          >
+            리모델링 전후 비교.
           </motion.p>
 
           {/* Two columns */}
@@ -382,20 +422,26 @@ export default function RemodelingContent() {
       </section>
 
       {/* 5. ProcessTimeline */}
-      <ProcessTimeline
-        label="( PROCESS )"
-        heading="HOW WE RENEW."
-        steps={processSteps}
-        dark={false}
-      />
+      <div id="process">
+        <ProcessTimeline
+          label="( PROCESS )"
+          heading="HOW WE RENEW."
+          subheading="리모델링 과정."
+          steps={processSteps}
+          dark={false}
+        />
+      </div>
 
       {/* 6. FaqTwoColumn */}
-      <FaqTwoColumn
-        faqs={faqs}
-        sectionLabel="( FAQ )"
-        heading={"FREQUENTLY\nASKED."}
-        dark={true}
-      />
+      <div id="faq">
+        <FaqTwoColumn
+          faqs={faqs}
+          sectionLabel="( FAQ )"
+          heading={"FREQUENTLY\nASKED."}
+          subheading="자주 묻는 질문."
+          dark={true}
+        />
+      </div>
 
       {/* 7. ContactCtaSection */}
       <ContactCtaSection variant="diagnosis" />

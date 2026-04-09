@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import SubpageHero from "@/components/sections/subpage-hero";
+import SubNav from "@/components/ui/sub-nav";
 import NumberedSection from "@/components/sections/numbered-section";
 import ProcessTimeline from "@/components/sections/process-timeline";
 import FaqTwoColumn from "@/components/sections/faq-two-column";
@@ -132,8 +133,17 @@ export default function ServicesHubContent({
         label="( What We Do )"
       />
 
+      <SubNav pageLabel="SERVICE MENU" items={[
+        { label: "SERVICES", href: "#services" },
+        { label: "INCLUDED", href: "#included" },
+        { label: "PROCESS", href: "#process" },
+        { label: "WORK", href: "#work" },
+        { label: "FAQ", href: "#faq" },
+      ]} />
+
       {/* Service Cards */}
       <section
+        id="services"
         className="py-[200px] md:py-[260px] px-5 md:px-12 lg:px-20"
         style={{ backgroundColor: "#f5f5f0" }}
       >
@@ -320,23 +330,29 @@ export default function ServicesHubContent({
       </section>
 
       {/* Included in every project */}
-      <NumberedSection
-        label="( INCLUDED )"
-        heading={"EVERY PROJECT\nINCLUDES."}
-        items={includedItems}
-        dark={true}
-      />
+      <div id="included">
+        <NumberedSection
+          label="( INCLUDED )"
+          heading={"EVERY PROJECT\nINCLUDES."}
+          subheading="모든 프로젝트에 기본 포함됩니다."
+          items={includedItems}
+          dark={true}
+        />
+      </div>
 
       {/* Process Timeline */}
-      <ProcessTimeline
-        label="( PROCESS )"
-        heading="HOW WE WORK."
-        steps={processSteps}
-        dark={false}
-      />
+      <div id="process">
+        <ProcessTimeline
+          label="( PROCESS )"
+          heading="HOW WE WORK."
+          steps={processSteps}
+          dark={false}
+        />
+      </div>
 
       {/* Selected Portfolio */}
       <section
+        id="work"
         className="py-[200px] md:py-[260px] px-5 md:px-12 lg:px-20"
         style={{ backgroundColor: "#1a1a1a" }}
         data-theme="dark"
@@ -365,6 +381,13 @@ export default function ServicesHubContent({
               >
                 {"SELECTED\nPROJECTS."}
               </motion.h2>
+              <motion.p
+                variants={fadeInUp}
+                className="text-[14px] md:text-[15px] mt-4"
+                style={{ color: "rgba(255,255,255,0.35)" }}
+              >
+                선정된 프로젝트들을 확인하세요.
+              </motion.p>
             </div>
             <motion.div variants={fadeInUp}>
               <Link
@@ -466,12 +489,14 @@ export default function ServicesHubContent({
       </section>
 
       {/* FAQ */}
-      <FaqTwoColumn
-        faqs={faqs}
-        sectionLabel="( FAQ )"
-        heading={"FREQUENTLY\nASKED."}
-        dark={false}
-      />
+      <div id="faq">
+        <FaqTwoColumn
+          faqs={faqs}
+          sectionLabel="( FAQ )"
+          heading={"FREQUENTLY\nASKED."}
+          dark={false}
+        />
+      </div>
 
       {/* CTA */}
       <ContactCtaSection />

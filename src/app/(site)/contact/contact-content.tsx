@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import SubpageHero from "@/components/sections/subpage-hero";
+import SubNav from "@/components/ui/sub-nav";
 import FaqTwoColumn from "@/components/sections/faq-two-column";
 import { sendEmail } from "@/lib/emailjs";
 import { JsonLd, generateLocalBusinessSchema, generateFAQSchema, generatePageSchema } from "@/lib/schema-helpers";
@@ -95,12 +96,20 @@ export default function ContactContent() {
         label="( Get In Touch )"
       />
 
+      <SubNav pageLabel="CONTACT MENU" items={[
+        { label: "METHODS", href: "#methods" },
+        { label: "FORM", href: "#form" },
+        { label: "COMPANY", href: "#company" },
+        { label: "FAQ", href: "#faq" },
+      ]} />
+
       {/* Contact Methods */}
-      <section className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[160px] md:py-[200px]">
+      <section id="methods" className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[160px] md:py-[200px]">
         <div className="max-w-[1400px] mx-auto">
-          <p className="text-[11px] tracking-[0.08em] uppercase text-[#999] mb-10 font-[family-name:var(--font-jetbrains-mono)]">
+          <p className="text-[11px] tracking-[0.08em] uppercase text-[#999] mb-4 font-[family-name:var(--font-jetbrains-mono)]">
             ( CONTACT METHODS )
           </p>
+          <p className="text-[14px] text-[#999] mt-0 mb-10">편한 방법으로 연락주세요</p>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {[
               { label: "폼 문의", value: "아래 폼 작성", icon: "📋" },
@@ -133,14 +142,15 @@ export default function ContactContent() {
       </section>
 
       {/* Contact Form */}
-      <section className="bg-[#1a1a1a] px-5 md:px-12 lg:px-20 py-[200px] md:py-[260px]" data-theme="dark">
+      <section id="form" className="bg-[#1a1a1a] px-5 md:px-12 lg:px-20 py-[200px] md:py-[260px]" data-theme="dark">
         <div className="max-w-[1400px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
             {/* Left: Heading */}
             <div>
-              <p className="text-[11px] tracking-[0.08em] uppercase text-white/30 mb-6 font-[family-name:var(--font-jetbrains-mono)]">
+              <p className="text-[11px] tracking-[0.08em] uppercase text-white/30 mb-4 font-[family-name:var(--font-jetbrains-mono)]">
                 ( FORM )
               </p>
+              <p className="text-[14px] text-white/35 mt-0 mb-6">문의 양식</p>
               <h2 className="text-[36px] md:text-[56px] lg:text-[72px] font-extrabold text-white tracking-[-0.03em] leading-[1.0] uppercase">
                 LET&apos;S
                 <br />
@@ -219,9 +229,10 @@ export default function ContactContent() {
       </section>
 
       {/* Company Info */}
-      <section className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[160px] md:py-[200px]">
+      <section id="company" className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[160px] md:py-[200px]">
         <div className="max-w-[1400px] mx-auto">
-          <p className="text-[11px] tracking-[0.08em] uppercase text-[#999] mb-8 font-[family-name:var(--font-jetbrains-mono)]">( COMPANY )</p>
+          <p className="text-[11px] tracking-[0.08em] uppercase text-[#999] mb-4 font-[family-name:var(--font-jetbrains-mono)]">( COMPANY )</p>
+          <p className="text-[14px] text-[#999] mt-0 mb-8">회사 정보</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[600px]">
             {[
               { label: "상호", value: "치로웹디자인" },
@@ -239,7 +250,7 @@ export default function ContactContent() {
         </div>
       </section>
 
-      <FaqTwoColumn faqs={contactFaqs} />
+      <div id="faq"><FaqTwoColumn faqs={contactFaqs} /></div>
     </>
   );
 }

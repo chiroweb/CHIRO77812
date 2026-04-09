@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import { getServiceBySlug } from "@/data/services";
 import SubpageHero from "@/components/sections/subpage-hero";
+import SubNav from "@/components/ui/sub-nav";
 import NumberedSection from "@/components/sections/numbered-section";
 import ProcessTimeline from "@/components/sections/process-timeline";
 import FaqTwoColumn from "@/components/sections/faq-two-column";
@@ -109,6 +110,14 @@ export default function WebsiteContent() {
         label="( Website Development )"
       />
 
+      {/* SubNav */}
+      <SubNav pageLabel="WEBSITE MENU" items={[
+        { label: "TYPES", href: "#types" },
+        { label: "INCLUDED", href: "#included" },
+        { label: "PROCESS", href: "#process" },
+        { label: "FAQ", href: "#faq" },
+      ]} />
+
       {/* 2. Direct Answer */}
       <section className="py-[200px] md:py-[260px] px-5 md:px-12 lg:px-20 bg-[#f5f5f0]">
         <div className="max-w-[1400px] mx-auto">
@@ -138,15 +147,18 @@ export default function WebsiteContent() {
       </section>
 
       {/* 3. 제작 가능 유형 */}
-      <NumberedSection
-        label="( TYPES )"
-        heading={"WHAT WE\nBUILD."}
-        items={buildTypes}
-        dark={true}
-      />
+      <div id="types">
+        <NumberedSection
+          label="( TYPES )"
+          heading={"WHAT WE\nBUILD."}
+          subheading="치로가 만드는 것들."
+          items={buildTypes}
+          dark={true}
+        />
+      </div>
 
       {/* 4. 포함 항목 상세 */}
-      <section className="py-[200px] md:py-[260px] px-5 md:px-12 lg:px-20 bg-[#f5f5f0]">
+      <section id="included" className="py-[200px] md:py-[260px] px-5 md:px-12 lg:px-20 bg-[#f5f5f0]">
         <div className="max-w-[1400px] mx-auto">
           {/* Header */}
           <motion.div
@@ -170,6 +182,12 @@ export default function WebsiteContent() {
               <br />
               INCLUDED.
             </motion.h2>
+            <motion.p
+              variants={fadeInUp}
+              className="text-[14px] md:text-[15px] text-[#999] mt-4"
+            >
+              기본 제공 항목.
+            </motion.p>
           </motion.div>
 
           {/* Grid */}
@@ -226,12 +244,15 @@ export default function WebsiteContent() {
       </section>
 
       {/* 5. Process Timeline */}
-      <ProcessTimeline
-        label="( PROCESS )"
-        heading="HOW WE BUILD."
-        steps={processSteps}
-        dark={false}
-      />
+      <div id="process">
+        <ProcessTimeline
+          label="( PROCESS )"
+          heading="HOW WE BUILD."
+          subheading="제작 과정."
+          steps={processSteps}
+          dark={false}
+        />
+      </div>
 
       {/* 6. 고객 후기 */}
       <section
@@ -292,12 +313,15 @@ export default function WebsiteContent() {
       </section>
 
       {/* 7. FAQ */}
-      <FaqTwoColumn
-        faqs={faqs}
-        sectionLabel="( FAQ )"
-        heading={"FREQUENTLY\nASKED."}
-        dark={false}
-      />
+      <div id="faq">
+        <FaqTwoColumn
+          faqs={faqs}
+          sectionLabel="( FAQ )"
+          heading={"FREQUENTLY\nASKED."}
+          subheading="자주 묻는 질문."
+          dark={false}
+        />
+      </div>
 
       {/* 8. Contact CTA */}
       <ContactCtaSection />
