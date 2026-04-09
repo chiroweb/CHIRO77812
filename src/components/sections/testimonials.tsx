@@ -29,7 +29,7 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="min-h-[80vh] flex items-center py-[120px] md:py-[160px] px-5 md:px-8 lg:px-16 bg-[#fafaf8]">
+    <section className="min-h-[80vh] flex items-center py-[200px] md:py-[260px] px-5 md:px-8 lg:px-16 bg-[#fafaf8]">
       <div className="max-w-[1280px] mx-auto w-full">
         <motion.div
           variants={staggerContainer}

@@ -38,7 +38,7 @@ const comparisons = [
 
 export default function Comparison() {
   return (
-    <section className="py-[120px] md:py-[160px] px-5 md:px-8 lg:px-16 bg-[#1a1a1a]" data-theme="dark">
+    <section className="py-[200px] md:py-[260px] px-5 md:px-8 lg:px-16 bg-[#1a1a1a]" data-theme="dark">
       <div className="max-w-[1280px] mx-auto">
         {/* Header */}
         <div className="flex flex-col md:flex-row mb-10 md:mb-16">

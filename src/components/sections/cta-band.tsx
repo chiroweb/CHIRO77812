@@ -34,7 +34,7 @@ const results = {
 
 export default function CtaBand() {
   return (
-    <section id="cta-band" className="relative py-[120px] md:py-[160px] px-5 md:px-8 lg:px-16 bg-[#1a1a1a] overflow-hidden" data-theme="dark">
+    <section id="cta-band" className="relative py-[200px] md:py-[260px] px-5 md:px-8 lg:px-16 bg-[#1a1a1a] overflow-hidden" data-theme="dark">
       {/* Background Code Ticker — desktop only */}
       <div className="hidden md:block absolute right-0 top-0 bottom-0 w-[300px] opacity-20 pointer-events-none">
         <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-[#1a1a1a] to-transparent z-10" />

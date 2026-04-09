@@ -6,7 +6,7 @@ import { fadeInUp, viewportConfig } from "@/lib/motion";
 export default function HeroStatement() {
   return (
     <section
-      className="relative bg-[#1a1a1a] py-[120px] md:py-[160px] px-5 md:px-8 lg:px-16"
+      className="relative bg-[#1a1a1a] py-[200px] md:py-[260px] px-5 md:px-8 lg:px-16"
       data-theme="dark"
     >
       <div className="max-w-[1280px] mx-auto">

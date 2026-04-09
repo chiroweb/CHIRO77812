@@ -177,38 +177,32 @@
   "hotPaths": [
     {
       "path": "src/app/(site)/page.tsx",
-      "accessCount": 65,
-      "lastAccessed": 1775700735729,
+      "accessCount": 63,
+      "lastAccessed": 1775648798856,
       "type": "file"
     },
     {
       "path": "src/components/sections/hero.tsx",
-      "accessCount": 42,
-      "lastAccessed": 1775703229120,
+      "accessCount": 38,
+      "lastAccessed": 1775698737509,
       "type": "file"
     },
     {
       "path": "",
-      "accessCount": 39,
-      "lastAccessed": 1775702006021,
+      "accessCount": 34,
+      "lastAccessed": 1775626947116,
       "type": "directory"
     },
     {
       "path": "src/components/layout/header.tsx",
-      "accessCount": 32,
-      "lastAccessed": 1775700085260,
+      "accessCount": 31,
+      "lastAccessed": 1775647011783,
       "type": "file"
     },
     {
       "path": "src/app/layout.tsx",
-      "accessCount": 24,
-      "lastAccessed": 1775702964540,
-      "type": "file"
-    },
-    {
-      "path": "src/app/(site)/layout.tsx",
-      "accessCount": 23,
-      "lastAccessed": 1775709845909,
+      "accessCount": 22,
+      "lastAccessed": 1775645969485,
       "type": "file"
     },
     {
@@ -218,51 +212,39 @@
       "type": "file"
     },
     {
-      "path": "src/lib/motion.ts",
-      "accessCount": 21,
-      "lastAccessed": 1775702030929,
+      "path": "src/app/(site)/layout.tsx",
+      "accessCount": 20,
+      "lastAccessed": 1775640924476,
       "type": "file"
     },
     {
       "path": "src/app/globals.css",
-      "accessCount": 20,
-      "lastAccessed": 1775700085423,
+      "accessCount": 19,
+      "lastAccessed": 1775640947795,
       "type": "file"
     },
     {
       "path": "src/app/(site)/portfolio/[slug]/page.tsx",
-      "accessCount": 20,
-      "lastAccessed": 1775702396197,
+      "accessCount": 15,
+      "lastAccessed": 1775174308649,
       "type": "file"
     },
     {
       "path": "src/app/(site)/contact/contact-content.tsx",
-      "accessCount": 19,
-      "lastAccessed": 1775702658009,
+      "accessCount": 15,
+      "lastAccessed": 1775175281559,
       "type": "file"
     },
     {
       "path": "src/app/(site)/blog/page.tsx",
-      "accessCount": 17,
-      "lastAccessed": 1775702467332,
+      "accessCount": 15,
+      "lastAccessed": 1775562004282,
       "type": "file"
     },
     {
       "path": "src/lib/types.ts",
-      "accessCount": 15,
-      "lastAccessed": 1775700055158,
-      "type": "file"
-    },
-    {
-      "path": "src/app/(site)/portfolio/page.tsx",
-      "accessCount": 15,
-      "lastAccessed": 1775700803802,
-      "type": "file"
-    },
-    {
-      "path": "src/app/(site)/services/page.tsx",
-      "accessCount": 15,
-      "lastAccessed": 1775700815445,
+      "accessCount": 14,
+      "lastAccessed": 1775174114681,
       "type": "file"
     },
     {
@@ -284,45 +266,39 @@
       "type": "file"
     },
     {
+      "path": "src/lib/motion.ts",
+      "accessCount": 12,
+      "lastAccessed": 1775436320874,
+      "type": "file"
+    },
+    {
       "path": "src/components/sections/testimonials.tsx",
       "accessCount": 11,
       "lastAccessed": 1775263095879,
       "type": "file"
     },
     {
-      "path": "src/app/(site)/about/about-content.tsx",
+      "path": "src/app/(site)/services/page.tsx",
       "accessCount": 11,
-      "lastAccessed": 1775700835887,
+      "lastAccessed": 1775649019798,
       "type": "file"
     },
     {
-      "path": "src/app/sitemap.ts",
+      "path": "src/app/(site)/portfolio/page.tsx",
       "accessCount": 11,
-      "lastAccessed": 1775702667869,
+      "lastAccessed": 1775649021916,
       "type": "file"
     },
     {
       "path": "src/lib/schema.sql",
-      "accessCount": 10,
-      "lastAccessed": 1775700054664,
-      "type": "file"
-    },
-    {
-      "path": "src/app/(site)/about/page.tsx",
-      "accessCount": 10,
-      "lastAccessed": 1775700717564,
-      "type": "file"
-    },
-    {
-      "path": "src/lib/db.ts",
-      "accessCount": 10,
-      "lastAccessed": 1775700758584,
-      "type": "file"
-    },
-    {
-      "path": "src/components/sections/comparison.tsx",
       "accessCount": 9,
-      "lastAccessed": 1775700516032,
+      "lastAccessed": 1775173046655,
+      "type": "file"
+    },
+    {
+      "path": "src/app/sitemap.ts",
+      "accessCount": 9,
+      "lastAccessed": 1775175702038,
       "type": "file"
     },
     {
@@ -332,21 +308,45 @@
       "type": "file"
     },
     {
-      "path": "src/components/layout/footer.tsx",
+      "path": "src/components/sections/comparison.tsx",
       "accessCount": 8,
-      "lastAccessed": 1775700078609,
+      "lastAccessed": 1775263118502,
       "type": "file"
     },
     {
-      "path": "src/app/(site)/blog/blog-content.tsx",
+      "path": "src/components/layout/footer.tsx",
       "accessCount": 7,
-      "lastAccessed": 1775702516127,
+      "lastAccessed": 1775201673649,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/db.ts",
+      "accessCount": 7,
+      "lastAccessed": 1775628530963,
+      "type": "file"
+    },
+    {
+      "path": "src/app/(site)/about/page.tsx",
+      "accessCount": 7,
+      "lastAccessed": 1775649023711,
+      "type": "file"
+    },
+    {
+      "path": "src/app/(site)/about/about-content.tsx",
+      "accessCount": 6,
+      "lastAccessed": 1775174132047,
       "type": "file"
     },
     {
       "path": "src/app/(site)/contact/page.tsx",
-      "accessCount": 6,
-      "lastAccessed": 1775700064444,
+      "accessCount": 5,
+      "lastAccessed": 1775173936357,
+      "type": "file"
+    },
+    {
+      "path": "src/app/(site)/blog/blog-content.tsx",
+      "accessCount": 5,
+      "lastAccessed": 1775174169526,
       "type": "file"
     },
     {
@@ -374,18 +374,6 @@
       "type": "file"
     },
     {
-      "path": "src/app/(site)/blog/[slug]/page.tsx",
-      "accessCount": 4,
-      "lastAccessed": 1775700084225,
-      "type": "file"
-    },
-    {
-      "path": "src/app/api/portfolio/route.ts",
-      "accessCount": 4,
-      "lastAccessed": 1775700092172,
-      "type": "file"
-    },
-    {
       "path": "src/app/(admin)/chiro/portfolio/new/page.tsx",
       "accessCount": 3,
       "lastAccessed": 1775039558168,
@@ -398,9 +386,21 @@
       "type": "file"
     },
     {
-      "path": "tsconfig.json",
+      "path": "src/app/(site)/blog/[slug]/page.tsx",
       "accessCount": 3,
-      "lastAccessed": 1775700024758,
+      "lastAccessed": 1775175305294,
+      "type": "file"
+    },
+    {
+      "path": "src/app/api/portfolio/route.ts",
+      "accessCount": 3,
+      "lastAccessed": 1775628525769,
+      "type": "file"
+    },
+    {
+      "path": "tsconfig.json",
+      "accessCount": 2,
+      "lastAccessed": 1775173009717,
       "type": "file"
     },
     {
@@ -419,18 +419,6 @@
       "path": "src/components/sections/live-process.tsx",
       "accessCount": 2,
       "lastAccessed": 1775262974528,
-      "type": "file"
-    },
-    {
-      "path": "package.json",
-      "accessCount": 2,
-      "lastAccessed": 1775700024245,
-      "type": "file"
-    },
-    {
-      "path": "src/middleware.ts",
-      "accessCount": 2,
-      "lastAccessed": 1775700090976,
       "type": "file"
     },
     {
@@ -464,9 +452,21 @@
       "type": "file"
     },
     {
+      "path": "package.json",
+      "accessCount": 1,
+      "lastAccessed": 1775125344550,
+      "type": "file"
+    },
+    {
       "path": "next.config.ts",
       "accessCount": 1,
       "lastAccessed": 1775125344875,
+      "type": "file"
+    },
+    {
+      "path": "src/middleware.ts",
+      "accessCount": 1,
+      "lastAccessed": 1775125349568,
       "type": "file"
     },
     {

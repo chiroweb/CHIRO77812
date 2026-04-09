@@ -2,295 +2,465 @@
 
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
-import SectionLabel from "@/components/ui/section-label";
-import Divider from "@/components/ui/divider";
-import Placeholder from "@/components/ui/placeholder";
-import SubCtaBand from "@/components/ui/sub-cta-band";
-import Breadcrumbs from "@/components/seo/breadcrumbs";
-import FAQSection from "@/components/seo/faq-section";
-import InternalLinks from "@/components/seo/internal-links";
-import { JsonLd, generatePageSchema } from "@/lib/schema-helpers";
+import SubpageHero from "@/components/sections/subpage-hero";
+import SubNav from "@/components/ui/sub-nav";
+import NumberedSection from "@/components/sections/numbered-section";
+import StatsRow from "@/components/sections/stats-row";
+import FaqTwoColumn from "@/components/sections/faq-two-column";
+import ContactCtaSection from "@/components/sections/contact-cta-section";
 
-const personSchema = {
+/* ─────────────────────────────────────
+   JSON-LD — Person Schema
+───────────────────────────────────── */
+
+const personJsonLd = {
+  "@context": "https://schema.org",
   "@type": "Person",
   "@id": "https://chiroweb.co.kr/#director",
   name: "최정원",
-  jobTitle: "Creative Director",
-  worksFor: { "@id": "https://chiroweb.co.kr/#organization" },
+  jobTitle: "Creative Director & Founder",
+  worksFor: {
+    "@type": "Organization",
+    "@id": "https://chiroweb.co.kr/#organization",
+    name: "치로웹디자인",
+  },
   description:
-    "심리학 전공, 호주 유학 경험을 바탕으로 심리학 기반 웹 설계를 전문으로 하는 디렉터",
-};
-
-const aboutPageSchema = {
-  "@type": "AboutPage",
-  "@id": "https://chiroweb.co.kr/about",
-  name: "치로웹디자인 소개",
+    "심리학 전공 디렉터. 기획부터 디자인, 개발, SEO/AEO 최적화까지 1인 전담으로 진행하는 올인원 웹 에이전시 치로웹디자인의 창립자.",
   url: "https://chiroweb.co.kr/about",
-  mainEntity: { "@id": "https://chiroweb.co.kr/#organization" },
 };
 
-const aboutFAQs = [
+/* ─────────────────────────────────────
+   Data
+───────────────────────────────────── */
+
+const subNavItems = [
+  { label: "MISSION", href: "#mission" },
+  { label: "DIRECTOR", href: "#director" },
+  { label: "VALUES", href: "#values" },
+  { label: "HISTORY", href: "#history" },
+  { label: "COMPANY", href: "#company" },
+];
+
+const valuesItems = [
   {
-    question: "치로웹디자인은 어떤 회사인가요?",
-    answer:
-      "치로웹디자인은 심리학 전공 디렉터가 이끄는 웹 에이전시입니다. 심리학 기반 UI/UX 기획과 코드 레벨 SEO/AEO 최적화를 결합하여 전환율 높은 웹사이트를 설계합니다.",
+    title: "심리학 기반 설계",
+    description:
+      "방문자의 시선, 클릭, 의사결정을 데이터와 인지 심리학에 기반해 설계합니다. '왜 이 버튼이 여기 있어야 하는지' 설명할 수 있습니다.",
   },
   {
-    question: "1인 에이전시인데 품질이 괜찮나요?",
-    answer:
-      "기획부터 디자인, 개발까지 한 사람이 일관되게 진행하기 때문에 오히려 커뮤니케이션 비용이 없고 품질이 균일합니다. 글로벌 호텔 브랜드 계열사 프로젝트도 수행한 실력을 갖추고 있습니다.",
+    title: "코드 레벨 구현",
+    description:
+      "빌더나 템플릿이 아닌 직접 작성한 코드. SEO/AEO 구조를 코드 레벨에서 설계하여 구글, ChatGPT, Perplexity가 읽을 수 있는 사이트를 만듭니다.",
   },
   {
-    question: "어떤 기술 스택을 사용하나요?",
-    answer:
-      "Next.js, React, TypeScript, Tailwind CSS를 기반으로 커스텀 코딩합니다. 아임웹이나 카페24 같은 빌더를 사용하지 않아 기술적 제약 없이 자유로운 구현이 가능합니다.",
+    title: "올인원 솔루션",
+    description:
+      "기획, 디자인, 개발, 검색 최적화를 하나의 팀에서 완성합니다. 여러 업체에 흩어져 있던 모든 과정을 치로가 책임집니다.",
   },
 ];
 
-const aboutInternalLinks = [
+const historyItems = [
   {
-    title: "서비스",
-    href: "/services",
-    description:
-      "치로웹디자인이 제공하는 웹 디자인, 개발, SEO 최적화 서비스를 확인하세요.",
+    year: "( 2024 )",
+    desc: "치로웹디자인 설립. 심리학 전공 디렉터의 1인 웹 에이전시로 시작.",
   },
   {
-    title: "포트폴리오",
-    href: "/portfolio",
-    description:
-      "치로웹디자인이 진행한 프로젝트와 결과물을 확인하세요.",
+    year: "( 2024 )",
+    desc: "첫 클라이언트 프로젝트 완료. 골프 악세서리 브랜드 치로골프 런칭.",
   },
   {
-    title: "문의하기",
-    href: "/contact",
-    description:
-      "프로젝트 상담을 원하시면 편하게 연락해 주세요.",
+    year: "( 2025 )",
+    desc: "해외 호텔 브랜드 계열사 프로젝트 수주. 중견 제조사 NBPKOREA 사이트 구축.",
+  },
+  {
+    year: "( 2025 )",
+    desc: "아파트 분양 홍보관 프로젝트 진행. B2B 환경 기업 사이트 구축.",
+  },
+  {
+    year: "( 2026 )",
+    desc: "SEO/AEO 자동화 시스템 고도화. llms.txt 표준 조기 도입.",
   },
 ];
+
+const companyInfo = [
+  { label: "상호", value: "치로웹디자인" },
+  { label: "대표", value: "최정원" },
+  { label: "설립", value: "2024년" },
+  { label: "소재지", value: "대한민국 서울" },
+  { label: "이메일", value: "chiroweb75@gmail.com" },
+  { label: "전화", value: "010-6816-0775" },
+  { label: "서비스", value: "웹사이트 제작 · 리모델링 · SEO/AEO 최적화" },
+];
+
+const statsItems = [
+  { label: "런칭 후 수주 기간", value: "4개월" },
+  { label: "클라이언트 추가 의뢰율", value: "43%" },
+  { label: "평균 제작 기간", value: "2주" },
+  { label: "기본 포함 SEO 항목", value: "12+" },
+];
+
+const aboutFaqs = [
+  {
+    q: "치로웹디자인은 어떤 회사인가요?",
+    a: "치로웹디자인은 심리학 전공 디렉터가 이끄는 1인 올인원 웹 에이전시입니다. 기획부터 디자인, 개발, SEO/AEO 최적화까지 하나의 팀에서 완성합니다.",
+  },
+  {
+    q: "빌더(아임웹, 카페24)와 어떻게 다른가요?",
+    a: "치로는 빌더를 사용하지 않습니다. 모든 코드를 직접 작성합니다. 그래야만 가능한 속도, 구조, SEO 최적화가 있기 때문입니다. 구조화 데이터, llms.txt 같은 핵심 요소는 빌더로 구현할 수 없습니다.",
+  },
+  {
+    q: "1인 에이전시인데 품질이 괜찮나요?",
+    a: "기획부터 개발까지 한 사람이 일관되게 진행하기 때문에 커뮤니케이션 비용이 없고 품질이 균일합니다. 해외 호텔 브랜드 계열사 프로젝트도 수행한 실력을 보유하고 있습니다.",
+  },
+  {
+    q: "심리학 기반 설계란 무엇인가요?",
+    a: "방문자가 어디를 보고, 무엇을 클릭하고, 언제 결정하는지를 인지 심리학 원리에 기반해 설계합니다. 단순히 예쁜 디자인이 아닌, 전환율을 높이는 구조적 설계입니다.",
+  },
+  {
+    q: "SEO/AEO 최적화는 어떻게 포함되나요?",
+    a: "모든 프로젝트에 SEO/AEO 기본 세팅이 포함됩니다. 구조화 데이터(JSON-LD), 시맨틱 HTML, 메타태그, 사이트맵, llms.txt 12개 이상의 항목이 추가 비용 없이 적용됩니다.",
+  },
+  {
+    q: "제작 기간은 얼마나 걸리나요?",
+    a: "평균 2주. 프로젝트 규모에 따라 달라지지만, 효율적인 1인 체계 덕분에 대형 에이전시보다 빠르게 진행됩니다. 상담 후 정확한 일정을 안내해 드립니다.",
+  },
+];
+
+/* ─────────────────────────────────────
+   Component
+───────────────────────────────────── */
 
 export default function AboutContent() {
-  const pageSchema = generatePageSchema([personSchema, aboutPageSchema]);
-
   return (
     <>
-      {pageSchema && <JsonLd data={pageSchema} />}
+      {/* Person JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
 
-      {/* ── Hero Header ── */}
-      <section className="pt-24 md:pt-32 pb-16 md:pb-24 px-5 md:px-8">
-        <div className="max-w-[1280px] mx-auto">
-          <Breadcrumbs pathname="/about" />
-          <SectionLabel number="01" label="About" />
+      {/* ── Hero ── */}
+      <SubpageHero
+        title="ABOUT"
+        label="( About CHIRO )"
+      />
 
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
+      {/* ── SubNav ── */}
+      <SubNav pageLabel="ABOUT MENU" items={subNavItems} />
+
+      {/* ── MISSION ── */}
+      <section
+        id="mission"
+        className="py-[200px] md:py-[260px] px-5 md:px-12 lg:px-20"
+        style={{ backgroundColor: "#f5f5f0" }}
+      >
+        <div className="max-w-[1400px] mx-auto">
+          {/* Label */}
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={viewportConfig}
-            className="mb-10 md:mb-16"
+            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+            className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase text-[#999] mb-10 md:mb-14"
           >
-            <motion.h1
-              variants={fadeInUp}
-              className="font-[family-name:var(--font-space-grotesk)] text-[28px] md:text-[44px] font-light tracking-[0.03em] leading-[1.05]"
-            >
-              치로웹디자인은 어떤 회사인가요<span className="text-[#FF4D00]">?</span>
-            </motion.h1>
-          </motion.div>
+            ( MISSION )
+          </motion.p>
 
-          {/* Entity Definition Block */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-[1px] bg-[#E0E0E0] mb-12 md:mb-20">
-            <div className="bg-white p-6">
-              <p className="font-[family-name:var(--font-jetbrains-mono)] text-[10px] tracking-[0.15em] uppercase text-[#9b9b9b] mb-2">
-                회사명
-              </p>
-              <p className="text-sm font-medium">치로웹디자인</p>
-            </div>
-            <div className="bg-white p-6">
-              <p className="font-[family-name:var(--font-jetbrains-mono)] text-[10px] tracking-[0.15em] uppercase text-[#9b9b9b] mb-2">
-                대표
-              </p>
-              <p className="text-sm font-medium">최정원</p>
-            </div>
-            <div className="bg-white p-6">
-              <p className="font-[family-name:var(--font-jetbrains-mono)] text-[10px] tracking-[0.15em] uppercase text-[#9b9b9b] mb-2">
-                전문 분야
-              </p>
-              <p className="text-sm font-medium">심리학 기반 웹 설계</p>
-            </div>
-            <div className="bg-white p-6">
-              <p className="font-[family-name:var(--font-jetbrains-mono)] text-[10px] tracking-[0.15em] uppercase text-[#9b9b9b] mb-2">
-                설립
-              </p>
-              <p className="text-sm font-medium">2024</p>
-            </div>
-          </div>
+          {/* Main content: giant text left + image right */}
+          <div className="flex flex-col lg:flex-row lg:items-start gap-12 lg:gap-20">
+            {/* Left: Display text */}
+            <div className="flex-1 min-w-0">
+              <motion.h2
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportConfig}
+                transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+                className="text-[48px] md:text-[72px] lg:text-[96px] font-extrabold tracking-[-0.03em] leading-[0.9] text-[#111] uppercase mb-10 md:mb-14"
+              >
+                BEAUTIFULLY
+                <br />
+                FOR THE
+                <br />
+                BUSINESS.
+              </motion.h2>
 
-          <Divider />
-
-          {/* Director's Letter */}
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportConfig}
-            className="mt-12 md:mt-20 grid grid-cols-4 md:grid-cols-12 gap-6"
-          >
-            {/* Photo */}
-            <motion.div
-              variants={fadeInUp}
-              className="col-span-4 md:col-span-4"
-            >
-              <div className="sticky top-24">
-                <Placeholder type="image" aspectRatio="portrait" />
-                <p className="mt-4 font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#9b9b9b]">
-                  Director
-                </p>
-                <p className="text-sm text-[#1a1a1a] mt-1">치로웹디자인 대표</p>
-              </div>
-            </motion.div>
-
-            {/* Essay */}
-            <motion.div
-              variants={fadeInUp}
-              className="col-span-4 md:col-span-6 md:col-start-7"
-            >
-              <div className="space-y-6 text-base text-[#6b6b6b] leading-[1.8]">
-                <p>
-                  아임웹, 카페24, 워드프레스. 수많은 도구들이 &ldquo;누구나 쉽게
-                  홈페이지를 만들 수 있다&rdquo;고 말합니다. 하지만 현실은
-                  다릅니다.
-                </p>
-                <p>
-                  수많은 대표님들이 복잡한 툴 앞에서 좌절합니다. 원하는 디자인은
-                  머릿속에 있는데, 그것을 구현할 방법을 모릅니다. 결국 타협하고,
-                  &ldquo;이 정도면 됐지&rdquo;라고 스스로를 설득합니다.
-                </p>
-                <p>
-                  치로는 그 타협이 필요 없는 길을 닦습니다.
-                </p>
-                <p>
-                  상담을 시작하는 순간부터, 당신의 사이트가 만들어지는 과정을 실시간으로
-                  지켜보실 수 있습니다. 기획서가 코드가 되고, 코드가 화면이 되는
-                  모든 순간이 투명합니다.
-                </p>
-                <p>
-                  치로는 많은 프로젝트를 하지 않습니다. 대신, 맡은 프로젝트에는
-                  온전히 몰입합니다. 당신의 브랜드가 가진 고유한 결을 이해하고,
-                  그것을 디지털 위에 정확히 옮기는 것. 그것이 치로가 존재하는
-                  이유입니다.
-                </p>
-                <p className="text-[#1a1a1a] font-normal">
-                  당신의 브랜드에 가장 쉬운 길을 닦겠습니다.
-                </p>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── Dark Statement ── */}
-      <section className="py-[72px] md:py-[100px] px-5 md:px-8 bg-[#1a1a1a]">
-        <div className="max-w-[1280px] mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportConfig}
-          >
-            <motion.p
-              variants={fadeInUp}
-              className="font-[family-name:var(--font-space-grotesk)] text-[36px] md:text-[64px] font-extrabold tracking-[-0.03em] leading-[1.1] text-white text-center"
-            >
-              타협 없는 <span className="decoration-[#FF4D00] underline underline-offset-[6px] md:underline-offset-[10px] decoration-[3px]">몰입</span>
-              <span className="text-[#FF4D00]">.</span>
-            </motion.p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── Values ── */}
-      <section className="py-[72px] md:py-[120px] px-5 md:px-8">
-        <div className="max-w-[1280px] mx-auto">
-          <SectionLabel number="02" label="Values" />
-
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportConfig}
-            className="mb-12 md:mb-20"
-          >
-            <motion.h2
-              variants={fadeInUp}
-              className="font-[family-name:var(--font-space-grotesk)] text-[28px] md:text-[44px] font-light tracking-[0.03em] leading-[1.05]"
-            >
-              치로가 지키는 것<span className="text-[#FF4D00]">.</span>
-            </motion.h2>
-          </motion.div>
-
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportConfig}
-          >
-            <div className="grid grid-cols-4 md:grid-cols-12 gap-6">
-              {[
-                {
-                  number: "01",
-                  title: "투명함",
-                  en: "Transparency",
-                  desc: "숨기지 않습니다. 과정의 모든 것을 공유합니다. 실시간 링크를 통해 제작 과정을 함께 지켜봅니다.",
-                },
-                {
-                  number: "02",
-                  title: "몰입",
-                  en: "Immersion",
-                  desc: "소수의 프로젝트만 수주합니다. 하나의 브랜드에 깊이 집중하여, 본질을 담은 결과물을 설계합니다.",
-                },
-                {
-                  number: "03",
-                  title: "정제",
-                  en: "Refinement",
-                  desc: "불필요한 것을 걷어냅니다. 최소한의 요소로 최대한의 메시지를 전달하는 디자인을 추구합니다.",
-                },
-              ].map((value) => (
-                <motion.div
-                  key={value.title}
+              {/* Body paragraphs */}
+              <motion.div
+                variants={staggerContainer}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportConfig}
+                className="space-y-5 max-w-[520px]"
+              >
+                <motion.p
                   variants={fadeInUp}
-                  className="col-span-4 border-t border-[#E0E0E0] pt-8"
+                  className="text-[15px] md:text-[16px] font-medium leading-[1.85] text-[#111]"
                 >
-                  <span className="font-[family-name:var(--font-jetbrains-mono)] text-[32px] md:text-[40px] text-[#E0E0E0] leading-none block mb-4">
-                    {value.number}
-                  </span>
-                  <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#9b9b9b] mb-2">
-                    {value.en}
-                  </p>
-                  <h3 className="text-xl font-semibold tracking-tight mb-3">
-                    {value.title}
-                  </h3>
-                  <p className="text-sm text-[#6b6b6b] leading-[1.7]">
-                    {value.desc}
-                  </p>
-                </motion.div>
-              ))}
+                  치로웹디자인은 &lsquo;예쁜 홈페이지&rsquo;를 만드는 회사가
+                  아닙니다.
+                </motion.p>
+                <motion.p
+                  variants={fadeInUp}
+                  className="text-[14px] md:text-[15px] leading-[1.85] text-[#666]"
+                >
+                  방문자가 어디를 보고, 무엇을 클릭하고, 언제 결정하는지 —
+                  그 모든 과정을 심리학 원리에 기반해 설계합니다. 디자인은 그
+                  설계를 시각화하는 마지막 단계입니다.
+                </motion.p>
+              </motion.div>
             </div>
+
+            {/* Right: Image placeholder */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewportConfig}
+              transition={{
+                duration: 0.7,
+                ease: [0.25, 0.1, 0.25, 1],
+                delay: 0.15,
+              }}
+              className="w-full lg:w-[38%] shrink-0"
+            >
+              <div
+                className="w-full aspect-[3/4] rounded-lg"
+                style={{ backgroundColor: "#ddd" }}
+              />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── DIRECTOR ── */}
+      <section
+        id="director"
+        className="py-[200px] md:py-[260px] px-5 md:px-12 lg:px-20"
+        style={{ backgroundColor: "#1a1a1a" }}
+        data-theme="dark"
+      >
+        <div className="max-w-[1400px] mx-auto">
+          {/* Label */}
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewportConfig}
+            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+            className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase mb-12 md:mb-16"
+            style={{ color: "rgba(255,255,255,0.3)" }}
+          >
+            ( DIRECTOR )
+          </motion.p>
+
+          {/* Content: image left + text right */}
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
+            {/* Left: image placeholder */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={viewportConfig}
+              transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+              className="w-full lg:w-[40%] shrink-0"
+            >
+              <div
+                className="w-full aspect-[3/4] rounded-lg"
+                style={{ backgroundColor: "#2a2a2a" }}
+              />
+            </motion.div>
+
+            {/* Right: message */}
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+              className="flex-1 min-w-0 flex flex-col justify-center"
+            >
+              <motion.p
+                variants={fadeInUp}
+                className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase mb-6"
+                style={{ color: "rgba(255,255,255,0.3)" }}
+              >
+                ( MESSAGE )
+              </motion.p>
+
+              <motion.h2
+                variants={fadeInUp}
+                className="text-[36px] md:text-[56px] lg:text-[72px] font-extrabold tracking-[-0.03em] leading-[0.95] uppercase text-white mb-10 md:mb-14"
+              >
+                DIRECTOR
+                <br />
+                MESSAGE
+              </motion.h2>
+
+              <motion.div
+                variants={staggerContainer}
+                className="space-y-5 mb-12"
+              >
+                <motion.p
+                  variants={fadeInUp}
+                  className="text-[14px] md:text-[15px] leading-[1.85]"
+                  style={{ color: "rgba(255,255,255,0.55)" }}
+                >
+                  저는 심리학을 전공했습니다. 사람이 왜 특정 버튼을 누르는지,
+                  왜 특정 페이지에서 떠나는지를 연구했습니다. 그 지식을
+                  웹사이트 설계에 직접 적용합니다.
+                </motion.p>
+                <motion.p
+                  variants={fadeInUp}
+                  className="text-[14px] md:text-[15px] leading-[1.85]"
+                  style={{ color: "rgba(255,255,255,0.55)" }}
+                >
+                  치로는 빌더를 사용하지 않습니다. 모든 코드를 직접 작성합니다.
+                  그래야만 가능한 구조와 속도와 최적화가 있기 때문입니다.
+                  기획부터 디자인, 개발, 검색 최적화까지 — 하나의 팀에서
+                  처음부터 끝까지.
+                </motion.p>
+              </motion.div>
+
+              {/* Name block */}
+              <motion.div
+                variants={fadeInUp}
+                className="pt-8"
+                style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}
+              >
+                <p className="text-[20px] md:text-[24px] font-semibold text-white leading-[1.2] mb-1">
+                  최정원
+                </p>
+                <p
+                  className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase"
+                  style={{ color: "rgba(255,255,255,0.3)" }}
+                >
+                  Creative Director & Founder
+                </p>
+              </motion.div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── VALUES ── */}
+      <div id="values">
+        <NumberedSection
+          label="( VALUES )"
+          heading="CORE VALUES."
+          items={valuesItems}
+          dark={true}
+        />
+      </div>
+
+      {/* ── HISTORY ── */}
+      <section
+        id="history"
+        className="py-[200px] md:py-[260px] px-5 md:px-12 lg:px-20"
+        style={{ backgroundColor: "#f5f5f0" }}
+      >
+        <div className="max-w-[1400px] mx-auto">
+          {/* Label */}
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewportConfig}
+            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+            className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase text-[#999] mb-12 md:mb-16"
+          >
+            ( HISTORY )
+          </motion.p>
+
+          {/* Timeline rows */}
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+          >
+            {historyItems.map((item, i) => (
+              <motion.div
+                key={i}
+                variants={fadeInUp}
+                className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-12 md:gap-20 py-8 md:py-10"
+                style={{ borderBottom: "1px solid #ddd" }}
+              >
+                {/* Year */}
+                <span
+                  className="font-[family-name:var(--font-jetbrains-mono)] text-[13px] tracking-[0.06em] text-[#999] shrink-0 sm:w-[120px] md:w-[160px] pt-[2px]"
+                >
+                  {item.year}
+                </span>
+                {/* Description */}
+                <p className="text-[14px] md:text-[15px] leading-[1.8] text-[#333] flex-1">
+                  {item.desc}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── STATS ROW ── */}
+      <StatsRow stats={statsItems} />
+
+      {/* ── COMPANY ── */}
+      <section
+        id="company"
+        className="py-[200px] md:py-[260px] px-5 md:px-12 lg:px-20"
+        style={{ backgroundColor: "#1a1a1a" }}
+        data-theme="dark"
+      >
+        <div className="max-w-[1400px] mx-auto">
+          {/* Label */}
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewportConfig}
+            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+            className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase mb-12 md:mb-16"
+            style={{ color: "rgba(255,255,255,0.3)" }}
+          >
+            ( COMPANY )
+          </motion.p>
+
+          {/* Key-value table */}
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+            className="max-w-[720px]"
+          >
+            {companyInfo.map((row, i) => (
+              <motion.div
+                key={i}
+                variants={fadeInUp}
+                className="flex items-start gap-8 md:gap-16 py-5"
+                style={{
+                  borderBottom: "1px solid rgba(255,255,255,0.08)",
+                  borderTop:
+                    i === 0 ? "1px solid rgba(255,255,255,0.08)" : undefined,
+                }}
+              >
+                <span
+                  className="text-[13px] w-[80px] md:w-[100px] shrink-0 pt-[1px]"
+                  style={{ color: "rgba(255,255,255,0.4)" }}
+                >
+                  {row.label}
+                </span>
+                <span
+                  className="text-[15px] leading-[1.6]"
+                  style={{ color: "rgba(255,255,255,0.8)" }}
+                >
+                  {row.value}
+                </span>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
 
       {/* ── FAQ ── */}
-      <FAQSection
-        questions={aboutFAQs}
-        sectionNumber="03"
-        sectionLabel="FAQ"
-        heading="Questions"
-        showDivider
-      />
+      <FaqTwoColumn faqs={aboutFaqs} sectionLabel="( FAQ )" />
 
-      {/* ── Internal Links ── */}
-      <InternalLinks links={aboutInternalLinks} />
-
-      {/* ── CTA Band ── */}
-      <SubCtaBand />
+      {/* ── CTA ── */}
+      <ContactCtaSection />
     </>
   );
 }

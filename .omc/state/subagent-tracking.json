@@ -1,0 +1,130 @@
+{
+  "agents": [
+    {
+      "agent_id": "a27a90c6418fd9b6c",
+      "agent_type": "compound-engineering:research:repo-research-analyst",
+      "started_at": "2026-04-09T02:00:18.733Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-09T02:03:08.832Z",
+      "duration_ms": 170099
+    },
+    {
+      "agent_id": "a4f6303357da414a8",
+      "agent_type": "compound-engineering:research:learnings-researcher",
+      "started_at": "2026-04-09T02:00:21.294Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-09T02:01:16.461Z",
+      "duration_ms": 55167
+    },
+    {
+      "agent_id": "adde59ce4e7082782",
+      "agent_type": "oh-my-claudecode:executor",
+      "started_at": "2026-04-09T02:07:53.958Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-09T02:09:14.969Z",
+      "duration_ms": 81011
+    },
+    {
+      "agent_id": "a7967b9401b175147",
+      "agent_type": "oh-my-claudecode:executor",
+      "started_at": "2026-04-09T02:08:08.586Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-09T02:09:43.601Z",
+      "duration_ms": 95015
+    },
+    {
+      "agent_id": "a6960299744c56e6e",
+      "agent_type": "oh-my-claudecode:executor",
+      "started_at": "2026-04-09T02:08:26.427Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-09T02:10:06.872Z",
+      "duration_ms": 100445
+    },
+    {
+      "agent_id": "a2f39a111d9eba000",
+      "agent_type": "oh-my-claudecode:executor",
+      "started_at": "2026-04-09T02:08:43.890Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-09T02:10:15.901Z",
+      "duration_ms": 92011
+    },
+    {
+      "agent_id": "a885afe8734180440",
+      "agent_type": "oh-my-claudecode:executor",
+      "started_at": "2026-04-09T02:11:20.834Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-09T02:16:37.206Z",
+      "duration_ms": 316372
+    },
+    {
+      "agent_id": "a4ff25f84eb79f909",
+      "agent_type": "oh-my-claudecode:executor",
+      "started_at": "2026-04-09T02:11:50.734Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-09T02:14:25.686Z",
+      "duration_ms": 154952
+    },
+    {
+      "agent_id": "ab8e88988aea2ac8a",
+      "agent_type": "oh-my-claudecode:executor",
+      "started_at": "2026-04-09T02:12:23.556Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-09T02:14:22.230Z",
+      "duration_ms": 118674
+    },
+    {
+      "agent_id": "a79a9f0261aaf0d20",
+      "agent_type": "oh-my-claudecode:executor",
+      "started_at": "2026-04-09T02:32:45.652Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-09T02:36:04.274Z",
+      "duration_ms": 198622
+    },
+    {
+      "agent_id": "ad0c60ac8b8ea31a7",
+      "agent_type": "oh-my-claudecode:executor",
+      "started_at": "2026-04-09T02:33:05.383Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-09T02:35:46.106Z",
+      "duration_ms": 160723
+    },
+    {
+      "agent_id": "a461f4a097593559c",
+      "agent_type": "oh-my-claudecode:executor",
+      "started_at": "2026-04-09T02:33:33.301Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-09T02:35:36.901Z",
+      "duration_ms": 123600
+    },
+    {
+      "agent_id": "a4e85f2f34c4a595a",
+      "agent_type": "oh-my-claudecode:executor",
+      "started_at": "2026-04-09T02:36:41.845Z",
+      "parent_mode": "none",
+      "status": "running"
+    },
+    {
+      "agent_id": "a3e44a94a53515382",
+      "agent_type": "oh-my-claudecode:executor",
+      "started_at": "2026-04-09T02:37:10.678Z",
+      "parent_mode": "none",
+      "status": "running"
+    }
+  ],
+  "total_spawned": 14,
+  "total_completed": 12,
+  "total_failed": 0,
+  "last_updated": "2026-04-09T02:37:10.783Z"
+}

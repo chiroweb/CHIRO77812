@@ -82,7 +82,7 @@ export default function ProcessStack() {
   const [active, setActive] = useState(0);
 
   return (
-    <section className="min-h-screen flex items-center py-[120px] md:py-[160px] px-5 md:px-8 lg:px-16 bg-[#1a1a1a]" data-theme="dark">
+    <section className="min-h-screen flex items-center py-[200px] md:py-[260px] px-5 md:px-8 lg:px-16 bg-[#1a1a1a]" data-theme="dark">
       <div className="max-w-[1280px] mx-auto w-full">
         {/* Header */}
         <motion.h2

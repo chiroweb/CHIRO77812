@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function AllInOne() {
   return (
-    <section className="relative bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[120px] md:py-[160px]">
+    <section className="relative bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[200px] md:py-[260px]">
       <div className="max-w-[1400px] mx-auto relative">
         {/* Right: Image mask — positioned top-right */}
         <div className="absolute right-0 top-0 w-[200px] h-[140px] md:w-[300px] md:h-[200px] lg:w-[360px] lg:h-[240px] rounded-lg overflow-hidden">

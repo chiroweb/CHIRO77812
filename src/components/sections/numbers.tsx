@@ -192,7 +192,7 @@ export default function Numbers() {
   return (
     <section
       ref={ref}
-      className="relative min-h-screen flex items-center py-[120px] md:py-[160px] px-5 md:px-8 lg:px-16 bg-[#fafaf8] overflow-hidden"
+      className="relative min-h-screen flex items-center py-[200px] md:py-[260px] px-5 md:px-8 lg:px-16 bg-[#fafaf8] overflow-hidden"
     >
       {/* Background Code Ticker — right side */}
       <div className="hidden md:block absolute right-0 top-0 bottom-0 w-[280px] opacity-10 pointer-events-none">

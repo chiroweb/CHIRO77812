@@ -19,13 +19,13 @@ export default function SiteLayout({
       <LoadingWrapper>
 
         <CustomCursor />
-        <SiteBanner />
+        {/* <SiteBanner /> */}
         <Header />
-        <ScarcityBar />
+        {/* <ScarcityBar /> */}
         <main className="pb-[60px] md:pb-0">{children}</main>
         <MobileCtaBar />
         <Footer />
-        <SitePopup />
+        {/* <SitePopup /> */}
       </LoadingWrapper>
     </LenisProvider>
   );

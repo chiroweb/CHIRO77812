@@ -1,23 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  fadeInUp,
-  staggerContainer,
-  viewportConfig,
-} from "@/lib/motion";
-import Breadcrumbs from "@/components/seo/breadcrumbs";
-import FAQSection from "@/components/seo/faq-section";
-import InternalLinks from "@/components/seo/internal-links";
-import SectionLabel from "@/components/ui/section-label";
-import Divider from "@/components/ui/divider";
-import SubCtaBand from "@/components/ui/sub-cta-band";
-import {
-  generateServiceSchema,
-  generatePageSchema,
-  JsonLd,
-} from "@/lib/schema-helpers";
-import { getServiceBySlug } from "@/data/services";
+import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
+import SubpageHero from "@/components/sections/subpage-hero";
+import NumberedSection from "@/components/sections/numbered-section";
+import ComparisonTable from "@/components/sections/comparison-table";
+import StatsRow from "@/components/sections/stats-row";
+import FaqTwoColumn from "@/components/sections/faq-two-column";
+import ContactCtaSection from "@/components/sections/contact-cta-section";
 
 /* ─────────────────────────────────────
    Data
@@ -25,103 +15,94 @@ import { getServiceBySlug } from "@/data/services";
 
 const includedItems = [
   {
-    number: "01",
-    title: "구조화 데이터 (JSON-LD)",
-    description:
-      "검색엔진과 AI가 페이지 내용을 정확히 이해하도록 Organization, Service, FAQ, BreadcrumbList 등 스키마를 코드에 직접 삽입합니다.",
+    title: "Organization 스키마",
+    description: "검색엔진이 비즈니스 정보를 정확히 인식하도록 구조화.",
   },
   {
-    number: "02",
-    title: "시맨틱 HTML",
-    description:
-      "header, main, section, article 등 의미론적 태그를 사용하여 콘텐츠 계층 구조를 명확하게 전달합니다.",
-  },
-  {
-    number: "03",
-    title: "메타태그 자동화",
-    description:
-      "title, description, Open Graph, Twitter Card 메타태그를 페이지별로 자동 생성하여 검색 결과와 SNS 공유 시 최적의 미리보기를 제공합니다.",
-  },
-  {
-    number: "04",
-    title: "XML 사이트맵 & robots.txt",
-    description:
-      "모든 페이지를 포함하는 사이트맵을 자동 생성하고, robots.txt로 크롤링 범위를 제어합니다.",
-  },
-  {
-    number: "05",
-    title: "llms.txt",
-    description:
-      "ChatGPT, Perplexity 등 AI 검색 엔진이 사이트 정보를 정확하게 인용할 수 있도록 llms.txt 파일을 제공합니다.",
-  },
-  {
-    number: "06",
-    title: "클린 URL",
-    description:
-      "파라미터 없는 정적 URL 구조로 검색엔진 친화성을 높이고, 사용자가 URL만으로 페이지 내용을 예측할 수 있게 합니다.",
-  },
-  {
-    number: "07",
-    title: "Core Web Vitals 최적화",
-    description:
-      "LCP 1.5초 이내, CLS 0.1 이하를 목표로 이미지 최적화, 코드 경량화, 레이아웃 안정화를 적용합니다.",
-  },
-  {
-    number: "08",
     title: "FAQPage 스키마",
-    description:
-      "자주 묻는 질문을 FAQPage 스키마로 마크업하여 구글 리치 스니펫(아코디언 FAQ)에 노출될 수 있도록 합니다.",
+    description: "자주 묻는 질문이 구글 리치 결과에 직접 노출.",
+  },
+  {
+    title: "BreadcrumbList 스키마",
+    description: "사이트 구조를 검색엔진에 명확히 전달.",
+  },
+  {
+    title: "시맨틱 HTML",
+    description: "의미 있는 HTML 구조로 크롤러 가독성 극대화.",
+  },
+  {
+    title: "sitemap.xml & robots.txt",
+    description: "자동 생성. 크롤링 효율 최적화.",
+  },
+  {
+    title: "llms.txt",
+    description: "2026년 신규 표준. AI 크롤러 전용 사이트맵.",
   },
 ];
+
+const comparisonColumns = ["아임웹", "카페24", "치로"];
 
 const comparisonRows = [
-  { feature: "구조화 데이터 (JSON-LD)", imweb: "✗", cafe24: "✗", chiro: "✓" },
-  { feature: "클린 URL", imweb: "제한적", cafe24: "제한적", chiro: "✓" },
-  { feature: "시맨틱 HTML", imweb: "✗", cafe24: "제한적", chiro: "✓" },
-  { feature: "메타태그 제어", imweb: "제한적", cafe24: "제한적", chiro: "✓" },
-  { feature: "XML 사이트맵", imweb: "자동", cafe24: "제한적", chiro: "✓" },
-  { feature: "llms.txt", imweb: "✗", cafe24: "✗", chiro: "✓" },
-  { feature: "Core Web Vitals", imweb: "제한적", cafe24: "제한적", chiro: "✓" },
-  { feature: "코드 수준 SEO", imweb: "✗", cafe24: "✗", chiro: "✓" },
+  { feature: "커스텀 코드", values: [false, false, true] },
+  { feature: "SEO 자동화", values: [false, false, true] },
+  { feature: "AEO 스키마", values: [false, false, true] },
+  { feature: "클린 URL", values: [false, false, true] },
+  { feature: "llms.txt", values: [false, false, true] },
+  { feature: "구조화 데이터", values: [false, false, true] },
+  { feature: "로딩 속도 최적화", values: [false, false, true] },
 ];
 
-const service = getServiceBySlug("seo-aeo")!;
+const stats = [
+  { label: "AI 검색 트래픽 비중", value: "25%+" },
+  { label: "기본 포함 SEO 항목", value: "12+" },
+  { label: "평균 페이지 속도 점수", value: "95+" },
+];
 
-const internalLinks = [
+const faqs = [
   {
-    title: "무료 웹사이트 진단",
-    href: "/free-diagnosis",
-    description:
-      "현재 사이트의 SEO 상태를 무료로 진단받으세요. 구조화 데이터, 메타태그, Core Web Vitals를 점검합니다.",
+    q: "AEO와 SEO는 어떻게 다른가요?",
+    a: "SEO는 구글 등 전통 검색엔진에서 상위 노출을 목표로 합니다. AEO(Answer Engine Optimization)는 ChatGPT, Perplexity, Gemini 같은 AI 검색엔진이 답변을 생성할 때 내 사이트를 출처로 인용하도록 최적화합니다. 2026년 현재 두 가지를 함께 적용해야 트래픽을 놓치지 않습니다.",
   },
   {
-    title: "포트폴리오",
-    href: "/portfolio",
-    description:
-      "치로가 제작한 웹사이트를 확인하세요. 모든 프로젝트에 SEO/AEO가 기본 적용되어 있습니다.",
+    q: "아임웹·카페24 사이트에는 적용할 수 없나요?",
+    a: "빌더 플랫폼은 코드 접근이 제한되어 FAQPage 스키마, 클린 URL, llms.txt 같은 핵심 AEO 요소를 적용할 수 없습니다. 치로는 모든 코드를 직접 작성하기 때문에 기술적 한계 없이 최적화를 구현합니다.",
   },
   {
-    title: "블로그",
-    href: "/blog",
-    description:
-      "SEO, AEO, 웹 개발에 관한 인사이트를 공유합니다. 검색 최적화의 최신 트렌드를 확인하세요.",
+    q: "llms.txt가 무엇인가요?",
+    a: "2025년부터 등장한 새로운 표준 파일입니다. robots.txt가 검색 크롤러에게 지침을 주듯, llms.txt는 AI 크롤러(GPTBot, PerplexityBot 등)에게 사이트 정보를 구조화해서 전달합니다. AI 검색 인용률에 직접 영향을 줍니다.",
+  },
+  {
+    q: "SEO/AEO 작업은 별도 비용인가요?",
+    a: "아닙니다. 치로의 모든 프로젝트에는 SEO/AEO 기본 세팅이 포함되어 있습니다. Organization 스키마, FAQPage 스키마, BreadcrumbList, 시맨틱 HTML, sitemap.xml, robots.txt, llms.txt가 추가 비용 없이 기본 제공됩니다.",
+  },
+  {
+    q: "결과가 얼마나 걸리나요?",
+    a: "구조화 데이터와 기술적 SEO는 사이트 론칭 즉시 적용됩니다. 구글 리치 결과 반영은 보통 2–6주, AI 검색 인용 증가는 3–8주 내에 확인됩니다. 단, 콘텐츠 품질과 사이트 권위에 따라 달라질 수 있습니다.",
+  },
+  {
+    q: "ChatGPT가 내 사이트를 인용하게 할 수 있나요?",
+    a: "완전히 보장할 수는 없지만, llms.txt 적용, 명확한 답변 구조, 권위 시그널 강화를 통해 인용 가능성을 높일 수 있습니다. 치로는 이 세 가지를 모두 기본 세팅에 포함합니다.",
   },
 ];
 
 /* ─────────────────────────────────────
-   JSON-LD Schemas
+   Platform Strategy blocks
 ───────────────────────────────────── */
 
-const serviceSchema = generateServiceSchema({
-  name: "SEO/AEO 자동화 세팅",
-  description:
-    "코드 레벨에서 시작되는 검색 최적화. 구조화 데이터, 시맨틱 HTML, 메타태그, 사이트맵, llms.txt를 기본 제공하여 구글, 네이버, AI 검색 엔진에 최적화합니다.",
-  url: "https://chiroweb.co.kr/services/seo-aeo",
-});
-
-const pageSchema = generatePageSchema(
-  [serviceSchema].filter(Boolean)
-);
+const platforms = [
+  {
+    name: "Google",
+    strategy: "구조화 데이터 + 시맨틱 HTML로 리치 결과 노출",
+  },
+  {
+    name: "ChatGPT",
+    strategy: "명확한 답변 구조 + llms.txt로 인용 후보 확보",
+  },
+  {
+    name: "Perplexity",
+    strategy: "출처 URL + 권위 시그널로 직접 인용 유도",
+  },
+];
 
 /* ─────────────────────────────────────
    Page Component
@@ -130,253 +111,178 @@ const pageSchema = generatePageSchema(
 export default function SeoAeoContent() {
   return (
     <>
-      {pageSchema && <JsonLd data={pageSchema} />}
+      {/* 1. SubpageHero */}
+      <SubpageHero
+        title="SEO & AEO"
+        label="( Search Optimization )"
+      />
 
-      <div className="pt-24 md:pt-32 pb-24 md:pb-32 px-5 md:px-8">
-        <div className="max-w-[1280px] mx-auto">
+      {/* 2. Direct Answer Block — Light */}
+      <section
+        className="py-[200px] md:py-[260px] px-5 md:px-12 lg:px-20"
+        style={{ backgroundColor: "#f5f5f0" }}
+      >
+        <div className="max-w-[1400px] mx-auto">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+            className="max-w-[800px]"
+          >
+            <motion.h2
+              variants={fadeInUp}
+              className="text-[28px] md:text-[40px] lg:text-[52px] font-extrabold tracking-[-0.03em] leading-[1.1] text-[#111] mb-8"
+            >
+              AEO(Answer Engine Optimization)란.
+            </motion.h2>
+            <motion.p
+              variants={fadeInUp}
+              className="text-[15px] md:text-[17px] leading-[1.9] text-[#555]"
+            >
+              AI 검색 엔진이 답변을 생성할 때 내 사이트를 출처로 인용하도록
+              최적화하는 작업입니다. 2026년 현재 검색 트래픽의 25% 이상이
+              AI 검색으로 이동했습니다.
+            </motion.p>
+          </motion.div>
+        </div>
+      </section>
 
-          {/* ── Section 1: Hero / Definition Block ── */}
-          <Breadcrumbs pathname="/services/seo-aeo" />
-          <SectionLabel number="01" label="SEO/AEO" />
+      {/* 3. 코드 레벨 이유 — Dark */}
+      <section
+        className="py-[200px] md:py-[260px] px-5 md:px-12 lg:px-20"
+        style={{ backgroundColor: "#1a1a1a" }}
+        data-theme="dark"
+      >
+        <div className="max-w-[1400px] mx-auto">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+          >
+            <motion.p
+              variants={fadeInUp}
+              className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase mb-6"
+              style={{ color: "rgba(255,255,255,0.3)" }}
+            >
+              ( WHY CODE-LEVEL )
+            </motion.p>
+
+            <motion.h2
+              variants={fadeInUp}
+              className="text-[36px] md:text-[60px] lg:text-[80px] font-extrabold tracking-[-0.03em] leading-[1.05] text-white uppercase mb-12 md:mb-16 whitespace-pre-line"
+            >
+              {`왜 코드 레벨에서\n시작해야 하는가.`}
+            </motion.h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
+              <motion.p
+                variants={fadeInUp}
+                className="text-[15px] md:text-[16px] leading-[1.9]"
+                style={{ color: "rgba(255,255,255,0.5)" }}
+              >
+                아임웹, 카페24 같은 빌더 위에서는 FAQPage 스키마, 클린 URL,
+                커스텀 구조화 데이터를 적용할 수 없습니다. 빌더의 기술적
+                한계가 곧 검색 노출의 한계입니다.
+              </motion.p>
+              <motion.p
+                variants={fadeInUp}
+                className="text-[15px] md:text-[16px] leading-[1.9]"
+                style={{ color: "rgba(255,255,255,0.5)" }}
+              >
+                치로는 모든 코드를 직접 작성합니다. 그래야만 가능한 구조가
+                있습니다.
+              </motion.p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 4. 기본 제공 항목 — NumberedSection (dark) */}
+      <NumberedSection
+        label="( INCLUDED )"
+        heading={"WHAT'S\nINCLUDED."}
+        items={includedItems}
+        dark={true}
+      />
+
+      {/* 5. 비교표 — ComparisonTable */}
+      <ComparisonTable
+        label="( COMPARISON )"
+        heading={"플랫폼\n비교."}
+        columns={comparisonColumns}
+        rows={comparisonRows}
+        highlightColumn={2}
+      />
+
+      {/* 6. 플랫폼별 전략 — Light */}
+      <section
+        className="py-[200px] md:py-[260px] px-5 md:px-12 lg:px-20"
+        style={{ backgroundColor: "#f5f5f0" }}
+      >
+        <div className="max-w-[1400px] mx-auto">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+            className="mb-16 md:mb-20"
+          >
+            <motion.p
+              variants={fadeInUp}
+              className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase text-[#999] mb-6"
+            >
+              ( AI PLATFORMS )
+            </motion.p>
+            <motion.h2
+              variants={fadeInUp}
+              className="text-[36px] md:text-[56px] lg:text-[72px] font-extrabold tracking-[-0.03em] leading-[1.0] text-[#111] uppercase whitespace-pre-line"
+            >
+              {`PLATFORM\nSTRATEGY.`}
+            </motion.h2>
+          </motion.div>
 
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={viewportConfig}
-            className="mb-10 md:mb-16"
+            className="grid grid-cols-1 md:grid-cols-3 gap-[1px] bg-[#ddd]"
           >
-            <motion.h1
-              variants={fadeInUp}
-              className="font-[family-name:var(--font-space-grotesk)] text-[28px] md:text-[44px] font-light tracking-[0.03em] leading-[1.05] mb-6"
-            >
-              SEO/AEO 자동화 세팅 — 코드 레벨에서 시작되는 검색 최적화
-              <span className="text-[#FF4D00]">.</span>
-            </motion.h1>
-            <motion.p
-              variants={fadeInUp}
-              className="text-base text-[#6b6b6b] leading-[1.7] max-w-2xl"
-            >
-              치로웹디자인의 SEO/AEO 자동화는 웹사이트 코드 레벨에서 구현되는 검색
-              최적화입니다. 구조화 데이터(JSON-LD), 시맨틱 HTML, 메타태그,
-              사이트맵, llms.txt를 기본 제공하여 구글, 네이버는 물론 ChatGPT,
-              Perplexity 등 AI 검색 엔진에도 정확하게 노출됩니다.
-            </motion.p>
+            {platforms.map((platform, i) => (
+              <motion.div
+                key={i}
+                variants={fadeInUp}
+                className="bg-[#f5f5f0] p-8 md:p-10"
+              >
+                <p
+                  className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase text-[#999] mb-4"
+                >
+                  {platform.name}
+                </p>
+                <p className="text-[15px] md:text-[16px] leading-[1.8] text-[#333] font-medium">
+                  {platform.strategy}
+                </p>
+              </motion.div>
+            ))}
           </motion.div>
-
-          {/* ── Section 2: 치로 기본 제공 항목 ── */}
-          <div className="mt-20 md:mt-32">
-            <Divider />
-            <div className="pt-16 md:pt-24">
-              <SectionLabel number="02" label="What's Included" />
-
-              <motion.div
-                variants={staggerContainer}
-                initial="hidden"
-                whileInView="visible"
-                viewport={viewportConfig}
-                className="mb-12 md:mb-20"
-              >
-                <motion.h2
-                  variants={fadeInUp}
-                  className="font-[family-name:var(--font-space-grotesk)] text-[28px] md:text-[44px] font-light tracking-[0.03em] leading-[1.05] mb-6"
-                >
-                  치로 기본 제공 항목<span className="text-[#FF4D00]">.</span>
-                </motion.h2>
-                <motion.p
-                  variants={fadeInUp}
-                  className="text-base text-[#6b6b6b] leading-[1.7] max-w-xl"
-                >
-                  별도 비용 없이, 모든 프로젝트에 포함되는 SEO/AEO 세팅입니다.
-                </motion.p>
-              </motion.div>
-
-              <motion.div
-                variants={staggerContainer}
-                initial="hidden"
-                whileInView="visible"
-                viewport={viewportConfig}
-                className="grid grid-cols-1 md:grid-cols-2 gap-[1px] bg-[#E0E0E0]"
-              >
-                {includedItems.map((item) => (
-                  <motion.div
-                    key={item.number}
-                    variants={fadeInUp}
-                    className="bg-white p-8 md:p-10"
-                  >
-                    <div className="flex items-start gap-4">
-                      <span className="font-[family-name:var(--font-jetbrains-mono)] text-[28px] md:text-[32px] text-[#E0E0E0] leading-none shrink-0">
-                        {item.number}
-                      </span>
-                      <div>
-                        <h3 className="text-base font-semibold tracking-tight mb-2">
-                          {item.title}
-                        </h3>
-                        <p className="text-sm text-[#6b6b6b] leading-[1.7]">
-                          {item.description}
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </div>
-          </div>
-
-          {/* ── Section 3: 기술 비교표 ── */}
-          <div className="mt-20 md:mt-32">
-            <Divider />
-            <div className="pt-16 md:pt-24">
-              <SectionLabel number="03" label="Comparison" />
-
-              <motion.div
-                variants={staggerContainer}
-                initial="hidden"
-                whileInView="visible"
-                viewport={viewportConfig}
-                className="mb-12 md:mb-20"
-              >
-                <motion.h2
-                  variants={fadeInUp}
-                  className="font-[family-name:var(--font-space-grotesk)] text-[28px] md:text-[44px] font-light tracking-[0.03em] leading-[1.05] mb-6"
-                >
-                  기술 비교<span className="text-[#FF4D00]">.</span>
-                </motion.h2>
-                <motion.p
-                  variants={fadeInUp}
-                  className="text-base text-[#6b6b6b] leading-[1.7] max-w-xl"
-                >
-                  빌더형 플랫폼과 치로의 코드 레벨 SEO를 비교합니다.
-                </motion.p>
-              </motion.div>
-
-              <motion.div
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={viewportConfig}
-                className="overflow-x-auto"
-              >
-                <table className="w-full text-sm border-collapse">
-                  <thead>
-                    <tr className="border-b-2 border-[#1a1a1a]">
-                      <th className="text-left py-4 pr-6 font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#9b9b9b] font-normal">
-                        항목
-                      </th>
-                      <th className="text-center py-4 px-4 font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#9b9b9b] font-normal">
-                        아임웹
-                      </th>
-                      <th className="text-center py-4 px-4 font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#9b9b9b] font-normal">
-                        카페24
-                      </th>
-                      <th className="text-center py-4 px-4 font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#FF4D00] font-normal">
-                        치로
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {comparisonRows.map((row, index) => (
-                      <tr
-                        key={index}
-                        className="border-b border-[#E0E0E0]"
-                      >
-                        <td className="py-4 pr-6 text-[#1a1a1a]">
-                          {row.feature}
-                        </td>
-                        <td className="py-4 px-4 text-center text-[#9b9b9b]">
-                          {row.imweb}
-                        </td>
-                        <td className="py-4 px-4 text-center text-[#9b9b9b]">
-                          {row.cafe24}
-                        </td>
-                        <td className="py-4 px-4 text-center text-[#FF4D00] font-medium">
-                          {row.chiro}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </motion.div>
-            </div>
-          </div>
-
-          {/* ── Section 4: 치로만의 차이 ── */}
-          <div className="mt-20 md:mt-32">
-            <Divider />
-            <div className="pt-16 md:pt-24">
-              <SectionLabel number="04" label="Why CHIRO" />
-
-              <motion.div
-                variants={staggerContainer}
-                initial="hidden"
-                whileInView="visible"
-                viewport={viewportConfig}
-                className="mb-12 md:mb-20"
-              >
-                <motion.h2
-                  variants={fadeInUp}
-                  className="font-[family-name:var(--font-space-grotesk)] text-[28px] md:text-[44px] font-light tracking-[0.03em] leading-[1.05] mb-6"
-                >
-                  치로만의 차이<span className="text-[#FF4D00]">.</span>
-                </motion.h2>
-              </motion.div>
-
-              <motion.div
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={viewportConfig}
-                className="bg-[#1a1a1a] p-6 md:p-12"
-              >
-                <div className="grid grid-cols-4 md:grid-cols-12 gap-6">
-                  <div className="col-span-4 md:col-span-5">
-                    <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#6b6b6b] mb-4">
-                      Code-Level SEO
-                    </p>
-                    <h3 className="font-[family-name:var(--font-space-grotesk)] text-xl md:text-2xl font-light tracking-[0.03em] leading-[1.3] text-white">
-                      플러그인에 의존하지 않습니다
-                      <span className="text-[#FF4D00]">.</span>
-                      <br />
-                      코드 자체가 SEO입니다
-                      <span className="text-[#FF4D00]">.</span>
-                    </h3>
-                  </div>
-                  <div className="col-span-4 md:col-span-5 md:col-start-7 flex items-center">
-                    <div className="space-y-4 text-sm text-white/60 leading-[1.7]">
-                      <p>
-                        일반 에이전시는 SEO 플러그인에 의존합니다. 플러그인은
-                        페이지 속도를 저하시키고, 플랫폼이 허용하는 범위 안에서만
-                        작동합니다. 구조화 데이터, 시맨틱 HTML, llms.txt 같은
-                        핵심 요소는 플러그인으로 해결할 수 없습니다.
-                      </p>
-                      <p>
-                        치로는 다릅니다. 심리학 기반 UX 기획과 코드 레벨 SEO를
-                        결합합니다. 빌드 시점에 구조화 데이터가 자동 생성되고,
-                        모든 페이지가 시맨틱 HTML로 작성되며, AI 검색 엔진을 위한
-                        llms.txt까지 기본 제공됩니다. 플러그인 없이, 코드만으로
-                        완성되는 SEO입니다.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </div>
         </div>
-      </div>
+      </section>
 
-      {/* ── Section 5: FAQ ── */}
-      <FAQSection
-        questions={service.faqs}
-        sectionNumber="05"
-        sectionLabel="FAQ"
-        heading="Questions"
-        popularIndex={0}
+      {/* 7. StatsRow */}
+      <StatsRow stats={stats} dark={false} />
+
+      {/* 8. FaqTwoColumn */}
+      <FaqTwoColumn
+        faqs={faqs}
+        sectionLabel="( FAQ )"
+        heading={"FREQUENTLY\nASKED."}
+        dark={false}
       />
 
-      {/* ── Section 6: Internal Links + CTA ── */}
-      <InternalLinks links={internalLinks} />
-      <SubCtaBand />
+      {/* 9. ContactCtaSection */}
+      <ContactCtaSection variant="diagnosis" />
     </>
   );
 }

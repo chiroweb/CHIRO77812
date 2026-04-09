@@ -1,7 +1,7 @@
 {
-  "tool_name": "Bash",
-  "tool_input_preview": "{\"command\":\"source /Users/choejeong-won/Desktop/chiroweb77812/.env.local && node -e \\\"\\nconst { neon } = require('@neondatabase/serverless');\\nconst sql = neon(process.env.DATABASE_URL || process.env....",
-  "error": "Exit code 1\n/Users/choejeong-won/Desktop/chiroweb77812/node_modules/@neondatabase/serverless/index.js:1272\nauthToken:u,disableWarningInBrowsers:c}={}){if(!r)throw new Error(\"No database connection string was\\\n                                                  ^\n\nError: No database connection string was provided to `neon()`. Perhaps an environment variable has not been set?\n    at neon (/Users/choejeong-won/Desktop/chiroweb77812/node_modules/@neondatabase/serverless/index.js:1272:57)\n    at [eval]...",
-  "timestamp": "2026-04-08T06:22:26.355Z",
-  "retry_count": 1
+  "tool_name": "mcp__plugin_oh-my-claudecode_t__lsp_diagnostics",
+  "tool_input_preview": "{\"file\":\"/Users/choejeong-won/Desktop/chiroweb77812/src/app/(site)/services/remodeling/page.tsx\",\"severity\":\"error\"}",
+  "error": "Language server 'typescript-language-server' not found.\nInstall with: npm install -g typescript-language-server typescript",
+  "timestamp": "2026-04-09T02:35:08.304Z",
+  "retry_count": 4
 }

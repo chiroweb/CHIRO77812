@@ -74,7 +74,7 @@ export default function PortfolioPreview() {
   }, []);
 
   return (
-    <section className="py-[120px] md:py-[160px] px-5 md:px-8 lg:px-16 bg-[#fafaf8]">
+    <section className="py-[200px] md:py-[260px] px-5 md:px-8 lg:px-16 bg-[#fafaf8]">
       <div className="max-w-[1280px] mx-auto">
         {/* Header */}
         <motion.div

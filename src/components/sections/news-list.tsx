@@ -41,7 +41,7 @@ export default function NewsList() {
   }, []);
 
   return (
-    <section className="bg-[#f5f5f0] px-5 md:px-20 py-[120px] md:py-[160px]">
+    <section className="bg-[#f5f5f0] px-5 md:px-20 py-[200px] md:py-[260px]">
       <div className="max-w-[1400px] mx-auto">
         {/* ( NEWS ) caption */}
         <motion.p

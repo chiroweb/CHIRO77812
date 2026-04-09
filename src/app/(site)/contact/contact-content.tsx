@@ -3,12 +3,9 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
-import SectionLabel from "@/components/ui/section-label";
-import Divider from "@/components/ui/divider";
+import SubpageHero from "@/components/sections/subpage-hero";
+import FaqTwoColumn from "@/components/sections/faq-two-column";
 import { sendEmail } from "@/lib/emailjs";
-import Breadcrumbs from "@/components/seo/breadcrumbs";
-import FAQSection from "@/components/seo/faq-section";
-import InternalLinks from "@/components/seo/internal-links";
 import { JsonLd, generateLocalBusinessSchema, generateFAQSchema, generatePageSchema } from "@/lib/schema-helpers";
 
 interface SiteSettings {
@@ -23,27 +20,13 @@ const fallbackSettings: SiteSettings = {
   response_time: "영업일 기준 24시간 내에 답변을 드립니다.",
 };
 
-const PROJECT_TAGS = [
-  "기업 홈페이지",
-  "브랜드 사이트",
-  "쇼핑몰",
-  "랜딩 페이지",
-  "리뉴얼",
-  "포트폴리오",
-  "블로그 / 매거진",
-  "기타",
-];
+const PROJECT_TAGS = ["기업 홈페이지", "브랜드 사이트", "쇼핑몰", "랜딩 페이지", "리뉴얼", "포트폴리오", "블로그 / 매거진", "기타"];
 
-const faqQuestions = [
-  { question: "상담은 어떻게 진행되나요?", answer: "문의 폼을 제출하시면 24시간 이내에 이메일 또는 카카오톡으로 연락드립니다. 전화, 메일, 카카오톡 중 편한 방법으로 상담을 진행합니다." },
-  { question: "응답까지 얼마나 걸리나요?", answer: "평균 24시간 이내에 응답합니다. 영업일 기준 당일 또는 익일 중 연락드립니다." },
-  { question: "견적만 물어봐도 되나요?", answer: "물론입니다. 견적 확인만으로도 부담 없이 문의해 주세요. 프로젝트 규모에 맞는 플랜과 예상 비용을 안내드립니다." },
-];
-
-const internalLinks = [
-  { title: "요금 안내", href: "/pricing", description: "프로젝트 규모에 맞는 플랜과 예상 비용을 확인하세요." },
-  { title: "무료 진단", href: "/free-diagnosis", description: "현재 웹사이트의 성능과 SEO 상태를 무료로 진단받으세요." },
-  { title: "서비스 소개", href: "/services", description: "치로웹디자인이 제공하는 웹 디자인·개발·SEO 서비스를 확인하세요." },
+const contactFaqs = [
+  { q: "상담은 어떻게 진행되나요?", a: "문의 폼을 제출하시면 24시간 이내에 이메일 또는 카카오톡으로 연락드립니다. 전화, 메일, 카카오톡 중 편한 방법으로 상담을 진행합니다." },
+  { q: "응답까지 얼마나 걸리나요?", a: "평균 24시간 이내에 응답합니다. 영업일 기준 당일 또는 익일 중 연락드립니다." },
+  { q: "견적만 물어봐도 되나요?", a: "물론입니다. 견적 확인만으로도 부담 없이 문의해 주세요. 프로젝트 규모에 맞는 플랜과 예상 비용을 안내드립니다." },
+  { q: "해외에서도 상담 가능한가요?", a: "가능합니다. 이메일, 카카오톡, Zoom 등 온라인으로 상담을 진행합니다. 시차를 고려하여 일정을 조율합니다." },
 ];
 
 export default function ContactContent() {
@@ -53,29 +36,23 @@ export default function ContactContent() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const localBusinessSchema = generateLocalBusinessSchema();
-  const faqSchema = generateFAQSchema(faqQuestions);
-  const schemas = [localBusinessSchema, faqSchema].filter(Boolean);
-  const pageSchema = schemas.length > 0 ? generatePageSchema(schemas as object[]) : null;
+  const faqSchema = generateFAQSchema(contactFaqs.map(f => ({ question: f.q, answer: f.a })));
+  const pageSchema = generatePageSchema([localBusinessSchema, faqSchema].filter(Boolean) as object[]);
 
   const toggleTag = (tag: string) => {
-    setSelectedTags((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
-    );
+    setSelectedTags((prev) => prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]);
   };
 
   useEffect(() => {
-    fetch("/api/settings")
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.settings) {
-          setSettings({
-            contact_email: data.settings.contact_email || fallbackSettings.contact_email,
-            contact_location: data.settings.contact_location || fallbackSettings.contact_location,
-            response_time: data.settings.response_time || fallbackSettings.response_time,
-          });
-        }
-      })
-      .catch(() => {});
+    fetch("/api/settings").then((r) => r.json()).then((data) => {
+      if (data.settings) {
+        setSettings({
+          contact_email: data.settings.contact_email || fallbackSettings.contact_email,
+          contact_location: data.settings.contact_location || fallbackSettings.contact_location,
+          response_time: data.settings.response_time || fallbackSettings.response_time,
+        });
+      }
+    }).catch(() => {});
   }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -89,14 +66,12 @@ export default function ContactContent() {
     const projectType = selectedTags.length > 0 ? selectedTags.join(", ") : "미선택";
 
     try {
-      // 1. DB 저장 (서버)
       fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, message, projectType }),
       }).catch(() => {});
 
-      // 2. 이메일 발송 (브라우저에서 직접 — 무료)
       await sendEmail({
         from_name: name,
         user_email: email,
@@ -115,96 +90,101 @@ export default function ContactContent() {
     <>
       {pageSchema && <JsonLd data={pageSchema} />}
 
-      {/* ── Header ── */}
-      <section className="pt-24 md:pt-32 pb-16 md:pb-24 px-5 md:px-8">
-        <div className="max-w-[1280px] mx-auto">
-          <Breadcrumbs pathname="/contact" />
-          <SectionLabel number="01" label="Contact" />
+      <SubpageHero
+        title="CONTACT"
+        label="( Get In Touch )"
+      />
 
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportConfig}
-            className="mb-12 md:mb-20"
-          >
-            <motion.h1
-              variants={fadeInUp}
-              className="font-[family-name:var(--font-space-grotesk)] text-[28px] md:text-[44px] font-light tracking-[0.03em] leading-[1.05] mb-6"
-            >
-              프로젝트를 시작합니다<span className="text-[#FF4D00]">.</span>
-            </motion.h1>
-            <motion.p
-              variants={fadeInUp}
-              className="text-base text-[#6b6b6b] leading-[1.7] max-w-lg"
-            >
-              간단한 정보만 남겨 주십시오. 치로가 무료 진단과 함께 프로세스 체험
-              링크를 보내드립니다.
-            </motion.p>
-          </motion.div>
+      {/* Contact Methods */}
+      <section className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[160px] md:py-[200px]">
+        <div className="max-w-[1400px] mx-auto">
+          <p className="text-[11px] tracking-[0.08em] uppercase text-[#999] mb-10 font-[family-name:var(--font-jetbrains-mono)]">
+            ( CONTACT METHODS )
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {[
+              { label: "폼 문의", value: "아래 폼 작성", icon: "📋" },
+              { label: "카카오톡", value: "치로웹디자인", icon: "💬" },
+              { label: "이메일", value: settings.contact_email, icon: "✉" },
+              { label: "전화", value: "010-6816-0775", icon: "📞" },
+            ].map((method) => (
+              <motion.div
+                key={method.label}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="bg-white border border-[#e5e5e5] rounded-xl p-6"
+              >
+                <span className="text-[24px] mb-3 block">{method.icon}</span>
+                <p className="text-[11px] tracking-[0.08em] uppercase text-[#999] mb-1 font-[family-name:var(--font-jetbrains-mono)]">{method.label}</p>
+                <p className="text-[15px] text-[#111] font-medium">{method.value}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          <Divider />
+      {/* Response Time */}
+      <section className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 pb-[60px]">
+        <div className="max-w-[1400px] mx-auto text-center">
+          <p className="text-[15px] text-[#666]">{settings.response_time}</p>
+        </div>
+      </section>
 
-          <div className="mt-12 md:mt-20 grid grid-cols-4 md:grid-cols-12 gap-6">
-            {/* Form */}
-            <motion.div
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewportConfig}
-              className="col-span-4 md:col-span-6"
-            >
+      {/* Contact Form */}
+      <section className="bg-[#1a1a1a] px-5 md:px-12 lg:px-20 py-[200px] md:py-[260px]" data-theme="dark">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
+            {/* Left: Heading */}
+            <div>
+              <p className="text-[11px] tracking-[0.08em] uppercase text-white/30 mb-6 font-[family-name:var(--font-jetbrains-mono)]">
+                ( FORM )
+              </p>
+              <h2 className="text-[36px] md:text-[56px] lg:text-[72px] font-extrabold text-white tracking-[-0.03em] leading-[1.0] uppercase">
+                LET&apos;S
+                <br />
+                TALK.
+              </h2>
+              <p className="mt-8 text-[14px] text-white/40 leading-[1.8] max-w-[360px]">
+                간단한 정보만 남겨 주세요. 치로가 무료 진단과 함께 프로세스 체험 링크를 보내드립니다.
+              </p>
+            </div>
+
+            {/* Right: Form */}
+            <div>
               {submitted ? (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                  className="py-16"
-                >
-                  <h2 className="font-[family-name:var(--font-space-grotesk)] text-2xl font-light tracking-[0.03em] mb-4">
-                    접수되었습니다<span className="text-[#FF4D00]">.</span>
-                  </h2>
-                  <p className="text-base text-[#6b6b6b] leading-[1.7]">
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+                  <h3 className="text-[24px] font-semibold text-white mb-4">접수되었습니다.</h3>
+                  <p className="text-[15px] text-white/50 leading-[1.8]">
                     {settings.response_time}
-                    <br />
-                    무료 진단 결과와 함께 프로세스 체험 링크를 보내드리겠습니다.
+                    <br />무료 진단 결과와 함께 프로세스 체험 링크를 보내드리겠습니다.
                   </p>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-12">
+                <motion.form
+                  variants={staggerContainer}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={viewportConfig}
+                  onSubmit={handleSubmit}
+                  className="space-y-8"
+                >
                   <motion.div variants={fadeInUp}>
-                    <label
-                      htmlFor="name"
-                      className="block font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#9b9b9b] mb-4"
-                    >
-                      Name
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      required
-                      placeholder="성함을 입력해 주십시오"
-                      className="w-full border-b border-[#E0E0E0] py-3 text-base bg-transparent outline-none focus:border-[#1a1a1a] transition-colors duration-300 placeholder:text-[#9b9b9b]"
-                    />
+                    <label htmlFor="name" className="block text-[11px] tracking-[0.08em] uppercase text-white/40 mb-3 font-[family-name:var(--font-jetbrains-mono)]">Name</label>
+                    <input type="text" id="name" name="name" required placeholder="성함" className="w-full border-b border-white/20 py-3 text-[16px] text-white bg-transparent outline-none focus:border-white transition-colors placeholder:text-white/20" />
                   </motion.div>
 
                   <motion.div variants={fadeInUp}>
-                    <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#9b9b9b] mb-4">
-                      Project Type
-                    </p>
+                    <p className="text-[11px] tracking-[0.08em] uppercase text-white/40 mb-3 font-[family-name:var(--font-jetbrains-mono)]">Project Type</p>
                     <div className="flex flex-wrap gap-2">
                       {PROJECT_TAGS.map((tag) => {
                         const isSelected = selectedTags.includes(tag);
                         return (
                           <button
-                            key={tag}
-                            type="button"
-                            onClick={() => toggleTag(tag)}
-                            className={`px-4 py-2 text-sm border transition-all duration-200 cursor-pointer ${
-                              isSelected
-                                ? "border-[#FF4D00] bg-[#FF4D00] text-white"
-                                : "border-[#E0E0E0] text-[#6b6b6b] hover:border-[#1a1a1a] hover:text-[#1a1a1a]"
+                            key={tag} type="button" onClick={() => toggleTag(tag)}
+                            className={`px-4 py-2 text-[13px] rounded-full border transition-all duration-200 cursor-pointer ${
+                              isSelected ? "border-[#FF4D00] bg-[#FF4D00] text-white" : "border-white/20 text-white/50 hover:border-white/50"
                             }`}
                           >
                             {tag}
@@ -215,115 +195,51 @@ export default function ContactContent() {
                   </motion.div>
 
                   <motion.div variants={fadeInUp}>
-                    <label
-                      htmlFor="contact"
-                      className="block font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#9b9b9b] mb-4"
-                    >
-                      Contact
-                    </label>
-                    <input
-                      type="text"
-                      id="contact"
-                      name="contact"
-                      required
-                      placeholder="연락처 (이메일 또는 전화번호)"
-                      className="w-full border-b border-[#E0E0E0] py-3 text-base bg-transparent outline-none focus:border-[#1a1a1a] transition-colors duration-300 placeholder:text-[#9b9b9b]"
-                    />
+                    <label htmlFor="contact" className="block text-[11px] tracking-[0.08em] uppercase text-white/40 mb-3 font-[family-name:var(--font-jetbrains-mono)]">Contact</label>
+                    <input type="text" id="contact" name="contact" required placeholder="이메일 또는 전화번호" className="w-full border-b border-white/20 py-3 text-[16px] text-white bg-transparent outline-none focus:border-white transition-colors placeholder:text-white/20" />
                   </motion.div>
 
                   <motion.div variants={fadeInUp}>
-                    <label
-                      htmlFor="concern"
-                      className="block font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#9b9b9b] mb-4"
-                    >
-                      현재 가장 고민인 부분은?
-                    </label>
-                    <textarea
-                      id="concern"
-                      name="concern"
-                      required
-                      rows={5}
-                      placeholder="현재 운영 중인 사이트의 문제점이나, 새로 만들고자 하는 사이트에 대해 자유롭게 적어 주십시오."
-                      className="w-full border-b border-[#E0E0E0] py-3 text-base bg-transparent outline-none focus:border-[#1a1a1a] transition-colors duration-300 resize-none placeholder:text-[#9b9b9b]"
-                    />
+                    <label htmlFor="concern" className="block text-[11px] tracking-[0.08em] uppercase text-white/40 mb-3 font-[family-name:var(--font-jetbrains-mono)]">Message</label>
+                    <textarea id="concern" name="concern" required rows={4} placeholder="프로젝트에 대해 자유롭게 적어 주세요." className="w-full border-b border-white/20 py-3 text-[16px] text-white bg-transparent outline-none focus:border-white transition-colors resize-none placeholder:text-white/20" />
                   </motion.div>
 
-                  {error && (
-                    <p className="text-sm text-[#FF4D00]">{error}</p>
-                  )}
+                  {error && <p className="text-sm text-[#FF4D00]">{error}</p>}
 
                   <motion.div variants={fadeInUp}>
-                    <button
-                      type="submit"
-                      className="inline-flex items-center gap-2 border border-[#1a1a1a] text-[#1a1a1a] w-full md:w-auto justify-center px-8 py-3.5 md:py-3 text-sm tracking-[0.05em] transition-all duration-300 hover:bg-[#FF4D00] hover:text-white hover:border-[#FF4D00] cursor-pointer"
-                    >
-                      무료 진단 및 프로세스 체험 신청
+                    <button type="submit" className="bg-white text-[#1a1a1a] px-8 py-3.5 text-[14px] tracking-[0.02em] rounded-full hover:bg-[#FF4D00] hover:text-white transition-all duration-300 cursor-pointer">
+                      문의 보내기
                     </button>
                   </motion.div>
-                </form>
+                </motion.form>
               )}
-            </motion.div>
-
-            {/* Info — Dark sidebar */}
-            <motion.div
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewportConfig}
-              className="col-span-4 md:col-span-4 md:col-start-9"
-            >
-              <motion.div
-                variants={fadeInUp}
-                className="bg-[#1a1a1a] p-8 md:p-10 space-y-10"
-              >
-                <div>
-                  <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#6b6b6b] mb-3">
-                    Email
-                  </p>
-                  <p className="text-sm text-white">{settings.contact_email}</p>
-                </div>
-                <div>
-                  <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#6b6b6b] mb-3">
-                    Phone
-                  </p>
-                  <p className="text-sm text-white">010-6815-0775</p>
-                </div>
-                <div>
-                  <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#6b6b6b] mb-3">
-                    Representative
-                  </p>
-                  <p className="text-sm text-white">최정원</p>
-                </div>
-                <div>
-                  <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#6b6b6b] mb-3">
-                    Address
-                  </p>
-                  <p className="text-sm text-white">{settings.contact_location}</p>
-                </div>
-                <div>
-                  <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#6b6b6b] mb-3">
-                    Response
-                  </p>
-                  <p className="text-sm text-white/60 leading-[1.7]">
-                    {settings.response_time}
-                    <br />
-                    무료 진단 결과와 함께 프로세스 체험 링크를 보내드립니다.
-                  </p>
-                </div>
-              </motion.div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
 
-      <FAQSection
-        questions={faqQuestions}
-        sectionNumber="02"
-        sectionLabel="FAQ"
-        heading="Questions"
-      />
+      {/* Company Info */}
+      <section className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[160px] md:py-[200px]">
+        <div className="max-w-[1400px] mx-auto">
+          <p className="text-[11px] tracking-[0.08em] uppercase text-[#999] mb-8 font-[family-name:var(--font-jetbrains-mono)]">( COMPANY )</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[600px]">
+            {[
+              { label: "상호", value: "치로웹디자인" },
+              { label: "대표", value: "최정원" },
+              { label: "이메일", value: settings.contact_email },
+              { label: "전화", value: "010-6816-0775" },
+              { label: "소재지", value: settings.contact_location },
+            ].map((item) => (
+              <div key={item.label} className="flex items-baseline gap-4 py-3 border-b border-[#ddd]">
+                <span className="text-[12px] text-[#999] w-[60px] shrink-0">{item.label}</span>
+                <span className="text-[15px] text-[#111]">{item.value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      <InternalLinks links={internalLinks} />
+      <FaqTwoColumn faqs={contactFaqs} />
     </>
   );
 }

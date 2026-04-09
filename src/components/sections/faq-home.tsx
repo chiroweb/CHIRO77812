@@ -96,7 +96,7 @@ function FaqColumn({ items, offset }: { items: typeof faqs; offset: number }) {
 
 export default function FaqHome() {
   return (
-    <section className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[100px] md:py-[140px]">
+    <section className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[200px] md:py-[260px]">
       <div className="max-w-[1400px] mx-auto">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-12 md:mb-16 gap-6">
