@@ -195,8 +195,8 @@
     },
     {
       "path": "src/components/layout/header.tsx",
-      "accessCount": 32,
-      "lastAccessed": 1775700085260,
+      "accessCount": 38,
+      "lastAccessed": 1775714976672,
       "type": "file"
     },
     {
@@ -242,15 +242,15 @@
       "type": "file"
     },
     {
-      "path": "src/app/(site)/blog/page.tsx",
-      "accessCount": 17,
-      "lastAccessed": 1775702467332,
+      "path": "src/app/(site)/about/about-content.tsx",
+      "accessCount": 19,
+      "lastAccessed": 1775714515196,
       "type": "file"
     },
     {
-      "path": "src/app/(site)/about/about-content.tsx",
+      "path": "src/app/(site)/blog/page.tsx",
       "accessCount": 17,
-      "lastAccessed": 1775714003237,
+      "lastAccessed": 1775702467332,
       "type": "file"
     },
     {

@@ -143,6 +143,7 @@ export default function AboutContent() {
       <SubpageHero
         title="ABOUT"
         label="( About CHIRO )"
+        image="/services/building-night.png"
       />
 
       {/* ── SubNav ── */}

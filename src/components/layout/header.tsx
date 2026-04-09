@@ -109,12 +109,12 @@ export default function Header() {
                     isActive(pathname, item.href)
                       ? scrolled
                         ? darkMode ? "text-white bg-white/10" : "text-[#1a1a1a] bg-black/[0.05]"
-                        : "text-white"
+                        : darkMode ? "text-white" : "text-[#1a1a1a]"
                       : scrolled
                         ? darkMode
                           ? "text-white/60 hover:text-white hover:bg-white/[0.06]"
                           : "text-[#6b6b6b] hover:text-[#1a1a1a] hover:bg-black/[0.03]"
-                        : "text-white/70 hover:text-white"
+                        : darkMode ? "text-white/70 hover:text-white" : "text-[#6b6b6b] hover:text-[#1a1a1a]"
                   }`}
                 >
                   {item.label}
@@ -128,7 +128,7 @@ export default function Header() {
                 <span className={`text-[18px] md:text-[20px] font-extrabold tracking-[0.08em] transition-colors duration-300 ${
                   scrolled
                     ? darkMode ? "text-white" : "text-[#1a1a1a]"
-                    : "text-white"
+                    : darkMode ? "text-white" : "text-[#1a1a1a]"
                 }`}>
                   CHIRO
                 </span>
@@ -144,7 +144,9 @@ export default function Header() {
                     ? darkMode
                       ? "bg-white text-[#0a0a0a] hover:bg-[#FF4D00] hover:text-white"
                       : "bg-[#1a1a1a] text-white hover:bg-[#FF4D00]"
-                    : "bg-white/15 text-white border border-white/20 hover:bg-white/25"
+                    : darkMode
+                      ? "bg-white/15 text-white border border-white/20 hover:bg-white/25"
+                      : "bg-[#1a1a1a] text-white hover:bg-[#FF4D00]"
                 }`}
               >
                 프로젝트 문의
@@ -163,7 +165,7 @@ export default function Header() {
                     ? "rotate-45 translate-y-[3.75px] bg-[#1a1a1a]"
                     : scrolled
                       ? darkMode ? "bg-white" : "bg-[#1a1a1a]"
-                      : "bg-white"
+                      : darkMode ? "bg-white" : "bg-[#1a1a1a]"
                 }`}
               />
               <span
@@ -172,7 +174,7 @@ export default function Header() {
                     ? "-rotate-45 -translate-y-[3.75px] bg-[#1a1a1a]"
                     : scrolled
                       ? darkMode ? "bg-white" : "bg-[#1a1a1a]"
-                      : "bg-white"
+                      : darkMode ? "bg-white" : "bg-[#1a1a1a]"
                 }`}
               />
             </button>
