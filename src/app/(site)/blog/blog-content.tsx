@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import SubpageHero from "@/components/sections/subpage-hero";
 import SubNav from "@/components/ui/sub-nav";
-import ContactCtaSection from "@/components/sections/contact-cta-section";
+import CtaContact from "@/components/sections/cta-contact";
 
 interface BlogPost {
   id: number;
@@ -128,7 +128,7 @@ export default function BlogContent({ posts }: { posts: BlogPost[] }) {
         </div>
       </section>
 
-      <ContactCtaSection />
+      <CtaContact />
     </>
   );
 }

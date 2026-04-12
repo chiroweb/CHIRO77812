@@ -4,10 +4,8 @@ import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import SubpageHero from "@/components/sections/subpage-hero";
 import SubNav from "@/components/ui/sub-nav";
-import NumberedSection from "@/components/sections/numbered-section";
-import StatsRow from "@/components/sections/stats-row";
 import FaqTwoColumn from "@/components/sections/faq-two-column";
-import ContactCtaSection from "@/components/sections/contact-cta-section";
+import CtaContact from "@/components/sections/cta-contact";
 
 /* ─────────────────────────────────────
    JSON-LD — Person Schema
@@ -61,23 +59,28 @@ const valuesItems = [
 
 const historyItems = [
   {
-    year: "( 2024 )",
+    year: "2024",
+    tags: ["Foundation"],
     desc: "치로웹디자인 설립. 심리학 전공 디렉터의 1인 웹 에이전시로 시작.",
   },
   {
-    year: "( 2024 )",
+    year: "2024",
+    tags: ["Launch", "Brand"],
     desc: "첫 클라이언트 프로젝트 완료. 골프 악세서리 브랜드 치로골프 런칭.",
   },
   {
-    year: "( 2025 )",
+    year: "2025",
+    tags: ["Enterprise", "B2B"],
     desc: "해외 호텔 브랜드 계열사 프로젝트 수주. 중견 제조사 NBPKOREA 사이트 구축.",
   },
   {
-    year: "( 2025 )",
+    year: "2025",
+    tags: ["Real Estate", "B2B"],
     desc: "아파트 분양 홍보관 프로젝트 진행. B2B 환경 기업 사이트 구축.",
   },
   {
-    year: "( 2026 )",
+    year: "2026",
+    tags: ["SEO/AEO", "AI"],
     desc: "SEO/AEO 자동화 시스템 고도화. llms.txt 표준 조기 도입.",
   },
 ];
@@ -143,7 +146,7 @@ export default function AboutContent() {
       <SubpageHero
         title="ABOUT"
         label="( About CHIRO )"
-        image="/services/building-night.png"
+        image="https://chiro-web.s3.ap-northeast-2.amazonaws.com/public/hero/architecture-dark.png"
       />
 
       {/* ── SubNav ── */}
@@ -221,7 +224,7 @@ export default function AboutContent() {
               </motion.div>
             </div>
 
-            {/* Right: Image placeholder */}
+            {/* Right: Image placeholder — smaller, positioned lower */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -231,12 +234,11 @@ export default function AboutContent() {
                 ease: [0.25, 0.1, 0.25, 1],
                 delay: 0.15,
               }}
-              className="w-full lg:w-[38%] shrink-0"
+              className="w-full lg:w-[30%] shrink-0 lg:mt-[160px]"
             >
-              <div
-                className="w-full aspect-[3/4] rounded-lg"
-                style={{ backgroundColor: "#ddd" }}
-              />
+              <div className="w-full aspect-[4/5] rounded-lg overflow-hidden">
+                <img src="https://chiro-web.s3.ap-northeast-2.amazonaws.com/public/about/mission-desk.png" alt="치로웹디자인 미션 — 비즈니스를 위한 아름다운 웹사이트" className="w-full h-full object-cover rounded-lg" />
+              </div>
             </motion.div>
           </div>
         </div>
@@ -245,9 +247,9 @@ export default function AboutContent() {
       {/* ── DIRECTOR ── */}
       <section
         id="director"
-        className="py-[200px] md:py-[260px] px-5 md:px-12 lg:px-20"
-        style={{ backgroundColor: "#1a1a1a" }}
-        data-theme="dark"
+        className="py-[100px] md:py-[140px] px-5 md:px-12 lg:px-20"
+        style={{ backgroundColor: "#f5f5f0" }}
+
       >
         <div className="max-w-[1400px] mx-auto">
           {/* Label */}
@@ -257,145 +259,268 @@ export default function AboutContent() {
             viewport={viewportConfig}
             transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
             className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase mb-12 md:mb-16"
-            style={{ color: "rgba(255,255,255,0.3)" }}
+            style={{ color: "#999" }}
           >
             ( DIRECTOR )
           </motion.p>
 
-          {/* Content: image left + text right */}
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
-            {/* Left: image placeholder */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={viewportConfig}
-              transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
-              className="w-full lg:w-[40%] shrink-0"
-            >
-              <div
-                className="w-full aspect-[3/4] rounded-lg"
-                style={{ backgroundColor: "#2a2a2a" }}
-              />
-            </motion.div>
-
-            {/* Right: message */}
-            <motion.div
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewportConfig}
-              className="flex-1 min-w-0 flex flex-col justify-center"
-            >
-              <motion.p
-                variants={fadeInUp}
-                className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase mb-6"
-                style={{ color: "rgba(255,255,255,0.3)" }}
+          {/* Editorial layout: image left + title overlapping + body right */}
+          <div className="relative">
+            {/* Two-column: image left, body text right */}
+            <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
+              {/* Left: Image */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportConfig}
+                transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+                className="relative z-0 w-full lg:w-[38%] shrink-0"
               >
-                ( MESSAGE )
-              </motion.p>
+                <div className="w-full aspect-[3/4] rounded-lg overflow-hidden">
+                  <img src="https://chiro-web.s3.ap-northeast-2.amazonaws.com/public/about/director-profile.png" alt="최정원 디렉터 프로필" className="w-full h-full object-cover rounded-lg" />
+                </div>
+              </motion.div>
 
-              <motion.h2
-                variants={fadeInUp}
-                className="text-[36px] md:text-[56px] lg:text-[72px] font-extrabold tracking-[-0.03em] leading-[0.95] uppercase text-white mb-4"
-              >
-                DIRECTOR
-                <br />
-                MESSAGE
-              </motion.h2>
-              <motion.p
-                variants={fadeInUp}
-                className="text-[14px] md:text-[15px] mt-4 mb-10 md:mb-14"
-                style={{ color: "rgba(255,255,255,0.35)" }}
-              >
-                디렉터 메시지
-              </motion.p>
-
+              {/* Right: Body text — vertically centered to bottom half of image */}
               <motion.div
                 variants={staggerContainer}
-                className="space-y-5 mb-12"
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportConfig}
+                className="flex-1 flex flex-col justify-end lg:pb-8"
               >
                 <motion.p
                   variants={fadeInUp}
-                  className="text-[14px] md:text-[15px] leading-[1.85]"
-                  style={{ color: "rgba(255,255,255,0.55)" }}
+                  className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase mb-6"
+                  style={{ color: "#999" }}
                 >
-                  저는 심리학을 전공했습니다. 사람이 왜 특정 버튼을 누르는지,
-                  왜 특정 페이지에서 떠나는지를 연구했습니다. 그 지식을
-                  웹사이트 설계에 직접 적용합니다.
+                  ( MESSAGE )
                 </motion.p>
-                <motion.p
-                  variants={fadeInUp}
-                  className="text-[14px] md:text-[15px] leading-[1.85]"
-                  style={{ color: "rgba(255,255,255,0.55)" }}
-                >
-                  치로는 빌더를 사용하지 않습니다. 모든 코드를 직접 작성합니다.
-                  그래야만 가능한 구조와 속도와 최적화가 있기 때문입니다.
-                  기획부터 디자인, 개발, 검색 최적화까지 — 하나의 팀에서
-                  처음부터 끝까지.
-                </motion.p>
-              </motion.div>
 
-              {/* Name block */}
-              <motion.div
-                variants={fadeInUp}
-                className="pt-8"
-                style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}
-              >
-                <p className="text-[20px] md:text-[24px] font-semibold text-white leading-[1.2] mb-1">
-                  최정원
-                </p>
-                <p
-                  className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase"
-                  style={{ color: "rgba(255,255,255,0.3)" }}
+                <motion.div className="space-y-5 mb-12">
+                  <motion.p
+                    variants={fadeInUp}
+                    className="text-[14px] md:text-[15px] leading-[1.85]"
+                    style={{ color: "#666" }}
+                  >
+                    저는 심리학을 전공했습니다. 사람이 왜 특정 버튼을 누르는지,
+                    왜 특정 페이지에서 떠나는지를 연구했습니다. 그 지식을
+                    웹사이트 설계에 직접 적용합니다.
+                  </motion.p>
+                  <motion.p
+                    variants={fadeInUp}
+                    className="text-[14px] md:text-[15px] leading-[1.85]"
+                    style={{ color: "#666" }}
+                  >
+                    치로는 빌더를 사용하지 않습니다. 모든 코드를 직접 작성합니다.
+                    그래야만 가능한 구조와 속도와 최적화가 있기 때문입니다.
+                    기획부터 디자인, 개발, 검색 최적화까지 — 하나의 팀에서
+                    처음부터 끝까지.
+                  </motion.p>
+                </motion.div>
+
+                {/* Name block */}
+                <motion.div
+                  variants={fadeInUp}
+                  className="pt-8"
+                  style={{ borderTop: "1px solid #ddd" }}
                 >
-                  Creative Director & Founder
-                </p>
+                  <p className="text-[20px] md:text-[24px] font-semibold text-[#111] leading-[1.2] mb-1">
+                    최정원
+                  </p>
+                  <p
+                    className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase"
+                    style={{ color: "#999" }}
+                  >
+                    Creative Director & Founder
+                  </p>
+                </motion.div>
               </motion.div>
-            </motion.div>
+            </div>
+
+            {/* Title — overlaps image top-right, editorial style */}
+            <motion.h2
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={viewportConfig}
+              transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
+              className="absolute top-[18%] md:top-[12%] left-[35%] md:left-[28%] z-10 text-[48px] md:text-[80px] lg:text-[110px] xl:text-[130px] font-extrabold tracking-[-0.04em] leading-[0.85] uppercase text-[#111] bg-[#f5f5f0] px-5 md:px-8 py-4 md:py-6"
+            >
+              DIRECTOR
+              <br />
+              MESSAGE
+            </motion.h2>
           </div>
         </div>
       </section>
 
-      {/* ── VALUES ── */}
-      <div id="values">
-        <NumberedSection
-          label="( VALUES )"
-          heading="CORE VALUES."
-          subheading="핵심 가치"
-          items={valuesItems}
-          dark={true}
-        />
-      </div>
-
-      {/* ── HISTORY ── */}
+      {/* ── VALUES — Editorial Magazine Layout ── */}
       <section
-        id="history"
-        className="py-[200px] md:py-[260px] px-5 md:px-12 lg:px-20"
+        id="values"
+        className="py-[120px] md:py-[160px] px-5 md:px-12 lg:px-20"
         style={{ backgroundColor: "#f5f5f0" }}
       >
         <div className="max-w-[1400px] mx-auto">
-          {/* Label */}
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={viewportConfig}
-            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+            transition={{ duration: 0.4 }}
             className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase text-[#999] mb-6"
           >
-            ( HISTORY )
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewportConfig}
-            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1], delay: 0.05 }}
-            className="text-[14px] md:text-[15px] mt-4 mb-12 md:mb-16"
-            style={{ color: "#999" }}
-          >
-            치로웹디자인의 역사
+            ( VALUES )
           </motion.p>
 
-          {/* Timeline rows */}
+          {/* Value 01 — full-width big type + image right */}
+          <div className="relative mb-32 md:mb-40">
+            <motion.h3
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewportConfig}
+              transition={{ duration: 0.6 }}
+              className="text-[56px] md:text-[90px] lg:text-[120px] font-extrabold tracking-[-0.04em] leading-[0.85] uppercase text-[#111]"
+            >
+              PSYCHOLOGY
+              <br />
+              <span className="text-[#C0C0C0]">DRIVEN.</span>
+            </motion.h3>
+            <div className="flex flex-col lg:flex-row lg:items-end gap-8 mt-10 lg:mt-[-60px]">
+              <div className="lg:w-[45%]" />
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportConfig}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="lg:w-[25%]"
+              >
+                <div className="w-full aspect-[4/5] rounded-lg overflow-hidden">
+                  <img src="https://chiro-web.s3.ap-northeast-2.amazonaws.com/public/about/ux-wireframe.png" alt="심리학 기반 UX 와이어프레임 설계" className="w-full h-full object-cover rounded-lg" />
+                </div>
+              </motion.div>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportConfig}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="lg:w-[30%] text-[14px] md:text-[15px] leading-[1.85] text-[#666] lg:pb-4"
+              >
+                {valuesItems[0].description}
+              </motion.p>
+            </div>
+          </div>
+
+          {/* Value 02 — image left, big type right */}
+          <div className="relative mb-32 md:mb-40">
+            <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportConfig}
+                transition={{ duration: 0.6 }}
+                className="lg:w-[35%] shrink-0"
+              >
+                <div className="w-full aspect-[3/4] rounded-lg overflow-hidden">
+                  <img src="https://chiro-web.s3.ap-northeast-2.amazonaws.com/public/about/code-editor.png" alt="코드 레벨 개발 환경" className="w-full h-full object-cover rounded-lg" />
+                </div>
+              </motion.div>
+              <div className="flex-1 lg:pt-12">
+                <motion.h3
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={viewportConfig}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="text-[48px] md:text-[72px] lg:text-[100px] font-extrabold tracking-[-0.04em] leading-[0.85] uppercase text-[#111] mb-8"
+                >
+                  CODE
+                  <br />
+                  <span className="text-[#C0C0C0]">LEVEL.</span>
+                </motion.h3>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={viewportConfig}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  className="text-[14px] md:text-[15px] leading-[1.85] text-[#666] max-w-[440px]"
+                >
+                  {valuesItems[1].description}
+                </motion.p>
+              </div>
+            </div>
+          </div>
+
+          {/* Value 03 — right-aligned big type + image bottom-left overlap */}
+          <div className="relative">
+            <motion.h3
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewportConfig}
+              transition={{ duration: 0.6 }}
+              className="text-right text-[48px] md:text-[72px] lg:text-[100px] font-extrabold tracking-[-0.04em] leading-[0.85] uppercase text-[#111]"
+            >
+              ALL-IN
+              <br />
+              <span className="text-[#C0C0C0]">-ONE.</span>
+            </motion.h3>
+            <div className="flex flex-col lg:flex-row gap-8 mt-10 lg:mt-[-40px] items-end">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportConfig}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="lg:w-[30%]"
+              >
+                <div className="w-full aspect-[5/4] rounded-lg overflow-hidden">
+                  <img src="https://chiro-web.s3.ap-northeast-2.amazonaws.com/public/about/workspace-sketch.png" alt="올인원 워크스페이스 스케치" className="w-full h-full object-cover rounded-lg" />
+                </div>
+              </motion.div>
+              <div className="flex-1" />
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportConfig}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="lg:w-[35%] text-[14px] md:text-[15px] leading-[1.85] text-[#666] text-right"
+              >
+                {valuesItems[2].description}
+              </motion.p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── HISTORY — Editorial Timeline ── */}
+      <section
+        id="history"
+        className="py-[120px] md:py-[160px] px-5 md:px-12 lg:px-20"
+        style={{ backgroundColor: "#111" }}
+        data-theme="dark"
+      >
+        <div className="max-w-[1400px] mx-auto">
+          {/* Header row: label left, big type right */}
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-20 md:mb-28">
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewportConfig}
+              transition={{ duration: 0.4 }}
+              className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase text-[#555]"
+            >
+              ( HISTORY )
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewportConfig}
+              transition={{ duration: 0.6 }}
+              className="text-[48px] md:text-[72px] lg:text-[96px] font-extrabold tracking-[-0.04em] leading-[0.85] uppercase text-white text-right"
+            >
+              OUR
+              <br />
+              <span style={{ color: "#C0C0C0" }}>JOURNEY.</span>
+            </motion.h2>
+          </div>
+
+          {/* Timeline rows with tags */}
           <motion.div
             variants={staggerContainer}
             initial="hidden"
@@ -406,17 +531,32 @@ export default function AboutContent() {
               <motion.div
                 key={i}
                 variants={fadeInUp}
-                className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-12 md:gap-20 py-8 md:py-10"
-                style={{ borderBottom: "1px solid #ddd" }}
+                className="grid grid-cols-1 md:grid-cols-[100px_1fr_1fr] gap-4 md:gap-8 py-8 md:py-10 items-start"
+                style={{ borderBottom: "1px solid rgba(255,255,255,0.1)" }}
               >
                 {/* Year */}
-                <span
-                  className="font-[family-name:var(--font-jetbrains-mono)] text-[13px] tracking-[0.06em] text-[#999] shrink-0 sm:w-[120px] md:w-[160px] pt-[2px]"
-                >
+                <span className="font-[family-name:var(--font-jetbrains-mono)] text-[28px] md:text-[36px] font-bold text-white tracking-[-0.02em]">
                   {item.year}
                 </span>
+
+                {/* Tags */}
+                <div className="flex items-center gap-2 flex-wrap md:pt-3">
+                  {item.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 rounded-full text-[11px] font-medium tracking-[0.04em] uppercase"
+                      style={{
+                        backgroundColor: "rgba(255,255,255,0.08)",
+                        color: "rgba(255,255,255,0.6)",
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
                 {/* Description */}
-                <p className="text-[14px] md:text-[15px] leading-[1.8] text-[#333] flex-1">
+                <p className="text-[14px] md:text-[15px] leading-[1.8] text-[#888] md:text-right md:pt-3">
                   {item.desc}
                 </p>
               </motion.div>
@@ -425,73 +565,77 @@ export default function AboutContent() {
         </div>
       </section>
 
-      {/* ── STATS ROW ── */}
-      <StatsRow stats={statsItems} />
 
-      {/* ── COMPANY ── */}
+      {/* ── COMPANY — Editorial Split ── */}
       <section
         id="company"
-        className="py-[200px] md:py-[260px] px-5 md:px-12 lg:px-20"
-        style={{ backgroundColor: "#1a1a1a" }}
-        data-theme="dark"
+        className="py-[120px] md:py-[160px] px-5 md:px-12 lg:px-20"
+        style={{ backgroundColor: "#f5f5f0" }}
       >
         <div className="max-w-[1400px] mx-auto">
-          {/* Label */}
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewportConfig}
-            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-            className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase mb-6"
-            style={{ color: "rgba(255,255,255,0.3)" }}
-          >
-            ( COMPANY )
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewportConfig}
-            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1], delay: 0.05 }}
-            className="text-[14px] md:text-[15px] mt-4 mb-12 md:mb-16"
-            style={{ color: "rgba(255,255,255,0.35)" }}
-          >
-            회사 정보
-          </motion.p>
-
-          {/* Key-value table */}
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportConfig}
-            className="max-w-[720px]"
-          >
-            {companyInfo.map((row, i) => (
-              <motion.div
-                key={i}
-                variants={fadeInUp}
-                className="flex items-start gap-8 md:gap-16 py-5"
-                style={{
-                  borderBottom: "1px solid rgba(255,255,255,0.08)",
-                  borderTop:
-                    i === 0 ? "1px solid rgba(255,255,255,0.08)" : undefined,
-                }}
+          <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
+            {/* Left: Big type + image */}
+            <div className="lg:w-[50%]">
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportConfig}
+                transition={{ duration: 0.4 }}
+                className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase text-[#999] mb-6"
               >
-                <span
-                  className="text-[13px] w-[80px] md:w-[100px] shrink-0 pt-[1px]"
-                  style={{ color: "rgba(255,255,255,0.4)" }}
-                >
-                  {row.label}
-                </span>
-                <span
-                  className="text-[15px] leading-[1.6]"
-                  style={{ color: "rgba(255,255,255,0.8)" }}
-                >
-                  {row.value}
-                </span>
+                ( COMPANY )
+              </motion.p>
+              <motion.h2
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportConfig}
+                transition={{ duration: 0.6 }}
+                className="text-[48px] md:text-[64px] lg:text-[80px] font-extrabold tracking-[-0.04em] leading-[0.85] uppercase text-[#111] mb-12"
+              >
+                CHIRO
+                <br />
+                <span className="text-[#C0C0C0]">WEB.</span>
+              </motion.h2>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportConfig}
+                transition={{ duration: 0.5, delay: 0.1 }}
+              >
+                <div className="w-full aspect-[16/9] rounded-lg overflow-hidden">
+                  <img src="https://chiro-web.s3.ap-northeast-2.amazonaws.com/public/about/office-night.png" alt="치로웹디자인 오피스 야경" className="w-full h-full object-cover rounded-lg" />
+                </div>
               </motion.div>
-            ))}
-          </motion.div>
+            </div>
+
+            {/* Right: Company info — staggered card style */}
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+              className="lg:w-[50%] lg:pt-20"
+            >
+              {companyInfo.map((row, i) => (
+                <motion.div
+                  key={i}
+                  variants={fadeInUp}
+                  className="flex items-start gap-8 md:gap-12 py-5"
+                  style={{ borderBottom: "1px solid #ddd" }}
+                >
+                  <span
+                    className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.06em] uppercase w-[70px] md:w-[80px] shrink-0 pt-[3px]"
+                    style={{ color: "#999" }}
+                  >
+                    {row.label}
+                  </span>
+                  <span className="text-[15px] md:text-[16px] leading-[1.6] text-[#111] font-medium">
+                    {row.value}
+                  </span>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -499,7 +643,7 @@ export default function AboutContent() {
       <FaqTwoColumn faqs={aboutFaqs} sectionLabel="( FAQ )" />
 
       {/* ── CTA ── */}
-      <ContactCtaSection />
+      <CtaContact />
     </>
   );
 }

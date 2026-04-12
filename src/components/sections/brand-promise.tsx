@@ -35,7 +35,7 @@ export default function BrandPromise() {
     visible: {
       clipPath: "inset(0 0% 0 0)",
       opacity: 1,
-      transition: { duration: 1.2, ease: [0.25, 0.1, 0.25, 1] },
+      transition: { duration: 1.2, ease: [0.25, 0.1, 0.25, 1] as const },
     },
   };
 

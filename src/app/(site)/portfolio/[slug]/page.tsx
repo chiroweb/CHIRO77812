@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import BlogContent from "@/components/blog-content";
-import ContactCtaSection from "@/components/sections/contact-cta-section";
+import CtaContact from "@/components/sections/cta-contact";
 import { sql } from "@/lib/db";
+
+/* ─────────────────────────────────────
+   Types
+───────────────────────────────────── */
 
 interface ProjectDetail {
   id: number;
@@ -18,6 +22,10 @@ interface ProjectDetail {
   year: string | null;
   image_url: string | null;
 }
+
+/* ─────────────────────────────────────
+   Fallback Data
+───────────────────────────────────── */
 
 const fallbackProjects: Record<string, ProjectDetail> = {
   "1": {
@@ -78,6 +86,10 @@ const fallbackProjects: Record<string, ProjectDetail> = {
   },
 };
 
+/* ─────────────────────────────────────
+   DB Fetch
+───────────────────────────────────── */
+
 interface PortfolioDetailPageProps {
   params: Promise<{ slug: string }>;
 }
@@ -108,14 +120,12 @@ async function fetchProject(slug: string): Promise<ProjectDetail | null> {
   try {
     const decoded = decodeURIComponent(slug);
 
-    // Try slug first
     let result = await sql`
       SELECT id, name, slug, category, client_name, site_url, problem, result, solution, content, year, image_url
       FROM portfolio_projects
       WHERE slug = ${decoded} AND published = true
     `;
 
-    // Fall back to id
     if (result.rows.length === 0) {
       const id = parseInt(decoded);
       if (!isNaN(id)) {
@@ -134,6 +144,10 @@ async function fetchProject(slug: string): Promise<ProjectDetail | null> {
   return null;
 }
 
+/* ─────────────────────────────────────
+   Page Component — Editorial Detail
+───────────────────────────────────── */
+
 export default async function PortfolioDetailPage({
   params,
 }: PortfolioDetailPageProps) {
@@ -143,16 +157,21 @@ export default async function PortfolioDetailPage({
 
   if (!dbProject && !fallback) {
     return (
-      <section className="pt-24 md:pt-32 pb-24 md:pb-32 px-5 md:px-8">
-        <div className="max-w-[1280px] mx-auto">
-          <h1 className="text-2xl font-light">
-            프로젝트를 찾을 수 없습니다.
+      <section className="pt-32 pb-32 px-5 md:px-12 lg:px-20 bg-[#f5f5f0]">
+        <div className="max-w-[1400px] mx-auto">
+          <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase text-[#999] mb-8">
+            ( NOT FOUND )
+          </p>
+          <h1 className="text-[48px] md:text-[72px] font-extrabold tracking-[-0.03em] leading-[0.9] text-[#111] uppercase mb-8">
+            PROJECT
+            <br />
+            <span className="text-[#C0C0C0]">NOT FOUND.</span>
           </h1>
           <Link
             href="/portfolio"
-            className="mt-4 inline-block text-sm text-[#6b6b6b] border-b border-[#1a1a1a] pb-[2px]"
+            className="text-[13px] tracking-[0.04em] uppercase font-medium text-[#111] hover:text-[#FF4D00] transition-colors duration-300"
           >
-            포트폴리오로 돌아가기
+            ← 포트폴리오로 돌아가기
           </Link>
         </div>
       </section>
@@ -161,60 +180,63 @@ export default async function PortfolioDetailPage({
 
   const project = (dbProject || fallback) as ProjectDetail;
 
-
   return (
     <>
-      {/* Hero */}
-      <section className="bg-[#1a1a1a] pt-32 md:pt-40 pb-16 md:pb-24 px-5 md:px-12 lg:px-20" data-theme="dark">
+      {/* ══════════════════════════════════════
+         HERO — Editorial project title
+         다크, 거대 타이포 + 메타 정보
+      ══════════════════════════════════════ */}
+      <section
+        className="pt-[140px] md:pt-[180px] pb-[80px] md:pb-[100px] px-5 md:px-12 lg:px-20"
+        style={{ backgroundColor: "#1a1a1a" }}
+        data-theme="dark"
+      >
         <div className="max-w-[1400px] mx-auto">
-          <p className="text-[11px] md:text-[12px] tracking-[0.08em] uppercase text-white/30 mb-6 font-[family-name:var(--font-jetbrains-mono)]">
-            ( {project.category} )
+          {/* Back link */}
+          <Link
+            href="/portfolio"
+            className="inline-flex items-center gap-2 text-[12px] tracking-[0.06em] uppercase text-white/30 hover:text-white transition-colors duration-300 font-[family-name:var(--font-jetbrains-mono)] mb-16 md:mb-24"
+          >
+            ← Portfolio
+          </Link>
+
+          {/* Category + Year */}
+          <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase text-white/30 mb-6">
+            ( {project.category} {project.year && `— ${project.year}`} )
           </p>
-          <h1 className="text-[48px] md:text-[80px] lg:text-[110px] font-extrabold text-white tracking-[-0.03em] leading-[0.9] uppercase">
+
+          {/* Project name — editorial display */}
+          <h1 className="text-[56px] md:text-[96px] lg:text-[130px] font-extrabold text-white tracking-[-0.04em] leading-[0.85] uppercase">
             {project.name}
           </h1>
-          {project.year && (
-            <p className="mt-6 text-[13px] text-white/40 font-[family-name:var(--font-jetbrains-mono)]">{project.year}</p>
-          )}
-        </div>
-      </section>
 
-      {/* Hero Image */}
-      {project.image_url && (
-        <section className="bg-[#1a1a1a] px-5 md:px-12 lg:px-20 pb-[100px]" data-theme="dark">
-          <div className="max-w-[1400px] mx-auto">
-            <div className="aspect-[16/9] rounded-2xl overflow-hidden">
-              <img src={project.image_url} alt={project.name} className="w-full h-full object-contain bg-[#111]" />
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Overview Meta */}
-      <section className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[160px] md:py-[200px]">
-        <div className="max-w-[1400px] mx-auto">
-          <p className="text-[11px] tracking-[0.08em] uppercase text-[#999] mb-10 font-[family-name:var(--font-jetbrains-mono)]">
-            ( OVERVIEW )
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {/* Meta row */}
+          <div className="flex flex-wrap gap-x-12 gap-y-4 mt-10 md:mt-14">
             {project.client_name && (
               <div>
-                <p className="text-[11px] tracking-[0.08em] uppercase text-[#999] mb-2 font-[family-name:var(--font-jetbrains-mono)]">Client</p>
-                <p className="text-[15px] text-[#111] font-medium">{project.client_name}</p>
+                <p className="font-[family-name:var(--font-jetbrains-mono)] text-[10px] tracking-[0.08em] uppercase text-white/25 mb-1">Client</p>
+                <p className="text-[15px] text-white/70 font-medium">{project.client_name}</p>
               </div>
             )}
             <div>
-              <p className="text-[11px] tracking-[0.08em] uppercase text-[#999] mb-2 font-[family-name:var(--font-jetbrains-mono)]">Category</p>
-              <p className="text-[15px] text-[#111] font-medium">{project.category}</p>
+              <p className="font-[family-name:var(--font-jetbrains-mono)] text-[10px] tracking-[0.08em] uppercase text-white/25 mb-1">Category</p>
+              <p className="text-[15px] text-white/70 font-medium">{project.category}</p>
             </div>
-            <div>
-              <p className="text-[11px] tracking-[0.08em] uppercase text-[#999] mb-2 font-[family-name:var(--font-jetbrains-mono)]">Year</p>
-              <p className="text-[15px] text-[#111] font-medium font-[family-name:var(--font-jetbrains-mono)]">{project.year}</p>
-            </div>
+            {project.year && (
+              <div>
+                <p className="font-[family-name:var(--font-jetbrains-mono)] text-[10px] tracking-[0.08em] uppercase text-white/25 mb-1">Year</p>
+                <p className="text-[15px] text-white/70 font-medium font-[family-name:var(--font-jetbrains-mono)]">{project.year}</p>
+              </div>
+            )}
             {project.site_url && (
               <div>
-                <p className="text-[11px] tracking-[0.08em] uppercase text-[#999] mb-2 font-[family-name:var(--font-jetbrains-mono)]">Website</p>
-                <a href={project.site_url} target="_blank" rel="noopener noreferrer" className="text-[15px] text-[#111] font-medium hover:text-[#FF4D00] transition-colors">
+                <p className="font-[family-name:var(--font-jetbrains-mono)] text-[10px] tracking-[0.08em] uppercase text-white/25 mb-1">Website</p>
+                <a
+                  href={project.site_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[15px] text-white/70 font-medium hover:text-[#FF4D00] transition-colors"
+                >
                   사이트 방문 ↗
                 </a>
               </div>
@@ -223,52 +245,116 @@ export default async function PortfolioDetailPage({
         </div>
       </section>
 
-      {/* Challenge → Solution → Result */}
-      <section className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 pb-[200px] md:pb-[260px]">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-          {project.problem && (
-            <div className="border-t-2 border-[#111] pt-6">
-              <p className="text-[11px] tracking-[0.08em] uppercase text-[#999] mb-4 font-[family-name:var(--font-jetbrains-mono)]">Challenge</p>
-              <p className="text-[15px] text-[#111] leading-[1.8]">{project.problem}</p>
+      {/* ══════════════════════════════════════
+         HERO IMAGE — Full-width editorial
+      ══════════════════════════════════════ */}
+      {project.image_url && (
+        <section
+          className="px-5 md:px-12 lg:px-20 pb-[100px] md:pb-[140px]"
+          style={{ backgroundColor: "#1a1a1a" }}
+          data-theme="dark"
+        >
+          <div className="max-w-[1400px] mx-auto">
+            <div className="aspect-[16/9] rounded-lg overflow-hidden">
+              <img
+                src={project.image_url}
+                alt={project.name}
+                className="w-full h-full object-contain bg-[#111]"
+              />
             </div>
-          )}
-          {project.solution && (
-            <div className="border-t-2 border-[#111] pt-6">
-              <p className="text-[11px] tracking-[0.08em] uppercase text-[#999] mb-4 font-[family-name:var(--font-jetbrains-mono)]">Solution</p>
-              <p className="text-[15px] text-[#111] leading-[1.8]">{project.solution}</p>
-            </div>
-          )}
-          {project.result && (
-            <div className="border-t-2 border-[#FF4D00] pt-6">
-              <p className="text-[11px] tracking-[0.08em] uppercase text-[#999] mb-4 font-[family-name:var(--font-jetbrains-mono)]">Result</p>
-              <p className="text-[15px] text-[#111] leading-[1.8] font-medium">{project.result}</p>
-            </div>
-          )}
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
 
-      {/* Content (if CMS) */}
+      {/* ══════════════════════════════════════
+         OVERVIEW — Challenge / Solution / Result
+         Editorial: 비대칭 3블록, 좌정렬
+      ══════════════════════════════════════ */}
+      {(project.problem || project.solution || project.result) && (
+        <section
+          className="py-[160px] md:py-[220px] px-5 md:px-12 lg:px-20"
+          style={{ backgroundColor: "#f5f5f0" }}
+        >
+          <div className="max-w-[1400px] mx-auto">
+            <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase text-[#999] mb-16 md:mb-24">
+              ( OVERVIEW )
+            </p>
+
+            <div className="space-y-16 md:space-y-20">
+              {project.problem && (
+                <div className="lg:w-[60%]">
+                  <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase text-[#999] mb-4">
+                    ( CHALLENGE )
+                  </p>
+                  <h3 className="text-[24px] md:text-[36px] font-bold text-[#111] leading-[1.2] mb-4">
+                    문제.
+                  </h3>
+                  <p className="text-[15px] md:text-[16px] leading-[1.85] text-[#666]">
+                    {project.problem}
+                  </p>
+                </div>
+              )}
+
+              {project.solution && (
+                <div className="lg:w-[60%] lg:ml-auto">
+                  <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase text-[#999] mb-4">
+                    ( SOLUTION )
+                  </p>
+                  <h3 className="text-[24px] md:text-[36px] font-bold text-[#111] leading-[1.2] mb-4">
+                    해결.
+                  </h3>
+                  <p className="text-[15px] md:text-[16px] leading-[1.85] text-[#666]">
+                    {project.solution}
+                  </p>
+                </div>
+              )}
+
+              {project.result && (
+                <div className="lg:w-[60%]"
+                  style={{ borderLeft: "3px solid #FF4D00", paddingLeft: "2rem" }}
+                >
+                  <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase text-[#999] mb-4">
+                    ( RESULT )
+                  </p>
+                  <h3 className="text-[24px] md:text-[36px] font-bold text-[#111] leading-[1.2] mb-4">
+                    결과.
+                  </h3>
+                  <p className="text-[16px] md:text-[18px] leading-[1.85] text-[#111] font-medium">
+                    {project.result}
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ══════════════════════════════════════
+         CONTENT — CMS content (if exists)
+      ══════════════════════════════════════ */}
       {project.content && (
-        <section className="bg-white px-5 md:px-12 lg:px-20 py-[160px] md:py-[200px]">
+        <section className="bg-white px-5 md:px-12 lg:px-20 py-[120px] md:py-[160px]">
           <div className="max-w-[800px] mx-auto">
             <BlogContent html={project.content} />
           </div>
         </section>
       )}
 
-      {/* Back + CTA */}
+      {/* ══════════════════════════════════════
+         BACK + CTA
+      ══════════════════════════════════════ */}
       <section className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-16">
         <div className="max-w-[1400px] mx-auto text-center">
           <Link
             href="/portfolio"
-            className="inline-flex items-center gap-2 text-[14px] text-[#111] hover:text-[#FF4D00] transition-colors duration-300"
+            className="inline-flex items-center gap-2 text-[13px] tracking-[0.04em] uppercase font-medium text-[#111] hover:text-[#FF4D00] transition-colors duration-300"
           >
             ← 포트폴리오로 돌아가기
           </Link>
         </div>
       </section>
 
-      <ContactCtaSection />
+      <CtaContact />
     </>
   );
 }

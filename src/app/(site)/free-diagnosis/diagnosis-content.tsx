@@ -69,7 +69,6 @@ export default function DiagnosisContent() {
       <SubpageHero
         title="FREE DIAGNOSIS"
         label="( Site Audit )"
-        dark
       />
 
       <SubNav pageLabel="DIAGNOSIS MENU" items={[

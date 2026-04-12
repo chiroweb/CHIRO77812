@@ -3,12 +3,12 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { plans, pricingComparison } from "@/data/pricing";
+import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import SubpageHero from "@/components/sections/subpage-hero";
 import SubNav from "@/components/ui/sub-nav";
 import NumberedSection from "@/components/sections/numbered-section";
-import ComparisonTable from "@/components/sections/comparison-table";
 import FaqTwoColumn from "@/components/sections/faq-two-column";
-import ContactCtaSection from "@/components/sections/contact-cta-section";
+import CtaContact from "@/components/sections/cta-contact";
 
 const pricingFaqs = [
   { q: "추가 비용이 발생하나요?", a: "기본 패키지에 명시된 항목 외 추가 비용은 없습니다. 추가 기능이 필요한 경우 사전에 별도 견적을 안내드립니다." },
@@ -19,14 +19,12 @@ const pricingFaqs = [
   { q: "제작 기간은 플랜마다 다른가요?", a: "Startup 플랜은 평균 3-5일, Business는 1-2주, Enterprise는 2-4주 소요됩니다. 프로젝트 복잡도에 따라 달라질 수 있습니다." },
 ];
 
-const comparisonRows = pricingComparison.map((item) => ({
-  feature: item.feature,
-  values: [item.others, item.others, item.chiro],
-}));
+const comparisonData = pricingComparison;
 
 const recommendTargets = [
   {
     plan: "Startup",
+    accent: "FIRST STEP.",
     targets: [
       "처음 홈페이지를 만드는 소상공인",
       "1인 브랜드·프리랜서",
@@ -36,6 +34,7 @@ const recommendTargets = [
   },
   {
     plan: "Business",
+    accent: "GROWTH.",
     targets: [
       "기존 사이트를 전면 리모델링하려는 중소기업",
       "검색 노출과 전환율을 동시에 높이고 싶은 분",
@@ -45,6 +44,7 @@ const recommendTargets = [
   },
   {
     plan: "Enterprise",
+    accent: "TOTAL.",
     targets: [
       "브랜드 아이덴티티를 완벽히 담고 싶은 기업",
       "복잡한 기능(예약, 결제, 회원 등)이 필요한 프로젝트",
@@ -55,11 +55,16 @@ const recommendTargets = [
 ];
 
 export default function PricingContent() {
+  const startup = plans[0];
+  const business = plans[1];
+  const enterprise = plans[2];
+
   return (
     <>
       <SubpageHero
         title="PRICING"
         label="( Plans & Pricing )"
+        image="https://chiro-web.s3.ap-northeast-2.amazonaws.com/public/hero/pen-envelope.png"
       />
 
       <SubNav pageLabel="PRICING MENU" items={[
@@ -70,105 +75,424 @@ export default function PricingContent() {
         { label: "FAQ", href: "#faq" },
       ]} />
 
-      {/* Direct Answer Block */}
-      <section className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[140px] md:py-[180px]">
-        <div className="max-w-[1400px] mx-auto text-center">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-[28px] md:text-[36px] font-semibold text-[#111] mb-4"
-          >
-            99만원부터 시작합니다.
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-[15px] text-[#666] leading-[1.8] max-w-[560px] mx-auto"
-          >
-            모든 플랜에 반응형 웹, SEO 초기 세팅, AEO 스키마 마크업이
-            기본 포함됩니다.
-          </motion.p>
-        </div>
-      </section>
-
-      {/* Plan Cards */}
-      <section id="plans" className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 pb-[200px] md:pb-[260px]">
+      {/* ══════════════════════════════════════
+         OPENING — Editorial Price Statement
+      ══════════════════════════════════════ */}
+      <section className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[200px] md:py-[260px]">
         <div className="max-w-[1400px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {plans.map((plan, i) => {
-              const isRecommended = plan.recommended;
-              return (
-                <motion.div
-                  key={plan.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className={`relative rounded-2xl p-8 md:p-10 flex flex-col ${
-                    isRecommended
-                      ? "bg-[#1a1a1a] text-white"
-                      : "bg-white border border-[#e5e5e5]"
-                  }`}
-                >
-                  {isRecommended && (
-                    <span className="absolute top-6 right-6 text-[11px] tracking-[0.08em] uppercase bg-[#FF4D00] text-white px-3 py-1 rounded-full font-[family-name:var(--font-jetbrains-mono)]">
-                      추천
-                    </span>
-                  )}
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewportConfig}
+            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+            className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase text-[#999] mb-10 md:mb-14"
+          >
+            ( PRICING )
+          </motion.p>
 
-                  <p className={`text-[13px] tracking-[0.04em] mb-2 ${isRecommended ? "text-white/50" : "text-[#999]"}`}>
-                    {plan.name}
-                  </p>
+          <div className="flex flex-col lg:flex-row lg:items-end gap-12 lg:gap-20">
+            {/* Left: Display type */}
+            <div className="flex-1 min-w-0">
+              <motion.h2
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportConfig}
+                transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+                className="text-[56px] md:text-[80px] lg:text-[120px] font-extrabold tracking-[-0.04em] leading-[0.85] text-[#111] uppercase"
+              >
+                STARTS
+                <br />
+                FROM
+                <br />
+                <span className="text-[#C0C0C0]">99.</span>
+              </motion.h2>
+            </div>
 
-                  <p className={`text-[36px] md:text-[48px] font-extrabold tracking-[-0.02em] leading-[1.0] mb-2 ${isRecommended ? "text-white" : "text-[#111]"}`}>
-                    {plan.price}
-                  </p>
-
-                  {plan.monthlyEquivalent && (
-                    <p className={`text-[12px] mb-6 ${isRecommended ? "text-white/40" : "text-[#999]"}`}>
-                      {plan.monthlyEquivalent}
-                    </p>
-                  )}
-
-                  <p className={`text-[14px] leading-[1.7] mb-8 ${isRecommended ? "text-white/60" : "text-[#666]"}`}>
-                    {plan.description}
-                  </p>
-
-                  <ul className="flex-1 space-y-3 mb-8">
-                    {plan.features.map((feat) => (
-                      <li key={feat.name} className="flex items-start gap-3">
-                        <span className={`mt-0.5 text-[14px] ${feat.included ? "text-[#10B981]" : isRecommended ? "text-white/20" : "text-[#ccc]"}`}>
-                          {feat.included ? "✓" : "—"}
-                        </span>
-                        <span className={`text-[14px] leading-[1.6] ${feat.included ? (isRecommended ? "text-white/80" : "text-[#333]") : (isRecommended ? "text-white/30" : "text-[#bbb]")}`}>
-                          {feat.name}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Link
-                    href={plan.ctaHref}
-                    className={`block text-center text-[14px] tracking-[0.02em] py-3.5 rounded-full transition-all duration-300 ${
-                      isRecommended
-                        ? "bg-white text-[#1a1a1a] hover:bg-[#FF4D00] hover:text-white"
-                        : "bg-[#1a1a1a] text-white hover:bg-[#FF4D00]"
-                    }`}
-                  >
-                    {plan.ctaText}
-                  </Link>
-                </motion.div>
-              );
-            })}
+            {/* Right: Context — positioned lower */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewportConfig}
+              transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1], delay: 0.15 }}
+              className="lg:w-[35%] shrink-0 lg:pb-4"
+            >
+              <p className="text-[15px] md:text-[16px] font-medium leading-[1.85] text-[#111] mb-5">
+                99만원부터 시작합니다.
+              </p>
+              <p className="text-[14px] md:text-[15px] leading-[1.85] text-[#666]">
+                모든 플랜에 반응형 웹, SEO 초기 세팅, AEO 스키마 마크업이
+                기본 포함됩니다. 빌더가 아닌 직접 작성한 코드.
+                구글과 AI가 읽을 수 있는 구조.
+              </p>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Included in All */}
+      {/* ══════════════════════════════════════
+         PLAN 01 — Startup: Big type left + features stacked right
+      ══════════════════════════════════════ */}
+      <section
+        id="plans"
+        className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 pb-[40px] md:pb-[60px]"
+      >
+        <div className="max-w-[1400px] mx-auto">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewportConfig}
+            transition={{ duration: 0.4 }}
+            className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase text-[#999] mb-12 md:mb-16"
+          >
+            ( 01 — STARTUP )
+          </motion.p>
+
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
+            {/* Left: Plan name + price as editorial display */}
+            <div className="lg:w-[55%]">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportConfig}
+                transition={{ duration: 0.6 }}
+              >
+                <h3 className="text-[64px] md:text-[96px] lg:text-[130px] font-extrabold tracking-[-0.04em] leading-[0.85] uppercase text-[#111]">
+                  START
+                  <br />
+                  <span className="text-[#C0C0C0]">-UP.</span>
+                </h3>
+                <p className="text-[36px] md:text-[56px] lg:text-[72px] font-extrabold tracking-[-0.03em] leading-[1.0] text-[#111] mt-6 md:mt-10">
+                  {startup.price}
+                </p>
+                {startup.monthlyEquivalent && (
+                  <p className="text-[13px] text-[#999] mt-2 font-[family-name:var(--font-jetbrains-mono)] tracking-[0.02em]">
+                    {startup.monthlyEquivalent}
+                  </p>
+                )}
+              </motion.div>
+
+              <motion.p
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportConfig}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="text-[14px] md:text-[15px] leading-[1.85] text-[#666] mt-8 max-w-[420px]"
+              >
+                {startup.description} 빠르게 온라인 존재감을 확보하고,
+                검색 엔진이 인식하는 구조를 처음부터 갖춥니다.
+              </motion.p>
+            </div>
+
+            {/* Right: Feature list — editorial numbered style */}
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+              className="lg:w-[45%] lg:pt-16"
+            >
+              {startup.features.map((feat, i) => (
+                <motion.div
+                  key={feat.name}
+                  variants={fadeInUp}
+                  className="flex items-start gap-6 py-5"
+                  style={{ borderTop: "1px solid #ddd" }}
+                >
+                  <span
+                    className="text-[28px] md:text-[36px] font-extrabold leading-none tabular-nums shrink-0 w-12"
+                    style={{ color: feat.included ? "rgba(0,0,0,0.08)" : "rgba(0,0,0,0.04)" }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div className="flex-1 pt-1">
+                    <span
+                      className={`text-[15px] leading-[1.6] ${
+                        feat.included ? "text-[#111] font-medium" : "text-[#bbb]"
+                      }`}
+                    >
+                      {feat.name}
+                    </span>
+                  </div>
+                  <span className={`text-[14px] mt-1 shrink-0 ${feat.included ? "text-[#10B981]" : "text-[#ccc]"}`}>
+                    {feat.included ? "✓" : "—"}
+                  </span>
+                </motion.div>
+              ))}
+              <div style={{ borderTop: "1px solid #ddd" }} />
+
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportConfig}
+                transition={{ duration: 0.4, delay: 0.3 }}
+                className="mt-10"
+              >
+                <Link
+                  href={startup.ctaHref}
+                  className="inline-block text-[13px] tracking-[0.04em] uppercase font-medium py-3.5 px-10 rounded-full bg-[#1a1a1a] text-white hover:bg-[#FF4D00] transition-colors duration-300"
+                >
+                  {startup.ctaText}
+                </Link>
+              </motion.div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════
+         PLAN 02 — Business: Dark full-width spread, recommended
+      ══════════════════════════════════════ */}
+      <section
+        className="px-5 md:px-12 lg:px-20 py-[160px] md:py-[220px]"
+        style={{ backgroundColor: "#111" }}
+        data-theme="dark"
+      >
+        <div className="max-w-[1400px] mx-auto">
+          {/* Header row: label left, recommend badge */}
+          <div className="flex items-center justify-between mb-12 md:mb-16">
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewportConfig}
+              transition={{ duration: 0.4 }}
+              className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase text-[#555]"
+            >
+              ( 02 — BUSINESS )
+            </motion.p>
+            <motion.span
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={viewportConfig}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="text-[11px] tracking-[0.08em] uppercase bg-[#FF4D00] text-white px-4 py-1.5 rounded-full font-[family-name:var(--font-jetbrains-mono)]"
+            >
+              추천
+            </motion.span>
+          </div>
+
+          {/* Overlapping editorial layout */}
+          <div className="relative">
+            {/* Giant display type */}
+            <motion.h3
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewportConfig}
+              transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+              className="text-[72px] md:text-[110px] lg:text-[160px] font-extrabold tracking-[-0.04em] leading-[0.82] uppercase text-white"
+            >
+              BUSI
+              <br />
+              <span style={{ color: "#C0C0C0" }}>-NESS.</span>
+            </motion.h3>
+
+            {/* Price overlapping from right */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={viewportConfig}
+              transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1], delay: 0.15 }}
+              className="lg:absolute lg:right-0 lg:top-[20%] mt-10 lg:mt-0 lg:text-right"
+            >
+              <p className="text-[48px] md:text-[72px] lg:text-[96px] font-extrabold tracking-[-0.03em] leading-[1.0] text-white">
+                {business.price}
+              </p>
+              {business.monthlyEquivalent && (
+                <p className="text-[13px] text-[#555] mt-2 font-[family-name:var(--font-jetbrains-mono)] tracking-[0.02em]">
+                  {business.monthlyEquivalent}
+                </p>
+              )}
+            </motion.div>
+          </div>
+
+          {/* Body + Features — two column below */}
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 mt-16 md:mt-24">
+            {/* Left: Description */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewportConfig}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="lg:w-[40%]"
+            >
+              <p className="text-[15px] md:text-[16px] font-medium leading-[1.85] text-white/80 mb-5">
+                {business.description}
+              </p>
+              <p className="text-[14px] md:text-[15px] leading-[1.85] text-white/40">
+                CMS, 맞춤 애니메이션, 고급 SEO 최적화까지.
+                성장하는 비즈니스에 필요한 모든 것을 하나의 프로젝트에 담습니다.
+              </p>
+            </motion.div>
+
+            {/* Right: Feature list */}
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+              className="lg:w-[60%]"
+            >
+              {business.features.map((feat, i) => (
+                <motion.div
+                  key={feat.name}
+                  variants={fadeInUp}
+                  className="flex items-start gap-6 py-5"
+                  style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}
+                >
+                  <span
+                    className="text-[28px] md:text-[36px] font-extrabold leading-none tabular-nums shrink-0 w-12"
+                    style={{ color: feat.included ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.04)" }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div className="flex-1 pt-1">
+                    <span
+                      className={`text-[15px] leading-[1.6] ${
+                        feat.included ? "text-white/80 font-medium" : "text-white/25"
+                      }`}
+                    >
+                      {feat.name}
+                    </span>
+                  </div>
+                  <span className={`text-[14px] mt-1 shrink-0 ${feat.included ? "text-[#10B981]" : "text-white/15"}`}>
+                    {feat.included ? "✓" : "—"}
+                  </span>
+                </motion.div>
+              ))}
+              <div style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }} />
+            </motion.div>
+          </div>
+
+          {/* CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewportConfig}
+            transition={{ duration: 0.4, delay: 0.3 }}
+            className="mt-14 md:mt-20"
+          >
+            <Link
+              href={business.ctaHref}
+              className="inline-block text-[13px] tracking-[0.04em] uppercase font-medium py-3.5 px-10 rounded-full bg-white text-[#1a1a1a] hover:bg-[#FF4D00] hover:text-white transition-colors duration-300"
+            >
+              {business.ctaText}
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════
+         PLAN 03 — Enterprise: Right-aligned type + left features
+      ══════════════════════════════════════ */}
+      <section
+        className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[160px] md:py-[220px]"
+      >
+        <div className="max-w-[1400px] mx-auto">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewportConfig}
+            transition={{ duration: 0.4 }}
+            className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase text-[#999] mb-12 md:mb-16 text-right"
+          >
+            ( 03 — ENTERPRISE )
+          </motion.p>
+
+          {/* Right-aligned giant type */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewportConfig}
+            transition={{ duration: 0.6 }}
+            className="text-right"
+          >
+            <h3 className="text-[56px] md:text-[90px] lg:text-[130px] font-extrabold tracking-[-0.04em] leading-[0.85] uppercase text-[#111]">
+              ENTER
+              <br />
+              <span className="text-[#C0C0C0]">-PRISE.</span>
+            </h3>
+            <p className="text-[36px] md:text-[56px] lg:text-[72px] font-extrabold tracking-[-0.03em] leading-[1.0] text-[#111] mt-6 md:mt-10">
+              {enterprise.price}
+            </p>
+            {enterprise.monthlyEquivalent && (
+              <p className="text-[13px] text-[#999] mt-2 font-[family-name:var(--font-jetbrains-mono)] tracking-[0.02em]">
+                {enterprise.monthlyEquivalent}
+              </p>
+            )}
+          </motion.div>
+
+          {/* Reversed layout: features left, description right */}
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 mt-16 md:mt-24">
+            {/* Left: Feature list */}
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+              className="lg:w-[55%]"
+            >
+              {enterprise.features.map((feat, i) => (
+                <motion.div
+                  key={feat.name}
+                  variants={fadeInUp}
+                  className="flex items-start gap-6 py-5"
+                  style={{ borderTop: "1px solid #ddd" }}
+                >
+                  <span
+                    className="text-[28px] md:text-[36px] font-extrabold leading-none tabular-nums shrink-0 w-12"
+                    style={{ color: feat.included ? "rgba(0,0,0,0.08)" : "rgba(0,0,0,0.04)" }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div className="flex-1 pt-1">
+                    <span className="text-[15px] leading-[1.6] text-[#111] font-medium">
+                      {feat.name}
+                    </span>
+                  </div>
+                  <span className="text-[14px] mt-1 shrink-0 text-[#10B981]">✓</span>
+                </motion.div>
+              ))}
+              <div style={{ borderTop: "1px solid #ddd" }} />
+
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportConfig}
+                transition={{ duration: 0.4, delay: 0.3 }}
+                className="mt-10"
+              >
+                <Link
+                  href={enterprise.ctaHref}
+                  className="inline-block text-[13px] tracking-[0.04em] uppercase font-medium py-3.5 px-10 rounded-full bg-[#1a1a1a] text-white hover:bg-[#FF4D00] transition-colors duration-300"
+                >
+                  {enterprise.ctaText}
+                </Link>
+              </motion.div>
+            </motion.div>
+
+            {/* Right: Description — aligned bottom */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewportConfig}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="lg:w-[45%] flex flex-col justify-end lg:pb-8"
+            >
+              <p className="text-[15px] md:text-[16px] font-medium leading-[1.85] text-[#111] mb-5">
+                {enterprise.description}
+              </p>
+              <p className="text-[14px] md:text-[15px] leading-[1.85] text-[#666]">
+                반응형 무제한, 맞춤 애니메이션, CMS, 고급 SEO,
+                6개월 유지보수까지. 브랜드의 본질을 코드 레벨에서
+                완성하는 프리미엄 솔루션.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════
+         INCLUDED IN ALL
+      ══════════════════════════════════════ */}
       <div id="included">
         <NumberedSection
           label="( INCLUDED IN ALL )"
@@ -186,65 +510,177 @@ export default function PricingContent() {
         />
       </div>
 
-      {/* Comparison */}
-      <div id="compare">
-        <ComparisonTable
-          label="( COMPARISON )"
-          heading={"WHY CHIRO."}
-          columns={["일반 에이전시 A", "일반 에이전시 B", "치로"]}
-          rows={comparisonRows}
-          highlightColumn={2}
-        />
-      </div>
-
-      {/* Recommend Targets */}
-      <section id="for-who" className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[200px] md:py-[260px]">
+      {/* ══════════════════════════════════════
+         COMPARISON — Editorial vs Table
+      ══════════════════════════════════════ */}
+      <section
+        id="compare"
+        className="bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[160px] md:py-[220px]"
+      >
         <div className="max-w-[1400px] mx-auto">
-          <p className="text-[11px] tracking-[0.08em] uppercase text-[#999] mb-6 font-[family-name:var(--font-jetbrains-mono)]">
-            ( RECOMMENDED FOR )
-          </p>
-          <h2 className="text-[32px] md:text-[48px] font-extrabold text-[#111] tracking-[-0.03em] leading-[1.0] uppercase mb-4">
-            WHO IS IT
-            <br />
-            FOR.
-          </h2>
-          <p className="text-[14px] md:text-[15px] mt-4 mb-16" style={{ color: "#999" }}>
-            어떤 분에게 맞는 플랜인지 확인하세요.
-          </p>
+          {/* Header: label + big type */}
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-20 md:mb-28">
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewportConfig}
+              transition={{ duration: 0.4 }}
+              className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase text-[#999]"
+            >
+              ( COMPARISON )
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewportConfig}
+              transition={{ duration: 0.6 }}
+              className="text-[48px] md:text-[72px] lg:text-[96px] font-extrabold tracking-[-0.04em] leading-[0.85] uppercase text-[#111] lg:text-right"
+            >
+              WHY
+              <br />
+              <span className="text-[#C0C0C0]">CHIRO.</span>
+            </motion.h2>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-            {recommendTargets.map((group, i) => (
+          {/* Comparison rows — editorial style, not table */}
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+          >
+            {comparisonData.map((item, i) => (
               <motion.div
-                key={group.plan}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+                key={i}
+                variants={fadeInUp}
+                className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr] gap-4 md:gap-8 py-7 md:py-8 items-center"
+                style={{ borderBottom: "1px solid #ddd" }}
               >
-                <p className="text-[20px] md:text-[24px] font-bold text-[#111] mb-6">
-                  {group.plan}
-                </p>
-                <ul className="space-y-3">
-                  {group.targets.map((t) => (
-                    <li key={t} className="flex items-start gap-3">
-                      <span className="text-[#999] mt-1 text-[10px]">●</span>
-                      <span className="text-[14px] text-[#666] leading-[1.7]">{t}</span>
-                    </li>
-                  ))}
-                </ul>
+                {/* Feature name */}
+                <span className="text-[15px] md:text-[16px] font-medium text-[#111]">
+                  {item.feature}
+                </span>
+
+                {/* Others */}
+                <span className="text-[13px] text-[#999] md:text-center">
+                  <span className="md:hidden font-[family-name:var(--font-jetbrains-mono)] text-[10px] tracking-[0.08em] uppercase text-[#bbb] mr-3">일반</span>
+                  {item.others}
+                </span>
+
+                {/* Chiro — highlighted */}
+                <span className="text-[14px] font-medium text-[#111] md:text-right">
+                  <span className="md:hidden font-[family-name:var(--font-jetbrains-mono)] text-[10px] tracking-[0.08em] uppercase text-[#bbb] mr-3">치로</span>
+                  {item.chiro}
+                </span>
               </motion.div>
             ))}
+          </motion.div>
+
+          {/* Column labels — desktop only */}
+          <div className="hidden md:grid grid-cols-[1fr_1fr_1fr] gap-8 mt-6">
+            <span className="font-[family-name:var(--font-jetbrains-mono)] text-[10px] tracking-[0.08em] uppercase text-[#bbb]">
+              기능
+            </span>
+            <span className="font-[family-name:var(--font-jetbrains-mono)] text-[10px] tracking-[0.08em] uppercase text-[#bbb] text-center">
+              일반 에이전시
+            </span>
+            <span className="font-[family-name:var(--font-jetbrains-mono)] text-[10px] tracking-[0.08em] uppercase text-[#111] text-right font-medium">
+              치로웹디자인
+            </span>
           </div>
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* ══════════════════════════════════════
+         FOR WHO — Editorial staggered layout
+      ══════════════════════════════════════ */}
+      <section
+        id="for-who"
+        className="px-5 md:px-12 lg:px-20 py-[160px] md:py-[220px]"
+        style={{ backgroundColor: "#111" }}
+        data-theme="dark"
+      >
+        <div className="max-w-[1400px] mx-auto">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewportConfig}
+            transition={{ duration: 0.4 }}
+            className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase text-[#555] mb-6"
+          >
+            ( RECOMMENDED FOR )
+          </motion.p>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewportConfig}
+            transition={{ duration: 0.6 }}
+            className="text-[48px] md:text-[72px] lg:text-[96px] font-extrabold tracking-[-0.04em] leading-[0.85] uppercase text-white mb-20 md:mb-28"
+          >
+            WHO IS
+            <br />
+            IT <span style={{ color: "#C0C0C0" }}>FOR.</span>
+          </motion.h2>
+
+          {/* Staggered recommend blocks — each with different offset */}
+          <div className="space-y-20 md:space-y-28">
+            {recommendTargets.map((group, gi) => {
+              // Alternating alignment: left, right-offset, left
+              const isOffset = gi === 1;
+
+              return (
+                <motion.div
+                  key={group.plan}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={viewportConfig}
+                  transition={{ duration: 0.6 }}
+                  className={isOffset ? "lg:ml-auto lg:w-[65%]" : "lg:w-[65%]"}
+                >
+                  {/* Plan label + accent */}
+                  <div className="flex items-end gap-6 mb-8">
+                    <span className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase text-[#555]">
+                      ( {String(gi + 1).padStart(2, "0")} )
+                    </span>
+                    <h3 className="text-[32px] md:text-[48px] lg:text-[64px] font-extrabold tracking-[-0.04em] leading-[0.85] uppercase text-white">
+                      {group.plan}
+                      <span className="text-[#C0C0C0] ml-2 md:ml-4">{group.accent}</span>
+                    </h3>
+                  </div>
+
+                  {/* Target list */}
+                  <div className="space-y-0">
+                    {group.targets.map((t) => (
+                      <div
+                        key={t}
+                        className="flex items-start gap-4 py-4"
+                        style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
+                      >
+                        <span className="text-[#555] mt-1.5 text-[8px] shrink-0">●</span>
+                        <span className="text-[14px] md:text-[15px] text-white/50 leading-[1.8]">{t}</span>
+                      </div>
+                    ))}
+                    <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }} />
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════
+         FAQ
+      ══════════════════════════════════════ */}
       <div id="faq">
         <FaqTwoColumn faqs={pricingFaqs} />
       </div>
 
-      {/* CTA */}
-      <ContactCtaSection />
+      {/* ══════════════════════════════════════
+         CTA
+      ══════════════════════════════════════ */}
+      <CtaContact />
     </>
   );
 }

@@ -58,7 +58,7 @@ export default function Gallery() {
     visible: (i: number) => ({
       clipPath: "inset(0 0 0% 0)",
       opacity: 1,
-      transition: { duration: 0.4, delay: i * 0.03, ease: [0.25, 0.1, 0.25, 1] },
+      transition: { duration: 0.4, delay: i * 0.03, ease: [0.25, 0.1, 0.25, 1] as const },
     }),
   };
 
