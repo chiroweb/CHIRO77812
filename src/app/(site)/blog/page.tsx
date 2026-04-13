@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
 import { sql } from "@/lib/db";
-import BlogContent from "./blog-content";
+import { getAllMdxPosts } from "@/lib/mdx";
+import BlogHubContent from "./blog-content";
 import type { BlogPost } from "@/lib/types";
 
 export const metadata: Metadata = {
-  title: "웹 디자인 & 마케팅 인사이트 — 블로그",
+  title: "블로그 — 웹 디자인 · SEO/AEO 인사이트",
   description:
-    "치로웹디자인의 웹 디자인, SEO, AEO, 마케팅 인사이트를 공유합니다. 홈페이지 제작과 운영에 도움이 되는 실전 지식.",
+    "AEO 자동화, SEO 전략, 웹 디자인 트렌드에 대한 치로웹디자인의 인사이트.",
   openGraph: {
-    title: "웹 디자인 & 마케팅 인사이트 — 블로그 | 치로웹디자인",
+    title: "블로그 — 웹 디자인 · SEO/AEO 인사이트",
     description:
-      "치로웹디자인의 웹 디자인, SEO, AEO, 마케팅 인사이트를 공유합니다.",
+      "AEO 자동화, SEO 전략, 웹 디자인 트렌드에 대한 치로웹디자인의 인사이트.",
     url: "https://chiroweb.co.kr/blog",
   },
   alternates: {
@@ -18,37 +19,7 @@ export const metadata: Metadata = {
   },
 };
 
-const fallbackPosts = [
-  {
-    id: 1,
-    slug: "why-custom-website",
-    title: "아임웹, 카페24를 넘어서: 커스텀 웹사이트가 필요한 순간",
-    excerpt:
-      "템플릿 기반 빌더의 한계와 커스텀 빌드가 브랜드에 가져다주는 실질적인 차이를 이야기합니다.",
-    created_at: "2025-01-15",
-    category: "웹사이트 제작",
-  },
-  {
-    id: 2,
-    slug: "web-performance-matters",
-    title: "3초의 법칙: 웹사이트 속도가 매출에 미치는 영향",
-    excerpt:
-      "로딩 속도 1초 개선이 전환율에 어떤 영향을 미치는지, 실제 데이터를 기반으로 분석합니다.",
-    created_at: "2025-01-08",
-    category: "마케팅",
-  },
-  {
-    id: 3,
-    slug: "design-trust",
-    title: "디자인이 신뢰를 만드는 방법",
-    excerpt:
-      "방문자가 웹사이트에 머무르는 이유와 떠나는 이유. 신뢰를 설계하는 디자인 원칙을 정리합니다.",
-    created_at: "2024-12-20",
-    category: "홈페이지 관리법",
-  },
-];
-
-async function getBlogPosts() {
+async function getDbPosts(): Promise<BlogPost[]> {
   try {
     const result = await sql`
       SELECT id, slug, title, excerpt, category, created_at
@@ -57,16 +28,58 @@ async function getBlogPosts() {
       ORDER BY created_at DESC
       LIMIT 50
     `;
-    if (result.rows.length > 0) {
-      return result.rows as BlogPost[];
-    }
-    return fallbackPosts as unknown as BlogPost[];
+    if (result.rows.length > 0) return result.rows as BlogPost[];
   } catch {
-    return fallbackPosts as unknown as BlogPost[];
+    // Fall through
   }
+  return [];
 }
 
 export default async function BlogPage() {
-  const posts = await getBlogPosts();
-  return <BlogContent posts={posts} />;
+  // 1. MDX posts
+  const mdxPosts = await getAllMdxPosts();
+  const mdxAsPosts: BlogPost[] = mdxPosts.map((p, i) => ({
+    id: 9000 + i,
+    slug: p.frontmatter.slug,
+    title: p.frontmatter.title,
+    excerpt: p.frontmatter.excerpt,
+    content: "",
+    category: p.frontmatter.category,
+    published: true,
+    created_at: p.frontmatter.publishedAt,
+    updated_at: p.frontmatter.updatedAt || p.frontmatter.publishedAt,
+  }));
+
+  // 2. DB posts
+  const dbPosts = await getDbPosts();
+
+  // 3. Merge — MDX first, dedupe by slug, sort by date desc
+  const seenSlugs = new Set<string>();
+  const merged: BlogPost[] = [];
+
+  for (const post of [...mdxAsPosts, ...dbPosts]) {
+    if (!seenSlugs.has(post.slug)) {
+      seenSlugs.add(post.slug);
+      merged.push(post as BlogPost);
+    }
+  }
+
+  merged.sort(
+    (a, b) =>
+      new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  );
+
+  // Fallback if no posts at all
+  const finalPosts = merged.length > 0 ? merged : [
+    {
+      id: 1,
+      slug: "what-is-aeo",
+      title: "AEO와 SEO의 차이 — 2026 한국 가이드",
+      excerpt: "AEO(Answer Engine Optimization)란 무엇이고, 기존 SEO와 어떻게 다른가.",
+      created_at: "2026-04-13",
+      category: "AEO/SEO",
+    },
+  ] as BlogPost[];
+
+  return <BlogHubContent posts={finalPosts} />;
 }

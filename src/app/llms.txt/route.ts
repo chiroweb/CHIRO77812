@@ -3,9 +3,9 @@ export const dynamic = 'force-static';
 export function GET() {
   const content = `# CHIRO Web Design Studio (치로웹디자인)
 
-> 심리학 기반 UI/UX 기획과 SEO/AEO 자동화를 기본 제공하는
-> 올인원 웹 에이전시. 커스텀 코딩으로 아임웹/카페24의
-> 기술적 한계를 넘어서는 웹사이트를 제작합니다.
+> ChatGPT·Perplexity가 인용하는 사이트를 만드는 AEO 자동화 웹 에이전시.
+> llms.txt, 구조화 데이터, 시맨틱 HTML을 코드 레벨에서 구현합니다.
+> 아임웹·카페24의 기술적 한계를 넘어서는 커스텀 코딩.
 
 ## 서비스
 - [홈페이지 제작](https://chiroweb.co.kr/services/website): 반응형 기업 홈페이지, 브랜드 사이트, 랜딩페이지 제작

@@ -1,0 +1,162 @@
+---
+title: "AEO와 SEO의 차이 — 2026 한국 가이드"
+slug: "what-is-aeo"
+excerpt: "AEO(Answer Engine Optimization)란 무엇이고, 기존 SEO와 어떻게 다른가. 2026년 한국 시장에서 AI 검색 최적화가 왜 필수인지 정리합니다."
+category: "AEO/SEO"
+publishedAt: "2026-04-13"
+author: "최정원"
+keywords: ["AEO", "AEO 뜻", "AEO SEO 차이", "AI 검색 최적화", "llms.txt", "ChatGPT 인용", "Perplexity 노출"]
+schemaType: "BlogPosting"
+---
+
+## AEO란 무엇인가
+
+AEO는 Answer Engine Optimization의 약자입니다. 직역하면 **답변 엔진 최적화**.
+
+기존 SEO가 구글, 네이버 같은 검색 엔진에서 상위 노출을 목표로 한다면, AEO는 **ChatGPT, Perplexity, Gemini 같은 AI 검색 엔진이 답변을 생성할 때 내 사이트를 출처로 인용하도록** 최적화하는 작업입니다.
+
+2026년 현재, 검색 트래픽의 **25% 이상**이 AI 검색으로 이동했습니다. 사람들은 더 이상 구글에서만 검색하지 않습니다.
+
+---
+
+## SEO와 AEO의 핵심 차이
+
+| 구분 | SEO | AEO |
+|------|-----|-----|
+| **최적화 대상** | 구글, 네이버, 빙 | ChatGPT, Perplexity, Gemini |
+| **목표** | 검색 결과 상위 노출 | AI 답변에서 출처로 인용 |
+| **핵심 기술** | 메타 태그, 시맨틱 HTML, 백링크 | 구조화 데이터, llms.txt, FAQ 스키마 |
+| **트래픽 비중 (2026)** | 약 75% | 약 25%+ (증가 중) |
+| **결과 형태** | 파란 링크 목록 | AI가 생성한 답변 + 출처 링크 |
+
+두 가지는 경쟁 관계가 아닙니다. **SEO가 기반이고, AEO는 확장**입니다. SEO 없이 AEO만 하면 기본 트래픽을 잃고, AEO 없이 SEO만 하면 25%의 새로운 트래픽을 놓칩니다.
+
+---
+
+## 왜 지금 AEO가 중요한가
+
+### 1. AI 검색 사용량이 폭발적으로 증가하고 있다
+
+ChatGPT의 월간 활성 사용자는 전 세계 3억 명을 넘겼습니다. Perplexity는 월 1억 건 이상의 검색을 처리합니다. 한국에서도 "ChatGPT에게 물어보기"가 "구글에서 검색하기"만큼 자연스러운 행동이 되었습니다.
+
+### 2. AI는 구조화된 데이터를 우선 참조한다
+
+AI 검색 엔진은 웹페이지를 크롤링할 때 **구조화 데이터(JSON-LD)**를 우선 읽습니다. Organization 스키마, FAQPage 스키마, BreadcrumbList 스키마가 잘 설계된 사이트는 AI가 정보를 정확히 이해하고 인용할 확률이 높아집니다.
+
+### 3. llms.txt — 새로운 표준의 등장
+
+`robots.txt`가 검색 크롤러에게 지침을 주듯, `llms.txt`는 **AI 크롤러(GPTBot, PerplexityBot, ClaudeBot)에게 사이트 핵심 정보를 구조화해서 전달**하는 파일입니다. 2025년에 등장한 이 표준을 조기 도입하면 AI 검색 인용률에 직접적인 영향을 줍니다.
+
+---
+
+## 한국에서 AEO가 특히 중요한 이유
+
+한국 시장에서 AEO는 아직 **초기 단계**입니다. 대부분의 웹 에이전시가 아임웹, 카페24 기반으로 사이트를 제작하고 있고, 이 빌더들은 구조적으로 AEO 핵심 요소를 적용할 수 없습니다.
+
+### 빌더로 불가능한 AEO 요소들
+
+- **FAQPage 스키마**: 빌더에서 커스텀 JSON-LD를 삽입할 수 없음
+- **llms.txt**: 빌더에서 루트 경로에 커스텀 파일을 생성할 수 없음
+- **클린 URL**: `/services/seo-aeo` 같은 구조 대신 `/page?id=123` 형태
+- **커스텀 구조화 데이터**: 페이지별로 다른 스키마를 적용할 수 없음
+- **시맨틱 HTML**: `div` 중심 구조로 크롤러 가독성이 떨어짐
+
+이 모든 것은 **코드에 직접 접근할 수 있어야만 가능**합니다.
+
+즉, 지금 AEO를 도입하면 한국 시장에서 **선점 효과**를 누릴 수 있습니다. 경쟁이 거의 없는 지금이 기회입니다.
+
+---
+
+## AEO를 적용하는 5단계
+
+### 1단계: 구조화 데이터 설계
+
+페이지 성격에 맞는 JSON-LD 스키마를 작성합니다.
+
+- 회사 소개 → `Organization` + `Person`
+- 서비스 페이지 → `Service`
+- FAQ → `FAQPage`
+- 블로그 → `BlogPosting` 또는 `TechArticle`
+- 리뷰 → `AggregateRating` + `Review`
+
+### 2단계: llms.txt 생성
+
+사이트 루트에 `llms.txt` 파일을 생성합니다. AI 크롤러가 이 파일을 읽고 사이트의 핵심 정보를 파악합니다.
+
+```
+# 회사명
+> 회사 설명 (2-3줄)
+
+## 서비스
+- [서비스명](URL): 설명
+
+## 인사이트
+- [블로그](URL): 설명
+```
+
+### 3단계: 시맨틱 HTML 구조화
+
+`div` 나열이 아닌, `article`, `section`, `nav`, `main` 같은 시맨틱 태그로 문서 구조를 설계합니다. AI 크롤러는 이 태그를 통해 콘텐츠의 역할을 이해합니다.
+
+### 4단계: FAQ 구조 최적화
+
+AI 검색 엔진은 질문-답변 형태의 콘텐츠를 선호합니다. FAQ 섹션을 만들되, **답변을 DOM에 항상 노출**시켜야 합니다. `display: none`으로 숨기면 AI 크롤러가 읽지 못합니다.
+
+### 5단계: AI 크롤러 접근 허용
+
+`robots.txt`에서 AI 크롤러의 접근을 명시적으로 허용합니다.
+
+```
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+```
+
+---
+
+## AEO 체크리스트
+
+AEO가 제대로 적용되었는지 확인하는 체크리스트입니다.
+
+- [ ] Organization JSON-LD 스키마가 있는가
+- [ ] FAQPage JSON-LD 스키마가 있는가
+- [ ] BreadcrumbList 스키마가 있는가
+- [ ] llms.txt 파일이 사이트 루트에 있는가
+- [ ] robots.txt에서 GPTBot, ClaudeBot, PerplexityBot을 허용하는가
+- [ ] FAQ 답변이 DOM에 항상 존재하는가 (display:none 아님)
+- [ ] 시맨틱 HTML 태그를 사용하는가
+- [ ] 클린 URL 구조를 사용하는가
+- [ ] Open Graph 메타 태그가 있는가
+- [ ] Core Web Vitals가 Good 등급인가
+
+**8개 이상 체크되면** AEO 기본 세팅이 완료된 것입니다.
+
+---
+
+## 치로웹디자인의 AEO 접근
+
+치로웹디자인은 모든 프로젝트에 AEO 기본 세팅을 포함합니다. 추가 비용 없이 다음 항목이 기본 적용됩니다.
+
+- Organization, FAQPage, BreadcrumbList 등 6종 이상의 JSON-LD 스키마
+- llms.txt 파일 생성
+- AI 크롤러 6종 접근 허용 (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, Applebot-Extended, CCBot)
+- 시맨틱 HTML 구조
+- 클린 URL 설계
+- Core Web Vitals 최적화 (Lighthouse 95+)
+
+빌더로는 불가능한 영역입니다. 코드 레벨에서 직접 구현해야만 가능합니다.
+
+---
+
+## 결론
+
+SEO는 여전히 중요합니다. 하지만 SEO만으로는 더 이상 충분하지 않습니다.
+
+2026년, 검색의 25%가 AI로 이동한 지금 — AEO는 선택이 아닌 필수입니다. 그리고 한국 시장에서 AEO를 제대로 구현하는 곳은 아직 거의 없습니다.
+
+지금 시작하면, 선점할 수 있습니다.

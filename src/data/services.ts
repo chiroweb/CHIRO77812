@@ -65,7 +65,7 @@ export const services: ServiceDetail[] = [
     slug: 'website',
     title: '홈페이지 제작',
     h1: '기업 홈페이지 제작, 무엇이 포함되나요?',
-    description: '기업 홈페이지 제작 전문 — 반응형 디자인, SEO, CMS까지 포함된 올인원 웹사이트 제작 서비스. 평균 3.8일 완성.',
+    description: '기업 홈페이지 제작 전문 — 반응형 디자인, SEO, CMS까지 포함된 AEO 자동화 웹사이트 제작 서비스. 평균 3.8일 완성.',
     shortDescription: '브랜드의 첫 인상을 설계합니다. 반응형 디자인부터 SEO까지 포함된 올인원 홈페이지를 제작합니다.',
     features: [
       '브랜드 아이덴티티에 맞춘 맞춤 디자인',

@@ -2,13 +2,13 @@ import type { Metadata } from 'next';
 import RemodelingContent from './remodeling-content';
 
 export const metadata: Metadata = {
-  title: '홈페이지 리모델링 — 2000년대식 사이트를 현대적으로',
+  title: '홈페이지 리모델링 — 느린 사이트를 AEO 대응 구조로 전환',
   description:
-    '모바일 미호환, 느린 속도, 검색 노출 안 되는 기존 사이트를 반응형+SEO+AEO 구조로 전면 재설계합니다.',
+    '낡은 디자인과 느린 속도를 현대적으로 전환합니다. SEO/AEO 구조를 코드 레벨에서 새로 설계하고, 기존 콘텐츠와 도메인 자산을 보존합니다.',
   alternates: { canonical: 'https://chiroweb.co.kr/services/remodeling' },
   openGraph: {
-    title: '홈페이지 리모델링 — 2000년대식 사이트를 현대적으로',
-    description: '모바일 미호환, 느린 속도, 검색 노출 안 되는 기존 사이트를 반응형+SEO+AEO 구조로 전면 재설계합니다.',
+    title: '홈페이지 리모델링 — 느린 사이트를 AEO 대응 구조로 전환',
+    description: '낡은 디자인과 느린 속도를 현대적으로 전환합니다. SEO/AEO 구조를 코드 레벨에서 새로 설계하고, 기존 콘텐츠와 도메인 자산을 보존합니다.',
     url: 'https://chiroweb.co.kr/services/remodeling',
   },
 };

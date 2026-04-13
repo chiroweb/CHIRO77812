@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import ContactContent from "./contact-content";
 
 export const metadata: Metadata = {
-  title: "프로젝트 문의 — 치로웹디자인",
+  title: "문의하기 — 프로젝트 상담 및 무료 진단",
   description:
-    "홈페이지 제작, 리모델링, SEO/AEO 프로젝트를 문의하세요. 치로웹디자인이 24시간 이내에 응답합니다.",
+    "홈페이지 제작, 리모델링, SEO/AEO 자동화 프로젝트 상담. 무료 사이트 진단도 가능합니다.",
   alternates: { canonical: "https://chiroweb.co.kr/contact" },
   openGraph: {
-    title: "프로젝트 문의 — 치로웹디자인",
+    title: "문의하기 — 프로젝트 상담 및 무료 진단",
     description:
-      "홈페이지 제작·리모델링·SEO 프로젝트 문의. 24시간 이내 응답.",
+      "홈페이지 제작, 리모델링, SEO/AEO 자동화 프로젝트 상담. 무료 사이트 진단도 가능합니다.",
     url: "https://chiroweb.co.kr/contact",
   },
 };

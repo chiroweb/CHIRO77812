@@ -26,11 +26,11 @@ export default function AllInOne() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="text-[48px] md:text-[80px] lg:text-[110px] xl:text-[130px] font-extrabold text-[#111] tracking-[-0.03em] leading-[1.0] uppercase"
           >
-            ALL IN
+            BUILT
             <br />
-            ONE
+            TO BE
             <br />
-            SOLUTION.
+            CITED.
           </motion.h2>
 
           {/* Description */}
@@ -42,16 +42,16 @@ export default function AllInOne() {
             className="mt-10 md:mt-14 max-w-[520px]"
           >
             <p className="text-[15px] md:text-[17px] text-[#111] leading-[1.9] tracking-[0.01em] font-medium mb-4">
-              홈페이지 제작 한 번으로 마케팅까지 완성됩니다.
+              ChatGPT·Perplexity가 인용하는 사이트는 따로 만듭니다.
             </p>
             <p className="text-[14px] md:text-[15px] text-[#666] leading-[1.9] tracking-[0.01em]">
-              브랜드 디자인, 반응형 코딩, SEO·AEO 자동화 세팅,
+              아임웹·카페24는 구조화 데이터, llms.txt, FAQ 스키마를
               <br />
-              구글·네이버 검색 등록, AI 검색 노출 최적화 —
+              구현할 수 없습니다. 그래서 AI가 읽을 수 없습니다.
               <br />
-              다른 곳에서 별도 견적을 받아야 할 모든 것이
+              치로는 코드를 직접 작성하기 때문에,
               <br />
-              치로의 기본 패키지에 포함됩니다.
+              구글·네이버·ChatGPT·Perplexity 모두에게 보입니다.
             </p>
           </motion.div>
 
@@ -63,9 +63,9 @@ export default function AllInOne() {
             transition={{ duration: 0.5, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="mt-8 text-[11px] md:text-[12px] text-[#999] leading-[1.8] tracking-[0.02em]"
           >
-            포함 항목: 반응형 웹 · SEO 초기 세팅 · AEO 스키마 마크업
+            기본 포함: AEO 자동화 · llms.txt · FAQ·Organization·Service 스키마
             <br />
-            · 구조화 데이터 · 사이트맵 · llms.txt · GBP 등록 가이드
+            · 시맨틱 HTML · 반응형 웹 · SEO 구조화 데이터 · 구글·네이버 검색 등록
           </motion.p>
         </div>
       </div>

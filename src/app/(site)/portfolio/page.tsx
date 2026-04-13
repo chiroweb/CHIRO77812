@@ -3,13 +3,13 @@ import { sql } from "@/lib/db";
 import PortfolioHubContent from "./portfolio-hub-content";
 
 export const metadata: Metadata = {
-  title: "포트폴리오 — 치로웹디자인 프로젝트 모음",
+  title: "포트폴리오 — AEO 자동화 웹 에이전시의 제작 사례",
   description:
-    "해외 호텔 브랜드, 중견 제조사, 골프 브랜드 등 치로웹디자인이 만든 프로젝트를 확인하세요.",
+    "치로웹디자인이 설계한 프로젝트들. 심리학 기반 전환 구조와 코드 레벨 SEO/AEO가 적용된 실제 운영 사이트.",
   alternates: { canonical: "https://chiroweb.co.kr/portfolio" },
   openGraph: {
-    title: "포트폴리오 — 치로웹디자인",
-    description: "치로가 만든 프로젝트 모음",
+    title: "포트폴리오 — AEO 자동화 웹 에이전시의 제작 사례",
+    description: "치로웹디자인이 설계한 프로젝트들. 심리학 기반 전환 구조와 코드 레벨 SEO/AEO가 적용된 실제 운영 사이트.",
     url: "https://chiroweb.co.kr/portfolio",
   },
 };

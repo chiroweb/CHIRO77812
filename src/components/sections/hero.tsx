@@ -27,9 +27,9 @@ export default function Hero() {
         className="absolute z-10 top-24 md:top-28 left-5 md:left-8 lg:left-12"
       >
         <p className="text-[13px] md:text-[14px] text-white/60 leading-[1.8]">
-          코드 레벨부터 제대로 시작하는 웹사이트 제작.
+          ChatGPT·Perplexity가 인용하는 사이트.
           <br />
-          SEO·AEO 자동화가 기본 포함된 올인원 웹 에이전시.
+          코드 기반 AEO 자동화 웹 에이전시.
         </p>
       </motion.div>
 

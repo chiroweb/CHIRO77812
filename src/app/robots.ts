@@ -36,6 +36,18 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: "PerplexityBot",
         allow: "/",
       },
+      {
+        userAgent: "Google-Extended",
+        allow: "/",
+      },
+      {
+        userAgent: "Applebot-Extended",
+        allow: "/",
+      },
+      {
+        userAgent: "CCBot",
+        allow: "/",
+      },
     ],
     sitemap: "https://chiroweb.co.kr/sitemap.xml",
     // llms.txt available at https://chiroweb.co.kr/llms.txt

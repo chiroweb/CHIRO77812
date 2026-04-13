@@ -53,23 +53,36 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://chiroweb.co.kr"),
   title: {
     default:
-      "웹사이트 제작 비용 하나로 마케팅까지 끝내는 솔루션 | CHIRO 치로웹디자인",
+      "AEO 자동화 웹 에이전시 | 코드 기반 홈페이지 제작 — 치로웹디자인",
     template: "%s | 치로웹디자인",
   },
   description:
-    "치로웹디자인은 심리학 기반 UI/UX 기획과 SEO/AEO 자동화를 기본 제공하는 올인원 웹 에이전시입니다. 99만원부터 시작하는 정찰제, 평균 3.8일 제작.",
+    "ChatGPT·Perplexity가 인용하는 사이트를 만듭니다. 아임웹·카페24로는 불가능한 AEO 자동화, llms.txt, 구조화 데이터를 코드 레벨에서 구현하는 한국 1인 웹 에이전시. 평균 3.8일 제작, 99만원부터.",
   keywords: [
+    // 1층: 전문 용어 선점 (한국 1위 노림)
+    "AEO",
+    "AEO 자동화",
+    "AEO 최적화",
+    "llms.txt",
+    "GEO 검색 최적화",
+    "AI 검색 최적화",
+    "ChatGPT 인용 사이트",
+    "Perplexity 노출",
+    // 2층: 경쟁사 약점
+    "아임웹 단점",
+    "카페24 한계",
+    "코드 기반 홈페이지",
+    "커스텀 홈페이지 제작",
+    // 3층: 업종 + 제작
+    "호텔 홈페이지 제작",
+    "제조업 홈페이지 제작",
+    "스타트업 홈페이지 제작",
+    // 4층: 가격 키워드 (보조)
     "홈페이지 제작 비용",
-    "홈페이지 유지비",
-    "매출 오르는 홈페이지",
     "중소기업 홈페이지 제작",
-    "중소기업 마케팅 세팅",
-    "해외 마케팅 대행",
-    "가성비 홈페이지",
-    "홈페이지 리뉴얼 비용",
-    "소상공인 홈페이지",
-    "온라인 마케팅 세팅",
+    // 브랜드
     "치로웹디자인",
+    "CHIRO 웹디자인",
   ],
   icons: {
     icon: [
@@ -79,9 +92,9 @@ export const metadata: Metadata = {
     apple: "/apple-icon.png",
   },
   openGraph: {
-    title: "웹사이트 제작 비용 하나로 마케팅까지 끝내는 솔루션 CHIRO",
+    title: "AEO 자동화 웹 에이전시 | 코드 기반 홈페이지 제작 — 치로웹디자인",
     description:
-      "호주 유학생 출신 기획자의 글로벌 마케팅 세팅 + 타사 대비 30% 저렴한 풀패키지. 비싼 유지비 없이 매출이 오르는 홈페이지를 만들어 드립니다.",
+      "ChatGPT·Perplexity가 인용하는 사이트. 아임웹·카페24로는 불가능한 AEO 자동화와 llms.txt를 코드 레벨에서 구현합니다. 한국 1인 웹 에이전시.",
     url: "https://chiroweb.co.kr",
     siteName: "치로웹디자인",
     type: "website",
@@ -91,15 +104,15 @@ export const metadata: Metadata = {
         url: "https://chiroweb.co.kr/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "웹사이트 제작 비용 하나로 마케팅까지 끝내는 솔루션 CHIRO",
+        alt: "AEO 자동화 웹 에이전시 치로웹디자인",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "웹사이트 제작 비용 하나로 마케팅까지 끝내는 솔루션 CHIRO",
+    title: "AEO 자동화 웹 에이전시 | 치로웹디자인",
     description:
-      "호주 유학생 출신 기획자의 글로벌 마케팅 세팅 + 타사 대비 30% 저렴한 풀패키지. 비싼 유지비 없이 매출이 오르는 홈페이지를 만들어 드립니다.",
+      "ChatGPT·Perplexity가 인용하는 사이트. 아임웹·카페24로는 불가능한 AEO 자동화와 llms.txt를 코드 레벨에서 구현합니다.",
     images: ["https://chiroweb.co.kr/opengraph-image"],
   },
   verification: {
@@ -130,13 +143,15 @@ export default function RootLayout({
     alternateName: "CHIRO Web Design Studio",
     url: "https://chiroweb.co.kr",
     description:
-      "심리학 기반 UI/UX 기획과 SEO/AEO 자동화를 기본 제공하는 올인원 웹 에이전시. 99만원부터 시작하는 정찰제, 평균 3.8일 제작.",
+      "AEO 자동화와 코드 기반 구조화 데이터 구현을 전문으로 하는 한국 1인 웹 에이전시. ChatGPT·Perplexity 인용 최적화, llms.txt, FAQ 스키마, 시맨틱 HTML을 모든 프로젝트에 기본 적용. 99만원부터, 평균 3.8일 제작.",
     areaServed: "KR",
     serviceType: [
-      "웹사이트 제작",
-      "Marketing Consulting",
-      "Business Setup Service",
-      "글로벌 마케팅 세팅",
+      "AEO 자동화 (Answer Engine Optimization)",
+      "SEO 코드 레벨 구현",
+      "커스텀 홈페이지 제작",
+      "홈페이지 리모델링",
+      "구조화 데이터 (JSON-LD) 설계",
+      "llms.txt 구현",
     ],
     priceRange: "₩₩",
     address: {
@@ -156,7 +171,10 @@ export default function RootLayout({
       contactType: "customer service",
       availableLanguage: ["Korean", "English"],
     },
-    sameAs: [],
+    sameAs: [
+      "https://www.instagram.com/chiro.web",
+      "https://www.threads.net/@chiro.web",
+    ],
   };
 
   const websiteJsonLd = {
