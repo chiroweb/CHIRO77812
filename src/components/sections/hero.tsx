@@ -22,7 +22,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-[#001F3F]">
+    <section className="relative h-screen w-full overflow-hidden bg-[#001F3F]" data-theme="dark">
       {/* Poster — instant LCP */}
       <img
         src="/hero-poster.jpg"
