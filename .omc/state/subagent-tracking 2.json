@@ -1,0 +1,71 @@
+{
+  "agents": [
+    {
+      "agent_id": "af8e71ea353ab9d06",
+      "agent_type": "general-purpose",
+      "started_at": "2026-04-12T10:22:45.041Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-12T10:23:28.112Z",
+      "duration_ms": 43071
+    },
+    {
+      "agent_id": "a3bfee06d6c8525c9",
+      "agent_type": "general-purpose",
+      "started_at": "2026-04-12T10:22:50.649Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-12T10:23:44.505Z",
+      "duration_ms": 53856
+    },
+    {
+      "agent_id": "ab89958fef4df8287",
+      "agent_type": "general-purpose",
+      "started_at": "2026-04-12T10:22:59.381Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-12T10:23:48.194Z",
+      "duration_ms": 48813
+    },
+    {
+      "agent_id": "a6e90be72868b9629",
+      "agent_type": "general-purpose",
+      "started_at": "2026-04-12T23:19:17.556Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-12T23:22:29.936Z",
+      "duration_ms": 192380
+    },
+    {
+      "agent_id": "a887833f59e1125e2",
+      "agent_type": "general-purpose",
+      "started_at": "2026-04-12T23:19:29.722Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-12T23:24:41.398Z",
+      "duration_ms": 311676
+    },
+    {
+      "agent_id": "a1278bbf75be5521b",
+      "agent_type": "general-purpose",
+      "started_at": "2026-04-12T23:19:38.166Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-12T23:24:49.220Z",
+      "duration_ms": 311054
+    },
+    {
+      "agent_id": "aeb78c41281269df9",
+      "agent_type": "Explore",
+      "started_at": "2026-04-12T23:27:00.617Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-12T23:28:46.078Z",
+      "duration_ms": 105461
+    }
+  ],
+  "total_spawned": 7,
+  "total_completed": 7,
+  "total_failed": 0,
+  "last_updated": "2026-04-12T23:28:46.183Z"
+}

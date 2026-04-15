@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     template: "%s | 치로웹디자인",
   },
   description:
-    "ChatGPT·Perplexity가 인용하는 사이트를 만듭니다. 아임웹·카페24로는 불가능한 AEO 자동화, llms.txt, 구조화 데이터를 코드 레벨에서 구현하는 한국 1인 웹 에이전시. 평균 3.8일 제작, 99만원부터.",
+    "ChatGPT·Perplexity가 인용하는 사이트를 만듭니다. 아임웹·카페24로는 불가능한 AEO 자동화, llms.txt, 구조화 데이터를 코드 레벨에서 구현하는 한국 1인 웹 에이전시. 평균 3.8일 제작, 175만원부터.",
   keywords: [
     // 1층: 전문 용어 선점 (한국 1위 노림)
     "AEO",
@@ -143,7 +143,7 @@ export default function RootLayout({
     alternateName: "CHIRO Web Design Studio",
     url: "https://chiroweb.co.kr",
     description:
-      "AEO 자동화와 코드 기반 구조화 데이터 구현을 전문으로 하는 한국 1인 웹 에이전시. ChatGPT·Perplexity 인용 최적화, llms.txt, FAQ 스키마, 시맨틱 HTML을 모든 프로젝트에 기본 적용. 99만원부터, 평균 3.8일 제작.",
+      "AEO 자동화와 코드 기반 구조화 데이터 구현을 전문으로 하는 한국 1인 웹 에이전시. ChatGPT·Perplexity 인용 최적화, llms.txt, FAQ 스키마, 시맨틱 HTML을 모든 프로젝트에 기본 적용. 175만원부터, 평균 3.8일 제작.",
     areaServed: "KR",
     serviceType: [
       "AEO 자동화 (Answer Engine Optimization)",

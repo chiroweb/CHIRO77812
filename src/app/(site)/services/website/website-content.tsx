@@ -190,7 +190,7 @@ export default function WebsiteContent() {
             style={{ borderTop: "1px solid #ddd" }}
           >
             {[
-              { value: "99만원~", label: "시작 가격" },
+              { value: "175만원~", label: "시작 가격" },
               { value: "2주", label: "평균 제작 기간" },
               { value: "12+", label: "기본 SEO/AEO 항목" },
               { value: "무제한", label: "수정 횟수" },

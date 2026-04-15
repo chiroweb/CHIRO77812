@@ -104,7 +104,7 @@ export default function PricingContent() {
                 <br />
                 FROM
                 <br />
-                <span className="text-[#C0C0C0]">99.</span>
+                <span className="text-[#C0C0C0]">175.</span>
               </motion.h2>
             </div>
 
@@ -117,7 +117,7 @@ export default function PricingContent() {
               className="lg:w-[35%] shrink-0 lg:pb-4"
             >
               <p className="text-[15px] md:text-[16px] font-medium leading-[1.85] text-[#111] mb-5">
-                99만원부터 시작합니다.
+                175만원부터 시작합니다.
               </p>
               <p className="text-[14px] md:text-[15px] leading-[1.85] text-[#666]">
                 모든 플랜에 반응형 웹, SEO 초기 세팅, AEO 스키마 마크업이

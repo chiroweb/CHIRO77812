@@ -1,0 +1,7 @@
+{
+  "tool_name": "Read",
+  "tool_input_preview": "{\"file_path\":\"/Users/choejeong-won/Desktop/chiroweb77812/src/app/(site)/services/services-hub-content.tsx\"}",
+  "error": "File content (13366 tokens) exceeds maximum allowed tokens (10000). Use offset and limit parameters to read specific portions of the file, or search for specific content instead of reading the whole file.",
+  "timestamp": "2026-04-12T23:27:34.620Z",
+  "retry_count": 2
+}

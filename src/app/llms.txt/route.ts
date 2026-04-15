@@ -16,7 +16,7 @@ export function GET() {
 - [포트폴리오](https://chiroweb.co.kr/portfolio): 다양한 업종의 제작 사례
 
 ## 요금
-- [요금 안내](https://chiroweb.co.kr/pricing): 99만원부터 시작하는 정찰제
+- [요금 안내](https://chiroweb.co.kr/pricing): 175만원부터 시작하는 정찰제
 
 ## 인사이트
 - [블로그](https://chiroweb.co.kr/blog): 웹 디자인 & 마케팅 인사이트

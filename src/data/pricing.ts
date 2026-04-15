@@ -20,9 +20,9 @@ export const plans: PricingPlan[] = [
   {
     id: 'startup',
     name: 'Startup',
-    price: '99만원~',
-    priceValue: 990000,
-    monthlyEquivalent: '하루 약 2,700원',
+    price: '175만원~',
+    priceValue: 1750000,
+    monthlyEquivalent: '하루 약 4,800원',
     description: '브랜드의 첫 온라인 거점을 설계합니다.',
     features: [
       { name: '반응형 웹사이트 (5페이지 이내)', included: true },
@@ -38,10 +38,10 @@ export const plans: PricingPlan[] = [
   {
     id: 'business',
     name: 'Business',
-    price: '250만원~',
-    priceValue: 2500000,
+    price: '375만원~',
+    priceValue: 3750000,
     recommended: true,
-    monthlyEquivalent: '하루 약 6,800원으로 24시간 일하는 영업사원',
+    monthlyEquivalent: '하루 약 10,300원으로 24시간 일하는 영업사원',
     description: '성장하는 비즈니스를 위한 본격적인 웹 경험을 구축합니다.',
     features: [
       { name: '반응형 웹사이트 (10페이지 이내)', included: true },
@@ -57,9 +57,8 @@ export const plans: PricingPlan[] = [
   {
     id: 'enterprise',
     name: 'Enterprise',
-    price: '500만원~',
-    priceValue: 5000000,
-    monthlyEquivalent: '하루 약 13,700원',
+    price: '견적 문의',
+    priceValue: 0,
     description: '브랜드의 본질을 담은 완전한 디지털 경험을 설계합니다.',
     features: [
       { name: '반응형 웹사이트 (무제한)', included: true },

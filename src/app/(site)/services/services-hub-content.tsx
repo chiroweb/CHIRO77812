@@ -358,7 +358,7 @@ export default function ServicesHubContent({
               style={{ borderTop: "1px solid #ddd" }}
             >
               {[
-                { value: "99만원~", label: "시작 가격" },
+                { value: "175만원~", label: "시작 가격" },
                 { value: "2주", label: "평균 제작 기간" },
                 { value: "12+", label: "SEO/AEO 기본 항목" },
               ].map((stat, i) => (

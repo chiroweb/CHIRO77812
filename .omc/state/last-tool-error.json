@@ -1,7 +1,7 @@
 {
-  "tool_name": "mcp__plugin_oh-my-claudecode_t__lsp_diagnostics",
-  "tool_input_preview": "{\"file\":\"/Users/choejeong-won/Desktop/chiroweb77812/src/app/(site)/services/remodeling/page.tsx\",\"severity\":\"error\"}",
-  "error": "Language server 'typescript-language-server' not found.\nInstall with: npm install -g typescript-language-server typescript",
-  "timestamp": "2026-04-09T02:35:08.304Z",
-  "retry_count": 4
+  "tool_name": "Read",
+  "tool_input_preview": "{\"file_path\":\"/Users/choejeong-won/Desktop/chiroweb77812/src/app/llms.txt\"}",
+  "error": "EISDIR: illegal operation on a directory, read '/Users/choejeong-won/Desktop/chiroweb77812/src/app/llms.txt'",
+  "timestamp": "2026-04-15T02:16:23.497Z",
+  "retry_count": 1
 }

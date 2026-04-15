@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1775604837585,
+  "lastScanned": 1776218734527,
   "projectRoot": "/Users/choejeong-won/Desktop/chiroweb77812",
   "techStack": {
     "languages": [
@@ -76,7 +76,7 @@
       "path": "bankgothic-md-bt",
       "purpose": null,
       "fileCount": 5,
-      "lastAccessed": 1775604837464,
+      "lastAccessed": 1776218734451,
       "keyFiles": [
         "Bank Gothic Light Regular.otf",
         "BankGothic Bold.ttf",
@@ -89,14 +89,14 @@
       "path": "docs",
       "purpose": "Documentation",
       "fileCount": 0,
-      "lastAccessed": 1775604837465,
+      "lastAccessed": 1776218734454,
       "keyFiles": []
     },
     "public": {
       "path": "public",
       "purpose": "Public files",
       "fileCount": 4,
-      "lastAccessed": 1775604837489,
+      "lastAccessed": 1776218734478,
       "keyFiles": [
         "google856a1b8c4d5e6f2a.html",
         "hero-video.mp4",
@@ -108,14 +108,14 @@
       "path": "scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 0,
-      "lastAccessed": 1775604837490,
+      "lastAccessed": 1776218734480,
       "keyFiles": []
     },
     "src": {
       "path": "src",
       "purpose": "Source code",
       "fileCount": 1,
-      "lastAccessed": 1775604837491,
+      "lastAccessed": 1776218734482,
       "keyFiles": [
         "middleware.ts"
       ]
@@ -123,19 +123,19 @@
     "public/services": {
       "path": "public/services",
       "purpose": "Business logic services",
-      "fileCount": 3,
-      "lastAccessed": 1775604837492,
+      "fileCount": 7,
+      "lastAccessed": 1776218734485,
       "keyFiles": [
-        "homepage.png",
-        "maintenance.png",
-        "responsive.png"
+        "blueprint.png",
+        "building-night.png",
+        "highway.png"
       ]
     },
     "src/app": {
       "path": "src/app",
       "purpose": "Application code",
       "fileCount": 8,
-      "lastAccessed": 1775604837493,
+      "lastAccessed": 1776218734488,
       "keyFiles": [
         "apple-icon.png",
         "favicon.ico",
@@ -146,7 +146,7 @@
       "path": "src/components",
       "purpose": "UI components",
       "fileCount": 1,
-      "lastAccessed": 1775604837493,
+      "lastAccessed": 1776218734489,
       "keyFiles": [
         "blog-content.tsx"
       ]
@@ -155,7 +155,7 @@
       "path": "src/data",
       "purpose": "Data files",
       "fileCount": 4,
-      "lastAccessed": 1775604837494,
+      "lastAccessed": 1776218734490,
       "keyFiles": [
         "pricing.ts",
         "reviews.ts",
@@ -165,8 +165,8 @@
     "src/lib": {
       "path": "src/lib",
       "purpose": "Library code",
-      "fileCount": 12,
-      "lastAccessed": 1775604837495,
+      "fileCount": 13,
+      "lastAccessed": 1776218734491,
       "keyFiles": [
         "auth.ts",
         "blog-categories.ts",
@@ -176,27 +176,45 @@
   },
   "hotPaths": [
     {
+      "path": "src/app/(site)/about/about-content.tsx",
+      "accessCount": 78,
+      "lastAccessed": 1776036472837,
+      "type": "file"
+    },
+    {
       "path": "src/app/(site)/page.tsx",
-      "accessCount": 65,
-      "lastAccessed": 1775700735729,
+      "accessCount": 67,
+      "lastAccessed": 1776219568524,
       "type": "file"
     },
     {
       "path": "src/components/sections/hero.tsx",
-      "accessCount": 42,
-      "lastAccessed": 1775703229120,
+      "accessCount": 46,
+      "lastAccessed": 1776247002848,
       "type": "file"
     },
     {
       "path": "",
-      "accessCount": 41,
-      "lastAccessed": 1775713871663,
+      "accessCount": 42,
+      "lastAccessed": 1776036427046,
       "type": "directory"
     },
     {
       "path": "src/components/layout/header.tsx",
-      "accessCount": 38,
-      "lastAccessed": 1775714976672,
+      "accessCount": 39,
+      "lastAccessed": 1775881496964,
+      "type": "file"
+    },
+    {
+      "path": "src/app/layout.tsx",
+      "accessCount": 35,
+      "lastAccessed": 1776219783023,
+      "type": "file"
+    },
+    {
+      "path": "src/app/(site)/layout.tsx",
+      "accessCount": 32,
+      "lastAccessed": 1776219782212,
       "type": "file"
     },
     {
@@ -206,15 +224,15 @@
       "type": "file"
     },
     {
-      "path": "src/app/layout.tsx",
-      "accessCount": 24,
-      "lastAccessed": 1775702964540,
+      "path": "src/app/(site)/blog/page.tsx",
+      "accessCount": 27,
+      "lastAccessed": 1776219582979,
       "type": "file"
     },
     {
-      "path": "src/app/(site)/layout.tsx",
-      "accessCount": 23,
-      "lastAccessed": 1775709845909,
+      "path": "src/app/(site)/portfolio/[slug]/page.tsx",
+      "accessCount": 22,
+      "lastAccessed": 1775882637820,
       "type": "file"
     },
     {
@@ -236,51 +254,45 @@
       "type": "file"
     },
     {
-      "path": "src/app/(site)/portfolio/[slug]/page.tsx",
+      "path": "src/app/(site)/services/page.tsx",
       "accessCount": 20,
-      "lastAccessed": 1775702396197,
-      "type": "file"
-    },
-    {
-      "path": "src/app/(site)/about/about-content.tsx",
-      "accessCount": 19,
-      "lastAccessed": 1775714515196,
-      "type": "file"
-    },
-    {
-      "path": "src/app/(site)/blog/page.tsx",
-      "accessCount": 17,
-      "lastAccessed": 1775702467332,
-      "type": "file"
-    },
-    {
-      "path": "src/lib/types.ts",
-      "accessCount": 15,
-      "lastAccessed": 1775700055158,
+      "lastAccessed": 1776219582069,
       "type": "file"
     },
     {
       "path": "src/app/(site)/portfolio/page.tsx",
-      "accessCount": 15,
-      "lastAccessed": 1775700803802,
-      "type": "file"
-    },
-    {
-      "path": "src/app/(site)/services/page.tsx",
-      "accessCount": 15,
-      "lastAccessed": 1775700815445,
+      "accessCount": 20,
+      "lastAccessed": 1776219582472,
       "type": "file"
     },
     {
       "path": "src/app/(site)/blog/blog-content.tsx",
-      "accessCount": 15,
-      "lastAccessed": 1775714282706,
+      "accessCount": 17,
+      "lastAccessed": 1776039917900,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/types.ts",
+      "accessCount": 17,
+      "lastAccessed": 1776039934339,
+      "type": "file"
+    },
+    {
+      "path": "src/app/(site)/about/page.tsx",
+      "accessCount": 17,
+      "lastAccessed": 1776219581691,
       "type": "file"
     },
     {
       "path": "src/app/(site)/portfolio/portfolio-content.tsx",
-      "accessCount": 13,
-      "lastAccessed": 1775174317258,
+      "accessCount": 14,
+      "lastAccessed": 1775882477598,
+      "type": "file"
+    },
+    {
+      "path": "src/app/sitemap.ts",
+      "accessCount": 14,
+      "lastAccessed": 1776219401240,
       "type": "file"
     },
     {
@@ -296,27 +308,27 @@
       "type": "file"
     },
     {
+      "path": "src/app/robots.ts",
+      "accessCount": 12,
+      "lastAccessed": 1776219400976,
+      "type": "file"
+    },
+    {
       "path": "src/components/sections/testimonials.tsx",
       "accessCount": 11,
       "lastAccessed": 1775263095879,
       "type": "file"
     },
     {
-      "path": "src/app/sitemap.ts",
+      "path": "src/app/(site)/contact/page.tsx",
       "accessCount": 11,
-      "lastAccessed": 1775702667869,
+      "lastAccessed": 1776219583384,
       "type": "file"
     },
     {
       "path": "src/lib/schema.sql",
       "accessCount": 10,
       "lastAccessed": 1775700054664,
-      "type": "file"
-    },
-    {
-      "path": "src/app/(site)/about/page.tsx",
-      "accessCount": 10,
-      "lastAccessed": 1775700717564,
       "type": "file"
     },
     {
@@ -332,21 +344,15 @@
       "type": "file"
     },
     {
-      "path": "src/app/robots.ts",
-      "accessCount": 8,
-      "lastAccessed": 1775175186568,
-      "type": "file"
-    },
-    {
       "path": "src/components/layout/footer.tsx",
       "accessCount": 8,
       "lastAccessed": 1775700078609,
       "type": "file"
     },
     {
-      "path": "src/app/(site)/contact/page.tsx",
-      "accessCount": 6,
-      "lastAccessed": 1775700064444,
+      "path": "src/app/(site)/blog/[slug]/page.tsx",
+      "accessCount": 8,
+      "lastAccessed": 1776219567876,
       "type": "file"
     },
     {
@@ -374,12 +380,6 @@
       "type": "file"
     },
     {
-      "path": "src/app/(site)/blog/[slug]/page.tsx",
-      "accessCount": 4,
-      "lastAccessed": 1775700084225,
-      "type": "file"
-    },
-    {
       "path": "src/app/api/portfolio/route.ts",
       "accessCount": 4,
       "lastAccessed": 1775700092172,
@@ -401,6 +401,12 @@
       "path": "tsconfig.json",
       "accessCount": 3,
       "lastAccessed": 1775700024758,
+      "type": "file"
+    },
+    {
+      "path": "src/middleware.ts",
+      "accessCount": 3,
+      "lastAccessed": 1776219174697,
       "type": "file"
     },
     {
@@ -428,9 +434,9 @@
       "type": "file"
     },
     {
-      "path": "src/middleware.ts",
+      "path": "next.config.ts",
       "accessCount": 2,
-      "lastAccessed": 1775700090976,
+      "lastAccessed": 1776219163516,
       "type": "file"
     },
     {
@@ -461,12 +467,6 @@
       "path": "src/app/api/chiro/portfolio/reorder/route.ts",
       "accessCount": 1,
       "lastAccessed": 1775039487984,
-      "type": "file"
-    },
-    {
-      "path": "next.config.ts",
-      "accessCount": 1,
-      "lastAccessed": 1775125344875,
       "type": "file"
     },
     {
