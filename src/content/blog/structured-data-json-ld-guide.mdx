@@ -1,0 +1,205 @@
+---
+title: "구조화 데이터(JSON-LD) 입문 — 검색엔진이 내 사이트를 '이해'하게 만드는 코드"
+slug: "structured-data-json-ld-guide"
+excerpt: "JSON-LD는 검색엔진과 AI가 웹페이지의 내용을 기계적으로 이해하는 데 사용하는 구조화 데이터 포맷입니다. 주요 스키마 타입과 적용 방법을 설명합니다."
+category: "AEO/SEO"
+publishedAt: "2026-04-16"
+author: "최정원"
+keywords: ["구조화 데이터", "JSON-LD", "스키마 마크업", "구글 리치 결과", "schema.org"]
+schemaType: "TechArticle"
+---
+
+## 구조화 데이터란 무엇인가
+
+구조화 데이터(Structured Data)는 검색엔진과 AI가 웹페이지의 내용을 **기계적으로 이해할 수 있는 형식**으로 표현한 코드입니다.
+
+사람은 "치로웹디자인은 서울에 있는 웹 에이전시입니다"라는 문장을 읽고 업종, 위치, 브랜드명을 파악합니다. 구글 크롤러는 이 문장을 읽을 수 있지만, 각 단어가 어떤 의미인지 확신하기 어렵습니다. 구조화 데이터는 이 불확실성을 제거합니다. `@type: "LocalBusiness"`, `name: "치로웹디자인"`, `addressLocality: "서울"` 같은 형태로 명시하면 크롤러가 오해 없이 데이터를 처리합니다.
+
+---
+
+## JSON-LD — 가장 권장되는 구현 방식
+
+구조화 데이터를 표현하는 방식에는 JSON-LD, Microdata, RDFa 세 가지가 있습니다. 구글은 공식적으로 **JSON-LD를 권장**합니다.
+
+JSON-LD는 HTML 본문과 분리된 `<script>` 태그 안에 JSON 형태로 작성됩니다.
+
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "치로웹디자인",
+  "url": "https://chiroweb.co.kr",
+  "logo": "https://chiroweb.co.kr/logo.png",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "010-0000-0000",
+    "contactType": "customer service"
+  }
+}
+</script>
+```
+
+Microdata나 RDFa는 HTML 태그에 속성을 직접 추가하는 방식이라 코드 구조가 복잡해집니다. JSON-LD는 HTML과 완전히 분리되어 유지보수가 쉽습니다.
+
+---
+
+## 주요 스키마 타입 가이드
+
+### Organization — 회사 기본 정보
+
+모든 비즈니스 사이트에 필수로 적용해야 하는 스키마입니다. 회사명, URL, 로고, 연락처, SNS 계정을 포함합니다.
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "치로웹디자인",
+  "url": "https://chiroweb.co.kr",
+  "logo": "https://chiroweb.co.kr/logo.png",
+  "sameAs": [
+    "https://www.instagram.com/chiro.web",
+    "https://www.threads.net/@chiro.web"
+  ]
+}
+```
+
+AI 검색 엔진이 브랜드 정보를 인용할 때 Organization 스키마를 우선 참조합니다. 이 스키마가 없으면 ChatGPT나 Perplexity가 회사 정보를 잘못 요약할 가능성이 높아집니다.
+
+### FAQPage — 자주 묻는 질문
+
+FAQPage 스키마는 Google 검색 결과에서 질문-답변이 직접 노출되는 **리치 결과**를 생성합니다. 클릭률이 평균 20~30% 상승합니다.
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "홈페이지 제작 비용은 얼마인가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "기본 패키지는 150만 원부터 시작합니다."
+      }
+    }
+  ]
+}
+```
+
+### Service — 서비스 상세 설명
+
+서비스 페이지에 적용하면 AI가 서비스 내용을 정확히 파악하고 관련 질문에 인용합니다.
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "웹사이트 제작",
+  "provider": {
+    "@type": "Organization",
+    "name": "치로웹디자인"
+  },
+  "areaServed": "KR",
+  "description": "Next.js 기반 커스텀 웹사이트 제작 서비스"
+}
+```
+
+### BreadcrumbList — 탐색 경로
+
+현재 페이지가 사이트 구조에서 어느 위치에 있는지 크롤러에게 알려줍니다. Google 검색 결과에서 URL 대신 탐색 경로가 노출됩니다.
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "홈",
+      "item": "https://chiroweb.co.kr"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "서비스",
+      "item": "https://chiroweb.co.kr/services"
+    }
+  ]
+}
+```
+
+### BlogPosting / TechArticle — 블로그 콘텐츠
+
+블로그 글에 적용합니다. 발행일, 수정일, 저자, 키워드를 포함해야 AI가 콘텐츠의 신뢰도를 높게 평가합니다.
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Core Web Vitals 완벽 가이드",
+  "author": {
+    "@type": "Person",
+    "name": "최정원"
+  },
+  "datePublished": "2026-04-15",
+  "dateModified": "2026-04-15"
+}
+```
+
+---
+
+## 적용 전후 검색 결과 차이
+
+구조화 데이터를 적용하기 전과 후의 검색 결과는 시각적으로 완전히 다릅니다.
+
+**적용 전**: 파란 링크 + 메타 설명 텍스트만 노출됩니다.
+
+**적용 후**: 별점, FAQ 섹션, 가격 정보, 이벤트 날짜 등이 검색 결과에 직접 표시됩니다. 이것이 **리치 결과(Rich Results)**입니다.
+
+Google Search Console 데이터에 따르면, 리치 결과가 표시된 페이지는 일반 결과 대비 클릭률(CTR)이 평균 **30% 높습니다**. FAQ 리치 결과가 적용된 페이지의 경우 검색 결과에서 차지하는 면적이 3~4배 커지기 때문에 시선을 끌기 쉽습니다.
+
+AI 검색 측면에서도 구조화 데이터는 결정적입니다. ChatGPT, Perplexity 같은 AI 검색 엔진은 크롤링 시 JSON-LD를 우선 읽습니다. 구조화 데이터가 없는 페이지는 AI가 내용을 오해석할 확률이 높고, 인용 정확도가 낮아집니다.
+
+AEO에 대해 더 자세히 알고 싶다면 [AEO란 무엇인가](/blog/what-is-aeo) 글을 참고하십시오.
+
+---
+
+## 빌더에서 JSON-LD를 적용할 수 없는 이유
+
+아임웹, 카페24, 윅스 같은 빌더 플랫폼에서는 `<head>` 태그에 커스텀 `<script>` 태그를 자유롭게 삽입하기 어렵습니다.
+
+일부 플랫폼이 기본 Organization 스키마를 자동 생성하기도 하지만, **페이지별로 다른 스키마를 정밀하게 제어하는 것은 불가능**합니다. 서비스 페이지에 Service 스키마, FAQ 페이지에 FAQPage 스키마, 블로그 글에 BlogPosting 스키마를 각각 적용하려면 코드에 직접 접근해야 합니다.
+
+치로웹디자인의 [SEO/AEO 서비스](/services/seo-aeo)는 페이지 성격에 맞는 JSON-LD 스키마 6종 이상을 기본 적용합니다.
+
+---
+
+## schema.org 공식 문서 활용법
+
+구조화 데이터의 표준을 정의하는 곳은 **schema.org**입니다. Google, Microsoft, Yahoo, Yandex가 공동 운영하는 비영리 표준 기구입니다.
+
+schema.org에서 각 타입의 속성 목록을 확인할 수 있습니다. 예를 들어 `LocalBusiness` 타입은 500개 이상의 속성을 지원합니다. 모든 속성을 채울 필요는 없지만, 핵심 속성(name, url, address, telephone, openingHours)은 반드시 포함해야 합니다.
+
+구현 후 Google의 **리치 결과 테스트(Rich Results Test)** 도구에서 스키마가 올바르게 파싱되는지 검증하는 과정이 필수입니다.
+
+---
+
+## FAQ
+
+**Q. 구조화 데이터를 적용하면 즉시 리치 결과가 표시되나요?**
+
+스키마를 적용해도 구글이 리치 결과를 보장하지는 않습니다. 리치 결과 표시 여부는 구글 알고리즘이 결정합니다. 다만 스키마가 올바르게 적용된 페이지는 리치 결과 자격을 얻으며, 일반적으로 구글이 재크롤링한 후 1~4주 내에 표시됩니다.
+
+**Q. 하나의 페이지에 여러 스키마를 적용할 수 있나요?**
+
+가능합니다. 서비스 페이지에 Organization, Service, FAQPage, BreadcrumbList를 모두 적용하는 것이 권장됩니다. `<script type="application/ld+json">` 태그를 여러 개 사용하거나, `@graph` 배열로 묶어서 표현합니다.
+
+**Q. JSON-LD 오류는 어떻게 진단하나요?**
+
+Google Search Console의 Enhancement 메뉴에서 스키마 오류를 확인할 수 있습니다. 또한 search.google.com/test/rich-results에서 URL 또는 코드 스니펫을 직접 테스트할 수 있습니다.
+
+**Q. 아임웹 프리미엄 플랜이면 JSON-LD를 자유롭게 삽입할 수 있나요?**
+
+아임웹은 Head 태그 커스터마이징 기능을 제공하지만, 페이지별로 다른 스키마를 동적으로 적용하는 것은 불가능합니다. 블로그 글마다 다른 BlogPosting 스키마, 서비스 페이지마다 다른 Service 스키마를 자동 생성하려면 프로그래밍이 필요합니다.
