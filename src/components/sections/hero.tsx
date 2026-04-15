@@ -1,20 +1,46 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+
+  // Lazy-load video after initial paint to avoid blocking LCP
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const video = videoRef.current;
+      if (video) {
+        video.src = "/hero-video.mp4";
+        video.load();
+        video.play().catch(() => {});
+        video.addEventListener("loadeddata", () => setVideoLoaded(true), { once: true });
+      }
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section className="relative h-screen w-full overflow-hidden bg-[#001F3F]">
-      {/* Video Background */}
+      {/* Poster — instant LCP */}
+      <img
+        src="/hero-poster.jpg"
+        alt=""
+        role="presentation"
+        fetchPriority="high"
+        className={`absolute inset-0 w-full h-full object-cover opacity-40 transition-opacity duration-700 ${videoLoaded ? "opacity-0" : ""}`}
+      />
+
+      {/* Video Background — lazy loaded */}
       <video
-        autoPlay
+        ref={videoRef}
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full object-cover opacity-40"
-      >
-        <source src="/hero-video.mp4" type="video/mp4" />
-      </video>
+        preload="none"
+        className={`absolute inset-0 w-full h-full object-cover opacity-40 transition-opacity duration-700 ${videoLoaded ? "opacity-40" : "opacity-0"}`}
+      />
 
       {/* Overlay gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/30 via-transparent to-[#0a0a0a]/60" />
