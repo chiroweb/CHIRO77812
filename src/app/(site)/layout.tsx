@@ -8,6 +8,7 @@ import SitePopup from "@/components/ui/site-popup";
 import ScarcityBar from "@/components/ui/scarcity-bar";
 import LoadingWrapper from "@/components/loading/LoadingWrapper";
 import LenisProvider from "@/components/providers/lenis-provider";
+import BreadcrumbJsonLd from "@/components/seo/breadcrumb-jsonld";
 
 export default function SiteLayout({
   children,
@@ -17,7 +18,7 @@ export default function SiteLayout({
   return (
     <LenisProvider>
       <LoadingWrapper>
-
+        <BreadcrumbJsonLd />
         <CustomCursor />
         {/* <SiteBanner /> */}
         <Header />

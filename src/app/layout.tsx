@@ -137,7 +137,7 @@ export default function RootLayout({
 }>) {
   const organizationJsonLd = {
     "@context": "https://schema.org",
-    "@type": ["ProfessionalService", "Organization"],
+    "@type": ["LocalBusiness", "ProfessionalService"],
     "@id": "https://chiroweb.co.kr/#organization",
     name: "치로웹디자인",
     alternateName: "CHIRO Web Design Studio",
@@ -156,8 +156,14 @@ export default function RootLayout({
     priceRange: "₩₩",
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Seoul",
+      addressLocality: "Incheon",
+      addressRegion: "인천광역시",
       addressCountry: "KR",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 37.4563,
+      longitude: 126.7052,
     },
     founder: {
       "@type": "Person",
