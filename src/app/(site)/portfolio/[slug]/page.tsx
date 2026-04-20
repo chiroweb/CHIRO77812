@@ -33,14 +33,17 @@ const fallbackProjects: Record<string, ProjectDetail> = {
     name: "NBPKOREA",
     slug: "nbpkorea",
     category: "Branding & Web",
-    client_name: "NBPKOREA",
+    client_name: "NBPKOREA (엔비피코리아)",
     site_url: null,
-    problem: "글로벌 시장 진출을 위한 브랜드 사이트 필요",
-    result: "브랜드 아이덴티티 구축 및 웹사이트 런칭",
-    solution: null,
+    problem:
+      "글로벌 시장 진출을 앞두고 있었지만, 기존 사이트는 국내 B2B 고객을 대상으로 한 정보 전달 위주 구조였다. 해외 바이어에게 전문성과 기술력을 보여줄 수 있는 브랜드 기반 사이트가 필요했다.",
+    solution:
+      "제조업 특유의 신뢰감을 살리면서도 모션과 타이포그래피를 활용해 브랜드 차별화를 구현했다. 제품·사업영역·기업정보를 계층적으로 재정리하고, 영문 대응과 구조화 데이터(JSON-LD)를 적용해 해외 검색 노출을 고려했다.",
+    result:
+      "브랜드 아이덴티티 재정립과 함께 사이트를 전면 재설계했고, 모바일·데스크탑 반응형, AEO(Answer Engine Optimization) 구조 기본 탑재. 제작 후 영문 유입 비중 상승, 문의 품질 개선.",
     content: null,
     year: "2024",
-    image_url: "/portfolio/nbpkorea.png",
+    image_url: "/portfolio/nbpkorea.mp4",
   },
   "2": {
     id: 2,
@@ -49,9 +52,12 @@ const fallbackProjects: Record<string, ProjectDetail> = {
     category: "Corporate Site",
     client_name: "Man Solution",
     site_url: null,
-    problem: "기업 신뢰도를 전달할 홈페이지 부재",
-    result: "전문성을 강조한 기업 사이트 구축",
-    solution: null,
+    problem:
+      "전문 서비스를 제공하는 중소기업임에도 불구하고 기존에 제대로 된 홈페이지가 없어 영업 과정에서 신뢰도 입증에 어려움이 있었다. 견적 상담으로 바로 이어지는 구조가 필요했다.",
+    solution:
+      "전문성을 중심축으로 두고, 서비스별 구체적 사례·프로세스·담당자 정보를 앞단에 배치했다. 시맨틱 HTML과 FAQ 스키마를 적용해 검색 엔진이 기업의 전문 영역을 명확하게 이해할 수 있도록 했다.",
+    result:
+      "기업 신뢰도를 구조적으로 전달하는 코퍼레이트 사이트 구축. 문의 폼-CRM 연동, 모바일 최적화, Core Web Vitals 통과. 오픈 후 유기 검색 유입이 꾸준히 상승.",
     content: null,
     year: "2024",
     image_url: "/portfolio/mansolution.png",
@@ -63,9 +69,12 @@ const fallbackProjects: Record<string, ProjectDetail> = {
     category: "E-commerce",
     client_name: "FUNI",
     site_url: null,
-    problem: "온라인 판매 채널 확장 필요",
-    result: "브랜드 감성을 살린 이커머스 구축",
-    solution: null,
+    problem:
+      "오프라인에서 축적된 브랜드 감성을 온라인으로 옮기는 과정에서, 기성 이커머스 템플릿(카페24·아임웹 등)의 한계로 브랜드 톤이 희석되는 문제가 있었다.",
+    solution:
+      "코드 기반 커스텀 이커머스 구조를 설계하고, 브랜드 감성을 유지하는 비주얼 시스템과 모션을 구축했다. 상품 페이지에는 Product 스키마, 리뷰 구조화 데이터를 적용해 검색 결과 노출을 강화했다.",
+    result:
+      "브랜드 감성과 구매 전환을 동시에 잡는 이커머스 구축. 모바일 퍼스트 설계로 결제 이탈률 개선, 상품 상세 페이지 SEO 최적화로 롱테일 키워드 유입 확장.",
     content: null,
     year: "2024",
     image_url: "/portfolio/funi.png",
@@ -75,14 +84,17 @@ const fallbackProjects: Record<string, ProjectDetail> = {
     name: "STUDIO",
     slug: "studio",
     category: "Portfolio Site",
-    client_name: "STUDIO",
-    site_url: null,
-    problem: "크리에이티브 포트폴리오 사이트 필요",
-    result: "미니멀 디자인의 포트폴리오 사이트 런칭",
-    solution: null,
+    client_name: "CHIRO Web Design Studio",
+    site_url: "https://chiroweb.co.kr",
+    problem:
+      "크리에이티브 에이전시로서 자사 작업물을 보여줄 포트폴리오 사이트가 필요했다. 단순한 이미지 나열이 아니라, 각 프로젝트의 맥락(문제·해결·결과)을 편집적으로 전달하면서 동시에 AEO·SEO 구조를 모범적으로 구현해 '포트폴리오 자체가 레퍼런스가 되는' 수준을 요구했다.",
+    solution:
+      "Toyokoh 레퍼런스를 기반으로 분위기 먼저, 정보 나중에 원칙을 적용했다. 100vh+ 히어로, 2배 여백, 에디토리얼 타이포그래피를 사용해 크리에이티브 톤을 세팅하고, 프로젝트 상세 페이지는 Challenge → Solution → Result 구조로 서사성을 강화했다. 전체 페이지에 Next.js App Router 기반의 서버 렌더링, JSON-LD 구조화 데이터, llms.txt, AEO 메타 최적화를 적용했다.",
+    result:
+      "미니멀·에디토리얼 디자인의 포트폴리오 사이트 런칭. Core Web Vitals 전 항목 Good 등급, ChatGPT·Perplexity 인용 최적화 구조, 모바일·데스크탑 완전 반응형. 치로웹디자인의 작업 철학과 기술력을 동시에 보여주는 자사 플래그십 사이트로 기능.",
     content: null,
     year: "2025",
-    image_url: "/portfolio/studio.png",
+    image_url: "/portfolio/nbpkorea.mp4",
   },
 };
 
@@ -100,7 +112,16 @@ export async function generateMetadata({ params }: PortfolioDetailPageProps): Pr
   const fallback = fallbackProjects[slug];
   const project = dbProject || fallback;
   const name = project?.name || "포트폴리오";
-  const description = project?.result || "치로웹디자인 포트폴리오";
+
+  // 색인 품질을 위해 problem + result를 결합한 풍부한 description 생성
+  const parts = [project?.problem, project?.result, project?.solution]
+    .filter(Boolean)
+    .map((s) => (s as string).replace(/\s+/g, " ").trim());
+  const combined = parts.join(" · ");
+  const description =
+    combined.length > 60
+      ? combined.slice(0, 155)
+      : `${name} 프로젝트 케이스 스터디 — 치로웹디자인이 설계한 ${project?.category || "웹"} 프로젝트. 문제 정의부터 해결 과정, 성과까지 공개합니다.`;
 
   return {
     title: `${name} — 포트폴리오`,
@@ -109,9 +130,20 @@ export async function generateMetadata({ params }: PortfolioDetailPageProps): Pr
       title: `${name} — 포트폴리오 | 치로웹디자인`,
       description,
       url: `https://chiroweb.co.kr/portfolio/${slug}`,
+      type: "article",
     },
     alternates: {
       canonical: `https://chiroweb.co.kr/portfolio/${slug}`,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
   };
 }
@@ -180,8 +212,71 @@ export default async function PortfolioDetailPage({
 
   const project = (dbProject || fallback) as ProjectDetail;
 
+  const creativeWorkJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.name,
+    headline: `${project.name} — ${project.category}`,
+    description:
+      [project.problem, project.solution, project.result]
+        .filter(Boolean)
+        .join(" · ") || `${project.name} 포트폴리오`,
+    url: `https://chiroweb.co.kr/portfolio/${slug}`,
+    image: project.image_url
+      ? project.image_url.startsWith("http")
+        ? project.image_url
+        : `https://chiroweb.co.kr${project.image_url}`
+      : undefined,
+    dateCreated: project.year,
+    creator: {
+      "@type": "Organization",
+      name: "치로웹디자인",
+      url: "https://chiroweb.co.kr",
+    },
+    about: project.category,
+    ...(project.client_name && {
+      sourceOrganization: {
+        "@type": "Organization",
+        name: project.client_name,
+      },
+    }),
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "홈",
+        item: "https://chiroweb.co.kr",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "포트폴리오",
+        item: "https://chiroweb.co.kr/portfolio",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: project.name,
+        item: `https://chiroweb.co.kr/portfolio/${slug}`,
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(creativeWorkJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* ══════════════════════════════════════
          HERO — Editorial project title
          다크, 거대 타이포 + 메타 정보
