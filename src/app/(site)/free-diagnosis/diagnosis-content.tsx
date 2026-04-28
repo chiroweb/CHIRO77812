@@ -8,7 +8,7 @@ import SubNav from "@/components/ui/sub-nav";
 import NumberedSection from "@/components/sections/numbered-section";
 import FaqTwoColumn from "@/components/sections/faq-two-column";
 import { sendEmail } from "@/lib/emailjs";
-import { JsonLd, generateServiceSchema, generateFAQSchema, generatePageSchema } from "@/lib/schema-helpers";
+import { JsonLd, generateServiceSchema, generatePageSchema } from "@/lib/schema-helpers";
 
 const diagnosisFaqs = [
   { q: "진단 비용이 발생하나요?", a: "아니요, 완전 무료입니다. 진단 후 프로젝트를 의뢰하지 않아도 전혀 부담이 없습니다." },
@@ -27,8 +27,7 @@ export default function DiagnosisContent() {
     description: "SEO, 모바일 호환성, 로딩 속도, AEO 준비도를 무료로 진단하는 서비스",
     url: "https://chiroweb.co.kr/free-diagnosis",
   });
-  const faqSchema = generateFAQSchema(diagnosisFaqs.map(f => ({ question: f.q, answer: f.a })));
-  const pageSchema = generatePageSchema([serviceSchema, faqSchema].filter(Boolean) as object[]);
+  const pageSchema = generatePageSchema([serviceSchema].filter(Boolean) as object[]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

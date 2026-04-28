@@ -7,7 +7,7 @@ import SubpageHero from "@/components/sections/subpage-hero";
 import SubNav from "@/components/ui/sub-nav";
 import FaqTwoColumn from "@/components/sections/faq-two-column";
 import { sendEmail } from "@/lib/emailjs";
-import { JsonLd, generateLocalBusinessSchema, generateFAQSchema, generatePageSchema } from "@/lib/schema-helpers";
+import { JsonLd, generateLocalBusinessSchema, generatePageSchema } from "@/lib/schema-helpers";
 
 interface SiteSettings {
   contact_email: string;
@@ -37,8 +37,7 @@ export default function ContactContent() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const localBusinessSchema = generateLocalBusinessSchema();
-  const faqSchema = generateFAQSchema(contactFaqs.map(f => ({ question: f.q, answer: f.a })));
-  const pageSchema = generatePageSchema([localBusinessSchema, faqSchema].filter(Boolean) as object[]);
+  const pageSchema = generatePageSchema([localBusinessSchema].filter(Boolean) as object[]);
 
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) => prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]);
