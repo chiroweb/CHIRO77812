@@ -1,0 +1,94 @@
+---
+title: "AI 검색 트래픽 측정법 — GA4에서 ChatGPT 유입 분석하기"
+slug: "measuring-ai-search-traffic"
+excerpt: "AI 검색에서 들어온 트래픽은 GA4 기본 화면에 노출되지 않습니다. 정확한 측정 세팅과 분석 도구 5가지를 정리합니다."
+category: "AEO/SEO"
+publishedAt: "2026-05-14"
+author: "최정원"
+keywords: ["AI 검색 트래픽", "ChatGPT 유입 측정", "GA4 AEO", "Perplexity 트래픽", "AEO 분석"]
+schemaType: "HowTo"
+---
+
+## AI 검색 트래픽은 기본 화면에 안 보입니다
+
+GA4 기본 화면에서 "Organic Search" 항목을 보면 ChatGPT, Perplexity 유입이 빠져 있습니다. 이 트래픽들은 referrer가 "chatgpt.com" 또는 "perplexity.ai"로 들어오기 때문에 GA4는 이를 referral로 분류합니다. AEO 트래픽 측정은 이 referral 데이터를 다시 분류하는 작업부터 시작합니다.
+
+치로웹디자인이 운영하는 사이트들의 데이터를 분석한 결과, 2026년 5월 기준 ChatGPT 유입은 전체 트래픽의 평균 4.8%, Perplexity는 1.2%였습니다. 합치면 약 6%입니다. SEO 트래픽이 30%인 사이트라면 AI 트래픽이 SEO의 20% 수준이라는 의미입니다.
+
+---
+
+## GA4에서 AI 트래픽 분리하는 세팅
+
+GA4 관리 화면에서 "수집 및 수정" > "데이터 수집" > "사용자 정의 채널 그룹"으로 이동해 새 채널을 만듭니다. 다음 referrer 조건을 추가합니다.
+
+| AI 검색 | 매칭 referrer | 채널명 |
+|--------|------------|------|
+| ChatGPT | chatgpt.com, chat.openai.com | AI Search - ChatGPT |
+| Perplexity | perplexity.ai | AI Search - Perplexity |
+| Gemini | gemini.google.com | AI Search - Gemini |
+| Claude | claude.ai | AI Search - Claude |
+| Copilot | copilot.microsoft.com | AI Search - Copilot |
+
+5종을 묶어 "AI Search" 그룹으로 만들면 보고서에서 한 줄로 확인할 수 있습니다. 세팅 후 데이터 반영까지 24시간이 걸립니다.
+
+---
+
+## 도구별 측정 정확도 비교
+
+AI 트래픽 측정에 사용 가능한 도구별 특징입니다.
+
+| 도구 | AI 트래픽 분리 | 무료 여부 | 정확도 |
+|------|-----------|--------|------|
+| GA4 (커스텀 채널) | 직접 세팅 | 무료 | 높음 |
+| Plausible | 자동 분리 | 유료 | 매우 높음 |
+| Cloudflare Web Analytics | 부분 지원 | 무료 | 중간 |
+| Vercel Analytics | 자동 분리 | 일부 무료 | 높음 |
+| 네이버 애널리틱스 | 미지원 | 무료 | 낮음 |
+
+Plausible은 2025년 11월 업데이트로 AI 검색 트래픽을 별도 카테고리로 자동 분류합니다. 신규 도구 도입을 고려한다면 Plausible이 효율적입니다.
+
+---
+
+## 직접 referrer가 없는 트래픽 분리법
+
+ChatGPT 모바일 앱에서 링크를 클릭한 경우 referrer가 비어 있을 수 있습니다. 이때는 UTM 파라미터로 보완합니다. llms.txt와 콘텐츠 본문에 UTM이 포함된 URL을 노출하면, AI가 이 URL을 그대로 인용해 referrer가 사라져도 source가 잡힙니다.
+
+```
+https://chiroweb.co.kr/services/seo-aeo?utm_source=ai_citation
+&utm_medium=organic&utm_campaign=aeo_2026
+```
+
+치로웹디자인은 [AEO 자동화 서비스](/services/seo-aeo) 적용 시 UTM 자동 부착 로직을 함께 구현합니다. 모든 AI 인용 트래픽이 추적 가능한 상태로 들어옵니다.
+
+---
+
+## CTR이 아닌 인용률을 측정해야 한다
+
+AI 트래픽 측정에서 가장 중요한 지표는 클릭률(CTR)이 아닙니다. AI 검색은 사용자가 답변을 읽고 만족하면 클릭 없이 끝납니다. 인용률이 더 본질적인 지표입니다.
+
+인용률은 "특정 질문에 AI가 답할 때 내 사이트가 출처에 포함될 확률"입니다. 측정 방법은 다음과 같습니다. AEO 핵심 키워드 50개를 추립니다. 매주 ChatGPT, Perplexity, Gemini에 동일한 질문을 던집니다. 답변에 내 사이트가 포함된 비율을 계산합니다.
+
+이 작업을 자동화하려면 OpenAI API와 Perplexity API를 사용한 스크립트가 필요합니다. 매주 동일 질문을 자동 수집하고 인용 여부를 로그로 남깁니다.
+
+---
+
+## 트래픽 분석 후 의사결정
+
+데이터가 모이면 다음 분석이 가능합니다. 어떤 페이지가 AI 트래픽을 받고 있는가. 어떤 질문에서 인용되고 있는가. 인용 후 전환율은 SEO 트래픽 대비 어떤가.
+
+치로웹디자인의 자체 데이터에서 AI 검색 유입의 평균 페이지 체류 시간은 SEO 유입의 1.4배, 페이지당 이벤트 수는 1.7배입니다. AI는 사용자가 이미 답을 받은 상태로 들어오기 때문에 의도가 분명한 트래픽입니다.
+
+[AI 검색 가시성 체크](/blog/ai-search-visibility-check)에서 인용률 측정 도구 사용법을 추가로 다룹니다.
+
+---
+
+## 자주 묻는 질문
+
+**GA4에서 AI 트래픽이 0으로 잡힐 수도 있나요?**
+referrer 정책이 strict인 사이트에서는 일부 AI 검색 referrer가 누락됩니다. 이때는 서버 로그에서 user-agent 분석으로 보완합니다. 또는 페이지에 첫 방문 시 referrer를 직접 추출해 dataLayer에 저장하는 방식도 가능합니다.
+
+**Plausible vs GA4 어느 쪽이 낫나요?**
+정확도와 자동 분리는 Plausible이 우수합니다. 기능 확장성과 무료 정책은 GA4가 우수합니다. AEO에 집중하고 데이터 양이 적으면 Plausible이 합리적입니다. 통합 분석이 필요하면 GA4 커스텀 세팅이 안전합니다.
+
+**AI 트래픽이 SEO 트래픽을 넘어설 시점은?**
+업종마다 다릅니다. 기술·의료·재무 관련 정보성 콘텐츠는 2027년 초까지 AI 트래픽 비중이 30%를 넘을 가능성이 있습니다. 거래·체험 중심 업종은 50% 이상이 SEO 트래픽으로 남을 가능성이 높습니다.
