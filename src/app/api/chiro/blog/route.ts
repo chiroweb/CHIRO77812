@@ -1,6 +1,8 @@
 import { sql } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import { generateSlug } from "@/lib/slug";
+import { pingIndexNowFireAndForget } from "@/lib/indexnow";
+import { SITE_URL } from "@/lib/constants";
 
 // GET: List all blog posts (admin)
 export async function GET(request: NextRequest) {
@@ -52,6 +54,10 @@ export async function POST(request: NextRequest) {
       VALUES (${title}, ${finalSlug}, ${excerpt || null}, ${content}, ${category || "Insight"}, ${published ?? false})
       RETURNING *
     `;
+
+    if (published) {
+      pingIndexNowFireAndForget([`${SITE_URL}/blog/${finalSlug}`, `${SITE_URL}/blog`]);
+    }
 
     return NextResponse.json(result.rows[0], { status: 201 });
   } catch (error) {

@@ -1,6 +1,8 @@
 import { sql } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import { generateSlug } from "@/lib/slug";
+import { pingIndexNowFireAndForget } from "@/lib/indexnow";
+import { SITE_URL } from "@/lib/constants";
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -61,6 +63,10 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
 
     if (result.rows.length === 0) {
       return NextResponse.json({ error: "Post not found" }, { status: 404 });
+    }
+
+    if (published) {
+      pingIndexNowFireAndForget([`${SITE_URL}/blog/${finalSlug}`, `${SITE_URL}/blog`]);
     }
 
     return NextResponse.json(result.rows[0]);
