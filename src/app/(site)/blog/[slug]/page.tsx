@@ -2,7 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import BlogContent from "@/components/blog-content";
 import { sql } from "@/lib/db";
-import { getMdxPost, getMdxSlugs } from "@/lib/mdx";
+import {
+  extractHowToSteps,
+  getMdxPost,
+  getMdxSlugs,
+  isHowToCandidate,
+} from "@/lib/mdx";
 
 /* ─────────────────────────────────────
    Types
@@ -96,36 +101,73 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const mdxPost = await getMdxPost(slug);
 
   if (mdxPost) {
-    const { frontmatter: fm, html: contentHtml } = mdxPost;
+    const { frontmatter: fm, html: contentHtml, content: rawMd } = mdxPost;
     const dateStr = new Date(fm.publishedAt).toLocaleDateString("ko-KR", {
       year: "numeric",
       month: "long",
       day: "numeric",
     });
 
-    const jsonLd = {
-      "@context": "https://schema.org",
-      "@type": fm.schemaType || "BlogPosting",
-      headline: fm.title,
-      description: fm.excerpt,
-      datePublished: new Date(fm.publishedAt).toISOString(),
-      dateModified: fm.updatedAt
-        ? new Date(fm.updatedAt).toISOString()
-        : new Date(fm.publishedAt).toISOString(),
-      author: {
-        "@type": "Person",
-        name: fm.author || "최정원",
-        url: "https://chiroweb.co.kr/about",
-      },
-      publisher: {
-        "@type": "Organization",
-        name: "치로웹디자인",
-        url: "https://chiroweb.co.kr",
-      },
-      mainEntityOfPage: `https://chiroweb.co.kr/blog/${slug}`,
-      ...(fm.keywords && { keywords: fm.keywords.join(", ") }),
-      ...(fm.coverImage && { image: fm.coverImage }),
+    const publishedISO = new Date(fm.publishedAt).toISOString();
+    const modifiedISO = fm.updatedAt
+      ? new Date(fm.updatedAt).toISOString()
+      : publishedISO;
+    const pageUrl = `https://chiroweb.co.kr/blog/${slug}`;
+    const author = {
+      "@type": "Person" as const,
+      name: fm.author || "최정원",
+      url: "https://chiroweb.co.kr/about",
     };
+    const publisher = {
+      "@type": "Organization" as const,
+      name: "치로웹디자인",
+      url: "https://chiroweb.co.kr",
+    };
+
+    // Auto-emit HowTo when frontmatter says so OR when title strongly suggests
+    // step-by-step content AND we can extract at least 3 meaningful steps.
+    const howToSteps =
+      fm.schemaType === "HowTo" || isHowToCandidate(fm.title)
+        ? extractHowToSteps(rawMd)
+        : [];
+    const useHowTo =
+      (fm.schemaType === "HowTo" && howToSteps.length >= 2) ||
+      (isHowToCandidate(fm.title) && howToSteps.length >= 3);
+
+    const jsonLd = useHowTo
+      ? {
+          "@context": "https://schema.org",
+          "@type": "HowTo",
+          name: fm.title,
+          description: fm.excerpt,
+          datePublished: publishedISO,
+          dateModified: modifiedISO,
+          author,
+          publisher,
+          mainEntityOfPage: pageUrl,
+          ...(fm.keywords && { keywords: fm.keywords.join(", ") }),
+          ...(fm.coverImage && { image: fm.coverImage }),
+          step: howToSteps.map((s, i) => ({
+            "@type": "HowToStep",
+            position: i + 1,
+            name: s.name,
+            text: s.text,
+            url: `${pageUrl}#step-${i + 1}`,
+          })),
+        }
+      : {
+          "@context": "https://schema.org",
+          "@type": fm.schemaType || "BlogPosting",
+          headline: fm.title,
+          description: fm.excerpt,
+          datePublished: publishedISO,
+          dateModified: modifiedISO,
+          author,
+          publisher,
+          mainEntityOfPage: pageUrl,
+          ...(fm.keywords && { keywords: fm.keywords.join(", ") }),
+          ...(fm.coverImage && { image: fm.coverImage }),
+        };
 
     return (
       <>

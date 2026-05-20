@@ -96,3 +96,77 @@ export async function getAllMdxPosts(): Promise<MdxPost[]> {
         new Date(a.frontmatter.publishedAt).getTime()
     );
 }
+
+/* ─────────────────────────────────────
+   HowTo schema helpers
+───────────────────────────────────── */
+
+const HOWTO_TITLE_PATTERNS = [
+  "가이드", "방법론", "방법", "체크리스트", "공식", "순서", "단계",
+  "하는 법", "쓰는 법", "만드는 법", "고르는 법", "작성법", "활용법",
+  "전략", "프로세스",
+];
+
+const STEP_SKIP_HEADINGS = [
+  "자주 묻는 질문", "faq", "결론", "마무리", "참고", "관련 글",
+  "더 읽기", "참고 자료", "정리", "맺음말",
+];
+
+/** Heuristic: title strongly suggests step-by-step content */
+export function isHowToCandidate(title: string): boolean {
+  const lower = title.toLowerCase();
+  return HOWTO_TITLE_PATTERNS.some((p) => title.includes(p) || lower.includes(p.toLowerCase()));
+}
+
+/** Extract HowToStep array from raw markdown by parsing `## ` headings */
+export function extractHowToSteps(
+  rawMarkdown: string
+): { name: string; text: string }[] {
+  const lines = rawMarkdown.split("\n");
+  const steps: { name: string; text: string }[] = [];
+  let current: { name: string; bodyLines: string[] } | null = null;
+
+  const pushCurrent = () => {
+    if (!current) return;
+    const name = current.name.trim();
+    const lower = name.toLowerCase();
+    const skip = STEP_SKIP_HEADINGS.some(
+      (s) => name.includes(s) || lower.includes(s),
+    );
+    if (skip) {
+      current = null;
+      return;
+    }
+    const body = current.bodyLines
+      .join(" ")
+      .replace(/\s+/g, " ")
+      .replace(/[*_`>#-]/g, "")
+      .trim();
+    if (name && body) {
+      steps.push({ name, text: body.slice(0, 300) });
+    }
+    current = null;
+  };
+
+  for (const line of lines) {
+    const h2 = line.match(/^##\s+(.+?)\s*$/);
+    if (h2) {
+      pushCurrent();
+      current = { name: h2[1], bodyLines: [] };
+      continue;
+    }
+    if (line.match(/^#\s+/)) {
+      pushCurrent();
+      continue;
+    }
+    if (current) {
+      const trimmed = line.trim();
+      if (trimmed && !trimmed.startsWith("---")) {
+        current.bodyLines.push(trimmed);
+      }
+    }
+  }
+  pushCurrent();
+
+  return steps;
+}
