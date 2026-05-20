@@ -27,6 +27,14 @@ const serviceJsonLd = {
   serviceType: "Website Redesign",
   areaServed: { "@type": "Country", name: "KR" },
   url: "https://chiroweb.co.kr/services/remodeling",
+  offers: {
+    "@type": "AggregateOffer",
+    priceCurrency: "KRW",
+    lowPrice: "1500000",
+    offerCount: 3,
+    availability: "https://schema.org/InStock",
+    url: "https://chiroweb.co.kr/pricing",
+  },
 };
 
 /* ─────────────────────────────────────

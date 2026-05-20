@@ -27,6 +27,20 @@ const serviceJsonLd = {
   serviceType: "Web Design",
   areaServed: { "@type": "Country", name: "KR" },
   url: "https://chiroweb.co.kr/services/website",
+  offers: {
+    "@type": "Offer",
+    price: "1750000",
+    priceCurrency: "KRW",
+    priceSpecification: {
+      "@type": "PriceSpecification",
+      price: "1750000",
+      priceCurrency: "KRW",
+      valueAddedTaxIncluded: false,
+      description: "Startup 플랜 기준 시작 가격",
+    },
+    availability: "https://schema.org/InStock",
+    url: "https://chiroweb.co.kr/pricing",
+  },
 };
 
 /* ─────────────────────────────────────

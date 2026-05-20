@@ -27,6 +27,14 @@ const serviceJsonLd = {
   serviceType: "Search Engine Optimization",
   areaServed: { "@type": "Country", name: "KR" },
   url: "https://chiroweb.co.kr/services/seo-aeo",
+  offers: {
+    "@type": "Offer",
+    description:
+      "모든 홈페이지 제작/리모델링 플랜에 기본 포함. 단독 컨설팅은 별도 견적.",
+    priceCurrency: "KRW",
+    availability: "https://schema.org/InStock",
+    url: "https://chiroweb.co.kr/pricing",
+  },
 };
 
 /* ─────────────────────────────────────

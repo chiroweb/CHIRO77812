@@ -57,7 +57,16 @@ const serviceJsonLd = {
     ],
   },
   areaServed: { "@type": "Country", name: "KR" },
+  priceRange: "₩₩",
   url: "https://chiroweb.co.kr/services",
+  offers: {
+    "@type": "AggregateOffer",
+    priceCurrency: "KRW",
+    lowPrice: "1750000",
+    offerCount: 3,
+    availability: "https://schema.org/InStock",
+    url: "https://chiroweb.co.kr/pricing",
+  },
 };
 
 /* ─────────────────────────────────────
