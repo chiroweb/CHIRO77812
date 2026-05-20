@@ -7,11 +7,11 @@ import type { BlogPost } from "@/lib/types";
 export const metadata: Metadata = {
   title: "블로그 — 웹 디자인 · SEO/AEO 인사이트",
   description:
-    "AEO 자동화, SEO 전략, 웹 디자인 트렌드에 대한 치로웹디자인의 인사이트.",
+    "AEO·SEO 통합 설계, 검색 전략, 웹 디자인 트렌드에 대한 치로웹디자인의 인사이트.",
   openGraph: {
     title: "블로그 — 웹 디자인 · SEO/AEO 인사이트",
     description:
-      "AEO 자동화, SEO 전략, 웹 디자인 트렌드에 대한 치로웹디자인의 인사이트.",
+      "AEO·SEO 통합 설계, 검색 전략, 웹 디자인 트렌드에 대한 치로웹디자인의 인사이트.",
     url: "https://chiroweb.co.kr/blog",
   },
   alternates: {

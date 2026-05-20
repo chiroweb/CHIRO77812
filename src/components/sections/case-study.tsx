@@ -79,13 +79,13 @@ export default function CaseStudy() {
 
   return (
     <div ref={sectionRef} style={{ height: `${projects.length * 100}vh` }}>
-      <section className="sticky top-0 h-screen w-full bg-[#0D1117] overflow-hidden flex" data-theme="dark">
+      <section className="relative md:sticky md:top-0 min-h-[600px] md:h-screen w-full bg-[#0D1117] overflow-hidden flex flex-col md:flex-row" data-theme="dark">
         <span className="absolute top-10 left-5 md:left-20 z-30 text-[11px] tracking-[0.08em] uppercase text-white/20 font-[family-name:var(--font-jetbrains-mono)]">
           ( Work )
         </span>
 
         {/* Left: Videos (60%) */}
-        <div ref={videosRef} className="relative w-full md:w-[60%] h-full">
+        <div ref={videosRef} className="relative w-full md:w-[60%] h-[60vw] md:h-full min-h-[300px]">
           {projects.map((project, i) => (
             <div
               key={project.number}

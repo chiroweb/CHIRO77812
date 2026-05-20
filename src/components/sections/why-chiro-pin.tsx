@@ -86,7 +86,7 @@ export default function WhyChiroPin() {
   return (
     <div ref={wrapperRef} className="relative bg-[#1a1a1a]" style={{ minHeight: "400vh" }}>
       {/* Sticky content — pinned for entire scroll */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
+      <div className="relative md:sticky md:top-0 min-h-[600px] md:h-screen w-full overflow-hidden">
 
         {/* Floating images — behind text, z-0 */}
         <div className="absolute inset-0 z-0">

@@ -4,7 +4,7 @@ import Divider from "@/components/ui/divider";
 const serviceLinks = [
   { label: "홈페이지 제작", href: "/services/website" },
   { label: "홈페이지 리모델링", href: "/services/remodeling" },
-  { label: "SEO/AEO 자동화", href: "/services/seo-aeo" },
+  { label: "SEO/AEO 통합 설계", href: "/services/seo-aeo" },
 ];
 
 const infoLinks = [
@@ -25,9 +25,9 @@ export default function Footer() {
     <footer className="px-5 md:px-8 pb-8">
       <Divider />
       <div className="max-w-[1280px] mx-auto pt-16 pb-8">
-        <div className="grid grid-cols-4 md:grid-cols-12 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-12 gap-6">
           {/* Brand */}
-          <div className="col-span-4 md:col-span-3">
+          <div className="col-span-2 md:col-span-3">
             <p className="text-sm text-[#6b6b6b] leading-relaxed max-w-xs">
               기획이 곧 개발이 되는 투명함.
               <br />
@@ -36,7 +36,7 @@ export default function Footer() {
           </div>
 
           {/* 서비스 */}
-          <div className="col-span-2 md:col-span-2 md:col-start-5">
+          <div className="col-span-1 md:col-span-2 md:col-start-5">
             <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-4">
               서비스
             </p>
@@ -55,7 +55,7 @@ export default function Footer() {
           </div>
 
           {/* 정보 */}
-          <div className="col-span-2 md:col-span-2 md:col-start-7">
+          <div className="col-span-1 md:col-span-2 md:col-start-7">
             <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-4">
               정보
             </p>
@@ -74,7 +74,7 @@ export default function Footer() {
           </div>
 
           {/* 리소스 */}
-          <div className="col-span-2 md:col-span-2 md:col-start-9">
+          <div className="col-span-1 md:col-span-2 md:col-start-9">
             <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-4">
               리소스
             </p>
@@ -93,7 +93,7 @@ export default function Footer() {
           </div>
 
           {/* Contact Info */}
-          <div className="col-span-2 md:col-span-2 md:col-start-11">
+          <div className="col-span-1 md:col-span-2 md:col-start-11">
             <p className="text-xs tracking-[0.2em] uppercase text-[#9b9b9b] mb-4">
               Contact
             </p>

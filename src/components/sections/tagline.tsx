@@ -1,7 +1,7 @@
 "use client";
 
 export default function Tagline() {
-  const text = "AI 시대의 AEO 자동화 웹 에이전시";
+  const text = "AI 시대의 AEO·SEO 통합 설계 웹 에이전시";
 
   return (
     <section className="h-[8vh] flex items-center bg-white overflow-hidden">

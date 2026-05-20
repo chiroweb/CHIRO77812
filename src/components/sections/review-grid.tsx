@@ -60,7 +60,7 @@ export default function ReviewGrid({ reviews }: ReviewGridProps) {
             <button
               key={type}
               onClick={() => setActiveType(type)}
-              className={`text-[13px] pb-1.5 whitespace-nowrap transition-colors duration-200 border-b-2 ${
+              className={`text-[13px] pb-1.5 whitespace-nowrap transition-colors duration-200 border-b-2 min-h-[44px] flex items-center ${
                 activeType === type
                   ? "text-[#111] border-[#111]"
                   : "text-[#999] border-transparent hover:text-[#555]"
@@ -95,7 +95,7 @@ export default function ReviewGrid({ reviews }: ReviewGridProps) {
                 </div>
 
                 {/* Quote */}
-                <p className="text-[15px] text-[#333] leading-[1.8] italic flex-1">
+                <p className="text-[15px] text-[#333] leading-[1.8] italic flex-1 line-clamp-5">
                   &ldquo;{review.quote}&rdquo;
                 </p>
 

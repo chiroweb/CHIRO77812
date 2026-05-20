@@ -23,7 +23,7 @@ const blocks = [
   {
     title: "실시간 빌드",
     description:
-      "상담 당일 빌드 링크가 열립니다. 매 순간을 함께 지켜보고, 즉시 피드백하세요. 평균 3.8일 완성.",
+      "상담 당일 빌드 링크가 열립니다. 매 순간을 함께 지켜보고, 즉시 피드백하세요. 평균 7.5일 완성.",
     cta: "포트폴리오 보기",
     href: "/portfolio",
     imagePlaceholder: "live-build",
@@ -57,7 +57,7 @@ export default function WhyChiro() {
                 transition={{ duration: 0.5 }}
                 className="w-full md:w-[45%] shrink-0"
               >
-                <h2 className="text-[32px] md:text-[48px] lg:text-[56px] font-extrabold tracking-[-0.03em] leading-[1.1] text-[#1a1a1a] mb-6">
+                <h2 className="text-[32px] md:text-[48px] lg:text-[56px] font-extrabold tracking-[-0.03em] leading-[1.1] text-[#1a1a1a] mb-6 break-keep">
                   {block.title}
                   <span className="text-[#FF4D00]">.</span>
                 </h2>

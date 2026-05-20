@@ -70,13 +70,13 @@ export default function ServiceCards() {
       {/* Cards area — dark background, horizontal scroll */}
       <div className="bg-[#1a1a1a] px-5 md:px-8 lg:px-16 py-12 md:py-16">
         <div
-          className="flex gap-5 md:gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide"
+          className="flex gap-3 md:gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide"
           style={{ WebkitOverflowScrolling: "touch" }}
         >
           {services.map((service) => (
             <div
               key={service.number}
-              className="flex-shrink-0 w-[300px] md:w-[380px] lg:w-[420px] snap-start"
+              className="flex-shrink-0 w-[260px] md:w-[380px] lg:w-[420px] snap-start"
             >
               <div className="group h-full border border-white/10 rounded-2xl p-8 md:p-10 flex flex-col justify-between min-h-[420px] md:min-h-[480px] hover:border-white/25 transition-all duration-300">
                 {/* Title + Description */}

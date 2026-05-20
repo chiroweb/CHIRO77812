@@ -65,7 +65,7 @@ export const services: ServiceDetail[] = [
     slug: 'website',
     title: '홈페이지 제작',
     h1: '기업 홈페이지 제작, 무엇이 포함되나요?',
-    description: '기업 홈페이지 제작 전문 — 반응형 디자인, SEO, CMS까지 포함된 AEO 자동화 웹사이트 제작 서비스. 평균 3.8일 완성.',
+    description: '기업 홈페이지 제작 전문 — 반응형 디자인, SEO, CMS까지 포함된 AEO·SEO 통합 설계 웹사이트 제작 서비스. 평균 7.5일 완성.',
     shortDescription: '브랜드의 첫 인상을 설계합니다. 반응형 디자인부터 SEO까지 포함된 올인원 홈페이지를 제작합니다.',
     features: [
       '브랜드 아이덴티티에 맞춘 맞춤 디자인',
@@ -79,7 +79,7 @@ export const services: ServiceDetail[] = [
     faqs: [
       {
         question: '홈페이지 제작 기간은 얼마나 걸리나요?',
-        answer: '치로의 평균 제작 기간은 3.8일입니다. 상담 당일 실시간 빌드 링크를 제공하며, 기획서 대기 기간 없이 바로 제작에 들어갑니다. 프로젝트 규모에 따라 1주일 이내에 완성됩니다.',
+        answer: '치로의 평균 제작 기간은 7.5일입니다. 상담 당일 실시간 빌드 링크를 제공하며, 기획서 대기 기간 없이 바로 제작에 들어갑니다. 프로젝트 규모에 따라 1~2주 이내에 완성됩니다.',
       },
       {
         question: '홈페이지 제작 비용은 얼마인가요?',
@@ -138,8 +138,8 @@ export const services: ServiceDetail[] = [
   {
     id: 'seo-aeo',
     slug: 'seo-aeo',
-    title: 'SEO/AEO 자동화',
-    h1: 'SEO/AEO 자동화 세팅 — 코드 레벨에서 시작되는 검색 최적화',
+    title: 'SEO/AEO 통합 설계',
+    h1: 'SEO/AEO 통합 설계 세팅 — 코드 레벨에서 시작되는 검색 최적화',
     description: 'SEO와 AEO를 코드 레벨에서 자동화합니다. 구조화 데이터, 메타태그, 사이트맵을 한 번에 세팅하는 검색 최적화 서비스.',
     shortDescription: '검색엔진과 AI 모두에게 발견되는 사이트를 만듭니다. 코드 레벨에서 SEO/AEO를 자동화합니다.',
     features: [

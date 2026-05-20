@@ -65,7 +65,7 @@ export default function MobileCtaBar() {
             </div>
             <a
               href="/contact"
-              className="bg-[#FF4D00] text-white text-sm px-5 py-3 font-medium"
+              className="bg-[#FF4D00] text-white text-sm px-5 py-4 font-medium min-h-[48px] flex items-center"
             >
               무료 상담
             </a>

@@ -78,7 +78,7 @@ export default function PortfolioGrid({ projects }: PortfolioGridProps) {
                   {/* Info */}
                   <div className="mt-4 flex items-start justify-between gap-3">
                     <div>
-                      <p className="text-[16px] font-semibold text-[#111] leading-snug">
+                      <p className="text-[16px] font-semibold text-[#111] leading-snug line-clamp-2">
                         {project.name}
                       </p>
                       <p className="text-[12px] text-[#999] mt-0.5">{project.category}</p>

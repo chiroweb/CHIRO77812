@@ -86,5 +86,5 @@ export const pricingComparison: ComparisonItem[] = [
   { feature: '수정 횟수', chiro: '무제한', others: '3회 포함' },
   { feature: '구조화 데이터(JSON-LD)', chiro: '기본 포함', others: '추가 비용 발생' },
   { feature: 'AEO 세팅', chiro: '기본 포함', others: '지원 안 됨' },
-  { feature: '제작 기간', chiro: '평균 3.8일', others: '2~4주' },
+  { feature: '제작 기간', chiro: '평균 7.5일', others: '2~4주' },
 ];

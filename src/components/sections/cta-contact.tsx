@@ -21,7 +21,7 @@ export default function CtaContact() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-[#F0F0F0]" style={{ height: "100vh" }}>
+    <section className="relative overflow-hidden bg-[#F0F0F0] py-[120px] md:py-0 min-h-[600px] md:min-h-screen">
 
       {/* Layer 1: Dark text on light bg (base) */}
       <div className="absolute inset-0 z-[1] flex items-center justify-center">

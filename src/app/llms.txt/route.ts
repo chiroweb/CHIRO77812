@@ -3,14 +3,14 @@ export const dynamic = 'force-static';
 export function GET() {
   const content = `# CHIRO Web Design Studio (치로웹디자인)
 
-> ChatGPT·Perplexity가 인용하는 사이트를 만드는 AEO 자동화 웹 에이전시.
+> ChatGPT·Perplexity가 인용하는 사이트를 만드는 AEO·SEO 통합 설계 웹 스튜디오.
 > llms.txt, 구조화 데이터, 시맨틱 HTML을 코드 레벨에서 구현합니다.
 > 아임웹·카페24의 기술적 한계를 넘어서는 커스텀 코딩.
 
 ## 서비스
 - [홈페이지 제작](https://chiroweb.co.kr/services/website): 반응형 기업 홈페이지, 브랜드 사이트, 랜딩페이지 제작
 - [홈페이지 리모델링](https://chiroweb.co.kr/services/remodeling): 구형 홈페이지를 현대적 반응형 사이트로 전환
-- [SEO/AEO 자동화](https://chiroweb.co.kr/services/seo-aeo): 코드 레벨 검색 최적화 및 AI 검색 노출 세팅
+- [SEO/AEO 통합 설계](https://chiroweb.co.kr/services/seo-aeo): 코드 레벨 검색 최적화 및 AI 검색 노출 세팅
 
 ## 제작 사례
 - [포트폴리오](https://chiroweb.co.kr/portfolio): 다양한 업종의 제작 사례

@@ -221,22 +221,48 @@ inner: sticky top-0, h-screen, overflow-hidden
 ## 11. 반응형
 
 ```
-Desktop  : 1280px+
-Tablet   : 768px ~ 1279px
-Mobile   : ~767px
+Desktop  : 1280px+    (lg:)
+Tablet   : 768~1279px (md:)
+Mobile   : ~767px     (default)
 ```
+
+**원칙: 모바일 우선**. 기본 Tailwind 클래스는 모바일 값으로 작성하고 `md:`/`lg:` 로 확장한다. `text-7xl` 단독 사용 금지 → `text-3xl md:text-5xl lg:text-7xl`.
+
+### 표준 토큰 (이대로 통일)
+
+| 용도 | 모바일 | 태블릿(md) | 데스크탑(lg) |
+|------|--------|-----------|------------|
+| **좌우 패딩** | `px-5` | `px-8` | `px-12` (or `px-20` 와이드) |
+| **섹션 상하** | `py-[80px]` | `py-[120px]` | `py-[160px]` |
+| **Display 타이포** | `text-3xl` | `text-5xl` | `text-7xl` (or `text-[96px]`) |
+| **Section Title** | `text-2xl` | `text-4xl` | `text-6xl` |
+| **Body** | `text-sm` | `text-base` | `text-base` |
+| **Grid** | `grid-cols-1` | `md:grid-cols-2` | `lg:grid-cols-3` |
+| **Flex 방향** | `flex-col` | `md:flex-row` | — |
+| **터치 타겟** | `min-h-[44px]` | — | — |
+
+### 절대 규칙
+
+- ❌ `h-screen` / `min-h-screen` 단독 사용 금지 (모바일 브라우저 UI 잘림) → `min-h-[600px] md:min-h-screen`
+- ❌ `sticky h-screen` 단독 금지 → `relative md:sticky md:top-0` + `min-h-[600px] md:min-h-screen`
+- ❌ `text-7xl` `px-20` `grid-cols-3` 같은 큰 값 단독 금지
+- ❌ 절대 위치 장식 이미지(절대 positioning + 큰 px)는 `hidden md:block` 으로 모바일에서 숨김
 
 ### 네비
 - Desktop: 필 형태 (좌 nav | 우 CTA)
 - Mobile: 햄버거 → 풀스크린 메뉴
 
 ### 포트폴리오
-- Desktop: 좌 58% 미디어 | 우 42% 텍스트
-- Mobile: 상 50vh 미디어 | 하 50vh 텍스트
+- Desktop: 좌 58% 미디어 | 우 42% 텍스트 (sticky)
+- Mobile: 위 미디어 16:10 → 아래 텍스트 (sticky 해제, 일반 스크롤)
 
 ### FAQ
 - Desktop: 2컬럼 (좌 5개, 우 5개)
 - Mobile: 1컬럼 스택
+
+### Footer / CTA Band 그리드
+- Desktop: `grid-cols-12`
+- Mobile: `grid-cols-2` (4컬럼은 좁아짐)
 
 ---
 

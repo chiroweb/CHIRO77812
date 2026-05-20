@@ -65,9 +65,8 @@ export default function Gallery() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#0D1117] py-[120px] overflow-hidden"
+      className="relative bg-[#0D1117] py-[120px] overflow-hidden min-h-[600px] md:min-h-screen"
       data-theme="dark"
-      style={{ minHeight: "100vh" }}
     >
       {/* 3-column parallax grid */}
       <div className="relative w-full flex gap-4 md:gap-5 px-5 md:px-8 h-[85vh] md:h-[95vh]">

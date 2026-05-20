@@ -3,13 +3,13 @@ import { sql } from "@/lib/db";
 import ServicesHubContent from "./services-hub-content";
 
 export const metadata: Metadata = {
-  title: "서비스 — 홈페이지 제작 · 리모델링 · AEO 자동화",
+  title: "서비스 — 홈페이지 제작 · 리모델링 · AEO·SEO 통합 설계",
   description:
-    "홈페이지 제작, 리모델링, SEO/AEO 자동화를 하나의 팀에서 완성합니다. ChatGPT·Perplexity가 인용하는 구조를 코드 레벨에서 설계합니다.",
+    "홈페이지 제작, 리모델링, SEO/AEO 통합 설계를 하나의 팀에서 완성합니다. ChatGPT·Perplexity가 인용하는 구조를 코드 레벨에서 설계합니다.",
   alternates: { canonical: "https://chiroweb.co.kr/services" },
   openGraph: {
-    title: "서비스 — 홈페이지 제작 · 리모델링 · AEO 자동화",
-    description: "홈페이지 제작, 리모델링, SEO/AEO 자동화를 하나의 팀에서 완성합니다. ChatGPT·Perplexity가 인용하는 구조를 코드 레벨에서 설계합니다.",
+    title: "서비스 — 홈페이지 제작 · 리모델링 · AEO·SEO 통합 설계",
+    description: "홈페이지 제작, 리모델링, SEO/AEO 통합 설계를 하나의 팀에서 완성합니다. ChatGPT·Perplexity가 인용하는 구조를 코드 레벨에서 설계합니다.",
     url: "https://chiroweb.co.kr/services",
   },
 };

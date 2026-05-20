@@ -22,12 +22,12 @@ const comparisons = [
   {
     aspect: "완성까지 기간",
     others: "평균 4~8주",
-    chiro: "평균 4일 완성",
+    chiro: "평균 7.5일 완성",
   },
   {
     aspect: "소통 방식",
     others: "담당자 배정, 전달 과정에서 의도 왜곡 가능",
-    chiro: "디렉터 직접 소통, 기획부터 개발까지 1인 전담",
+    chiro: "디렉터 직접 소통, 기획부터 개발까지 디렉터가 주도",
   },
   {
     aspect: "응답 속도",
@@ -61,7 +61,7 @@ export default function Comparison() {
               </motion.h2>
               <motion.p
                 variants={fadeInUp}
-                className="text-[18px] md:text-[22px] font-medium text-white/50 tracking-tight leading-[1.5]"
+                className="text-[18px] md:text-[22px] font-medium text-white/50 tracking-tight leading-[1.5] break-keep"
               >
                 같은 결과, 다른 과정.
               </motion.p>

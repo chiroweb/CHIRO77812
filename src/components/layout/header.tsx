@@ -74,6 +74,15 @@ export default function Header() {
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [menuOpen]);
+
   return (
     <>
       <header
@@ -156,7 +165,7 @@ export default function Header() {
             {/* Mobile Hamburger */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="relative z-[70] md:hidden w-7 h-7 flex flex-col items-center justify-center gap-[6px] cursor-pointer"
+              className="relative z-[70] md:hidden min-w-[44px] min-h-[44px] flex flex-col items-center justify-center gap-[6px] cursor-pointer"
               aria-label="메뉴"
             >
               <span

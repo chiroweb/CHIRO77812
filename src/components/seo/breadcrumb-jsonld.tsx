@@ -9,7 +9,7 @@ const SEGMENT_LABELS: Record<string, string> = {
   services: "서비스",
   website: "홈페이지 제작",
   remodeling: "홈페이지 리모델링",
-  "seo-aeo": "SEO/AEO 자동화",
+  "seo-aeo": "SEO/AEO 통합 설계",
   portfolio: "포트폴리오",
   blog: "블로그",
   about: "회사 소개",

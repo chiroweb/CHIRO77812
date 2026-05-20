@@ -158,7 +158,7 @@ export default function GalleryCounter() {
       <div className="absolute top-0 left-0 right-0 h-[200px] z-[15] bg-gradient-to-b from-[#0D1117] to-transparent pointer-events-none" />
 
       {/* Sticky fullscreen container — pinned while scrolling */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden" data-theme="dark">
+      <div className="relative md:sticky md:top-0 min-h-[600px] md:h-screen w-full overflow-hidden" data-theme="dark">
 
         {/* 3-column image grid — positioned to overflow viewport */}
         <div

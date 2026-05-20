@@ -192,7 +192,7 @@ export default function ContactContent() {
                         return (
                           <button
                             key={tag} type="button" onClick={() => toggleTag(tag)}
-                            className={`px-4 py-2 text-[13px] rounded-full border transition-all duration-200 cursor-pointer ${
+                            className={`px-4 py-3 text-[13px] rounded-full border transition-all duration-200 cursor-pointer min-h-[44px] ${
                               isSelected ? "border-[#FF4D00] bg-[#FF4D00] text-white" : "border-white/20 text-white/50 hover:border-white/50"
                             }`}
                           >

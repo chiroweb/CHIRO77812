@@ -95,7 +95,7 @@ export default function PortfolioShowcase({ projects: propProjects }: { projects
       className="relative bg-[#1a1a1a]"
       style={{ height: `${projects.length * 120}vh` }}
     >
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col md:flex-row" data-theme="dark">
+      <div className="relative md:sticky md:top-0 min-h-[600px] md:h-screen w-full overflow-hidden flex flex-col md:flex-row" data-theme="dark">
 
         {/* Section label */}
         <span className="absolute top-8 left-5 md:left-20 z-30 text-[11px] tracking-[0.08em] uppercase text-white/20 font-[family-name:var(--font-jetbrains-mono)]">
@@ -103,7 +103,7 @@ export default function PortfolioShowcase({ projects: propProjects }: { projects
         </span>
 
         {/* Left: Media area (55-60%) */}
-        <div ref={mediaContainerRef} className="relative w-full md:w-[58%] h-[50vh] md:h-full p-4 md:p-8">
+        <div ref={mediaContainerRef} className="relative w-full md:w-[58%] h-[40vh] md:h-full p-4 md:p-8">
           <div className="relative w-full h-full rounded-2xl overflow-hidden">
           {projects.map((project, i) => (
             <div
@@ -137,7 +137,7 @@ export default function PortfolioShowcase({ projects: propProjects }: { projects
         </div>
 
         {/* Right: Text panel (40%) */}
-        <div className="w-full md:w-[42%] h-[50vh] md:h-full flex flex-col justify-center px-5 md:px-12 lg:px-16 relative">
+        <div className="w-full md:w-[42%] h-[40vh] md:h-full flex flex-col justify-center px-5 md:px-12 lg:px-16 relative">
 
           {/* Number — large ghost */}
           <AnimatePresence mode="wait">

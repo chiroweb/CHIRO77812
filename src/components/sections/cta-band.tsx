@@ -53,10 +53,10 @@ export default function CtaBand() {
           whileInView="visible"
           viewport={viewportConfig}
         >
-          <div className="grid grid-cols-4 md:grid-cols-12 gap-6 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
             <motion.div
               variants={fadeInUp}
-              className="col-span-4 md:col-span-7 text-center md:text-left"
+              className="col-span-1 md:col-span-7 text-center md:text-left"
             >
               <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.15em] uppercase text-[#6b6b6b] mb-6">
                 Start Your Project
@@ -64,13 +64,13 @@ export default function CtaBand() {
               <h2 className="text-[28px] md:text-[44px] lg:text-[56px] font-extrabold tracking-[-0.03em] leading-[1.1] text-white mb-3">
                 Let&apos;s Begin<span className="text-[#FF4D00]">.</span>
               </h2>
-              <p className="text-[18px] md:text-[22px] font-medium text-white/50 tracking-tight leading-[1.5] md:max-w-md">
+              <p className="text-[18px] md:text-[22px] font-medium text-white/50 tracking-tight leading-[1.5] md:max-w-md break-keep">
                 30분 무료 상담으로 시작하십시오.
               </p>
             </motion.div>
             <motion.div
               variants={fadeInUp}
-              className="col-span-4 md:col-span-3 md:col-start-10 text-center md:text-right mt-8 md:mt-0"
+              className="col-span-1 md:col-span-3 md:col-start-10 text-center md:text-right mt-8 md:mt-0"
             >
               <a
                 href="/contact"

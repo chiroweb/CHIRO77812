@@ -42,7 +42,7 @@ export default function PortfolioStack() {
       {projects.map((project, i) => (
         <div
           key={project.number}
-          className="sticky top-0 h-screen w-full"
+          className="relative md:sticky md:top-0 min-h-[600px] md:h-screen w-full"
           style={{ zIndex: i + 1 }}
         >
           <div

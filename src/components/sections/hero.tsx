@@ -55,7 +55,7 @@ export default function Hero() {
         <p className="text-[13px] md:text-[14px] text-white/60 leading-[1.8]">
           ChatGPT·Perplexity가 인용하는 사이트.
           <br />
-          코드 기반 AEO 자동화 웹 에이전시.
+          코드 기반 AEO·SEO 통합 설계 웹 에이전시.
         </p>
       </motion.div>
 

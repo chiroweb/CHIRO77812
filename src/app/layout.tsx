@@ -53,15 +53,15 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://chiroweb.co.kr"),
   title: {
     default:
-      "AEO 자동화 웹 에이전시 | 코드 기반 홈페이지 제작 — 치로웹디자인",
+      "AEO·SEO 통합 설계 웹 에이전시 | 코드 기반 홈페이지 제작 — 치로웹디자인",
     template: "%s | 치로웹디자인",
   },
   description:
-    "ChatGPT·Perplexity가 인용하는 사이트를 만듭니다. 아임웹·카페24로는 불가능한 AEO 자동화, llms.txt, 구조화 데이터를 코드 레벨에서 구현하는 한국 1인 웹 에이전시. 평균 3.8일 제작, 175만원부터.",
+    "ChatGPT·Perplexity가 인용하는 사이트를 만듭니다. 아임웹·카페24로는 불가능한 AEO·SEO 통합 설계, llms.txt, 구조화 데이터를 코드 레벨에서 구현하는 소수 정예 웹 스튜디오. 평균 7.5일 제작, 175만원부터.",
   keywords: [
     // 1층: 전문 용어 선점 (한국 1위 노림)
     "AEO",
-    "AEO 자동화",
+    "AEO·SEO 통합 설계",
     "AEO 최적화",
     "llms.txt",
     "GEO 검색 최적화",
@@ -92,9 +92,9 @@ export const metadata: Metadata = {
     apple: "/apple-icon.png",
   },
   openGraph: {
-    title: "AEO 자동화 웹 에이전시 | 코드 기반 홈페이지 제작 — 치로웹디자인",
+    title: "AEO·SEO 통합 설계 웹 에이전시 | 코드 기반 홈페이지 제작 — 치로웹디자인",
     description:
-      "ChatGPT·Perplexity가 인용하는 사이트. 아임웹·카페24로는 불가능한 AEO 자동화와 llms.txt를 코드 레벨에서 구현합니다. 한국 1인 웹 에이전시.",
+      "ChatGPT·Perplexity가 인용하는 사이트. 아임웹·카페24로는 불가능한 AEO·SEO 통합 설계와 llms.txt를 코드 레벨에서 구현합니다. 디렉터 직접 주도의 소수 정예 웹 스튜디오.",
     url: "https://chiroweb.co.kr",
     siteName: "치로웹디자인",
     type: "website",
@@ -104,15 +104,15 @@ export const metadata: Metadata = {
         url: "https://chiroweb.co.kr/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "AEO 자동화 웹 에이전시 치로웹디자인",
+        alt: "AEO·SEO 통합 설계 웹 에이전시 치로웹디자인",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AEO 자동화 웹 에이전시 | 치로웹디자인",
+    title: "AEO·SEO 통합 설계 웹 에이전시 | 치로웹디자인",
     description:
-      "ChatGPT·Perplexity가 인용하는 사이트. 아임웹·카페24로는 불가능한 AEO 자동화와 llms.txt를 코드 레벨에서 구현합니다.",
+      "ChatGPT·Perplexity가 인용하는 사이트. 아임웹·카페24로는 불가능한 AEO·SEO 통합 설계와 llms.txt를 코드 레벨에서 구현합니다.",
     images: ["https://chiroweb.co.kr/opengraph-image"],
   },
   verification: {
@@ -143,10 +143,10 @@ export default function RootLayout({
     alternateName: "CHIRO Web Design Studio",
     url: "https://chiroweb.co.kr",
     description:
-      "AEO 자동화와 코드 기반 구조화 데이터 구현을 전문으로 하는 한국 1인 웹 에이전시. ChatGPT·Perplexity 인용 최적화, llms.txt, FAQ 스키마, 시맨틱 HTML을 모든 프로젝트에 기본 적용. 175만원부터, 평균 3.8일 제작.",
+      "AEO·SEO 통합 설계와 코드 기반 구조화 데이터 구현을 전문으로 하는 디렉터 직접 주도의 소수 정예 웹 스튜디오. ChatGPT·Perplexity 인용 최적화, llms.txt, FAQ 스키마, 시맨틱 HTML을 모든 프로젝트에 기본 적용. 175만원부터, 평균 7.5일 제작.",
     areaServed: "KR",
     serviceType: [
-      "AEO 자동화 (Answer Engine Optimization)",
+      "AEO·SEO 통합 설계 (Answer Engine Optimization)",
       "SEO 코드 레벨 구현",
       "커스텀 홈페이지 제작",
       "홈페이지 리모델링",

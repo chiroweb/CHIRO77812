@@ -30,7 +30,7 @@ export default function Philosophy() {
               {/* Hero statement — Pretendard ExtraBold, massive */}
               <motion.h2
                 variants={fadeInUp}
-                className="text-[36px] md:text-[80px] font-extrabold tracking-[-0.03em] leading-[1.05] text-[#1a1a1a]"
+                className="text-[36px] md:text-[80px] font-extrabold tracking-[-0.03em] leading-[1.05] text-[#1a1a1a] break-keep"
               >
                 치로는 공장이
                 <br className="hidden md:inline" />
@@ -91,7 +91,7 @@ export default function Philosophy() {
                     >
                       <div className="md:w-1/3">
                         <h3
-                          className={`text-xl font-bold tracking-tight ${
+                          className={`text-xl font-bold tracking-tight break-keep ${
                             item.highlight
                               ? "underline decoration-[#FF4D00] decoration-[1.5px] underline-offset-4"
                               : ""

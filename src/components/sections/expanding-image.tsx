@@ -67,7 +67,7 @@ export default function ExpandingImage() {
 
   return (
     <div ref={wrapperRef} className="relative" style={{ minHeight: "200vh", background: "linear-gradient(to bottom, #f5f5f0 0%, #f5f5f0 30%, #1a1a1a 70%, #1a1a1a 100%)" }}>
-      <div className="sticky top-0 h-screen w-full">
+      <div className="relative md:sticky md:top-0 min-h-[600px] md:h-screen w-full">
         <div
           ref={clipRef}
           className="w-full h-full will-change-transform"

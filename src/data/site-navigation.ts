@@ -6,7 +6,7 @@ export const siteNavigation: Record<string, { name: string; parent?: string }> =
   '/services': { name: '서비스', parent: '/' },
   '/services/website': { name: '홈페이지 제작', parent: '/services' },
   '/services/remodeling': { name: '홈페이지 리모델링', parent: '/services' },
-  '/services/seo-aeo': { name: 'SEO/AEO 자동화', parent: '/services' },
+  '/services/seo-aeo': { name: 'SEO/AEO 통합 설계', parent: '/services' },
   '/portfolio': { name: '포트폴리오', parent: '/' },
   '/reviews': { name: '고객 후기', parent: '/' },
   '/pricing': { name: '요금 안내', parent: '/' },

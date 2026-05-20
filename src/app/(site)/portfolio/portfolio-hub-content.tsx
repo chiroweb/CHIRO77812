@@ -44,7 +44,7 @@ const faqs = [
   },
   {
     q: "포트폴리오와 같은 수준의 결과물을 받을 수 있나요?",
-    a: "네. 치로는 1인 에이전시이기 때문에 모든 프로젝트에 동일한 수준의 집중도를 투입합니다. 포트폴리오에 보이는 퀄리티가 곧 치로의 기본 수준입니다.",
+    a: "네. 치로는 디렉터가 모든 프로젝트를 직접 주도하는 소수 정예 스튜디오이기 때문에 동일한 수준의 집중도를 투입합니다. 포트폴리오에 보이는 퀄리티가 곧 치로의 기본 수준입니다.",
   },
 ];
 
@@ -323,7 +323,7 @@ export default function PortfolioHubContent({ projects }: PortfolioHubContentPro
             <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] tracking-[0.08em] uppercase text-[#999] mb-8 lg:text-right">
               ( PHILOSOPHY )
             </p>
-            <h2 className="text-[36px] md:text-[56px] lg:text-[72px] font-extrabold tracking-[-0.03em] leading-[1.05] text-[#111] lg:text-right">
+            <h2 className="text-[36px] md:text-[56px] lg:text-[72px] font-extrabold tracking-[-0.03em] leading-[1.05] text-[#111] lg:text-right break-keep">
               예쁜 홈페이지를
               <br />
               만들지 않습니다.

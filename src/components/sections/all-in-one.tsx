@@ -7,7 +7,7 @@ export default function AllInOne() {
     <section className="relative bg-[#f5f5f0] px-5 md:px-12 lg:px-20 py-[200px] md:py-[260px]">
       <div className="max-w-[1400px] mx-auto relative">
         {/* Right: Image mask — positioned top-right */}
-        <div className="absolute right-0 top-0 w-[200px] h-[140px] md:w-[300px] md:h-[200px] lg:w-[360px] lg:h-[240px] rounded-lg overflow-hidden">
+        <div className="hidden md:block absolute right-0 top-0 md:w-[300px] md:h-[200px] lg:w-[360px] lg:h-[240px] rounded-lg overflow-hidden">
           <img
             src="/services/blueprint.png"
             alt=""
@@ -24,7 +24,7 @@ export default function AllInOne() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[48px] md:text-[80px] lg:text-[110px] xl:text-[130px] font-extrabold text-[#111] tracking-[-0.03em] leading-[1.0] uppercase"
+            className="text-[40px] md:text-[80px] lg:text-[110px] xl:text-[130px] font-extrabold text-[#111] tracking-[-0.03em] leading-[1.0] uppercase"
           >
             BUILT
             <br />
@@ -63,7 +63,7 @@ export default function AllInOne() {
             transition={{ duration: 0.5, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="mt-8 text-[11px] md:text-[12px] text-[#999] leading-[1.8] tracking-[0.02em]"
           >
-            기본 포함: AEO 자동화 · llms.txt · FAQ·Organization·Service 스키마
+            기본 포함: AEO·SEO 통합 설계 · llms.txt · FAQ·Organization·Service 스키마
             <br />
             · 시맨틱 HTML · 반응형 웹 · SEO 구조화 데이터 · 구글·네이버 검색 등록
           </motion.p>
