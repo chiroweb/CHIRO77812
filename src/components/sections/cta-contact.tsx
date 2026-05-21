@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 const clipDefault = "inset(22% 30% 35% 32% round 8px)";
@@ -8,7 +8,34 @@ const clipExpanded = "inset(0% 0% 0% 0% round 0px)";
 
 export default function CtaContact() {
   const [expanded, setExpanded] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const clip = expanded ? clipExpanded : clipDefault;
+
+  // Lazy-load the video only when section is near viewport
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const video = videoRef.current;
+          if (video && !video.src) {
+            video.src = "/cta-video-720p.mp4";
+            video.load();
+            video.play().catch(() => {});
+            video.addEventListener("loadeddata", () => setVideoLoaded(true), { once: true });
+          }
+          io.disconnect();
+        }
+      },
+      { rootMargin: "400px" }
+    );
+    io.observe(section);
+    return () => io.disconnect();
+  }, []);
 
   const titleStyle: React.CSSProperties = {
     fontSize: "clamp(60px, 12vw, 220px)",
@@ -21,7 +48,7 @@ export default function CtaContact() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-[#F0F0F0] py-[120px] md:py-0 min-h-[600px] md:min-h-screen">
+    <section ref={sectionRef} className="relative overflow-hidden bg-[#F0F0F0] py-[120px] md:py-0 min-h-[600px] md:min-h-screen">
 
       {/* Layer 1: Dark text on light bg (base) */}
       <div className="absolute inset-0 z-[1] flex items-center justify-center">
@@ -38,13 +65,24 @@ export default function CtaContact() {
           transition: "clip-path 700ms cubic-bezier(0.76, 0, 0.24, 1)",
         }}
       >
+        {/* Static poster — instant paint */}
+        <img
+          src="/cta-poster.jpg"
+          alt=""
+          role="presentation"
+          loading="lazy"
+          decoding="async"
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${videoLoaded ? "opacity-0" : "opacity-100"}`}
+        />
+
+        {/* Lazy-loaded video — only loads when section is near viewport */}
         <video
-          autoPlay
+          ref={videoRef}
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-          src="https://chiro-web.s3.ap-northeast-2.amazonaws.com/public/cta/cta-video.mp4"
+          preload="none"
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${videoLoaded ? "opacity-100" : "opacity-0"}`}
         />
         <div className="absolute inset-0 bg-black/25" />
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
+import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, AnimatePresence } from "framer-motion";
@@ -121,16 +122,22 @@ export default function PortfolioShowcase({ projects: propProjects }: { projects
                   loop
                   playsInline
                   poster={project.image}
+                  preload="metadata"
                   className="w-full h-full object-cover"
                 >
                   <source src={project.video} type="video/mp4" />
                 </video>
               ) : null}
-              <img
-                src={project.image}
-                alt={project.name}
-                className="absolute inset-0 w-full h-full object-contain -z-10"
-              />
+              {project.image ? (
+                <Image
+                  src={project.image}
+                  alt={project.name}
+                  fill
+                  sizes="(min-width: 768px) 58vw, 100vw"
+                  className="absolute inset-0 w-full h-full object-contain -z-10"
+                  priority={i === 0}
+                />
+              ) : null}
             </div>
           ))}
           </div>
