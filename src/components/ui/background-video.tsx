@@ -10,7 +10,7 @@ export default function BackgroundVideo() {
         playsInline
         className="w-full h-full object-cover opacity-10"
       >
-        <source src="/hero-video.mp4" type="video/mp4" />
+        <source src="/hero-video-720p.mp4" type="video/mp4" />
       </video>
     </div>
   );

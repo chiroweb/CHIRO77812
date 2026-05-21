@@ -3,6 +3,12 @@ import { sql } from "@/lib/db";
 import { SITE_URL as BASE_URL } from "@/lib/constants";
 import { getAllMdxPosts } from "@/lib/mdx";
 
+// Force static prerender — sitemap MUST be plain XML, never an HTML error page.
+// If the function below throws, Next would fall back to an HTML 500. Hard-failing
+// at build time is preferred to leaking HTML to crawlers.
+export const dynamic = "force-static";
+export const revalidate = false;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
     {
@@ -88,7 +94,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       SELECT slug, updated_at, created_at FROM blog_posts
       WHERE published = true ORDER BY created_at DESC
     `;
-    blogPages = blogResult.rows.map((post) => {
+    blogPages = (blogResult?.rows ?? []).map((post) => {
       dbSlugs.add(post.slug);
       return {
         url: `${BASE_URL}/blog/${post.slug}`,
@@ -102,14 +108,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       SELECT slug, id, updated_at FROM portfolio_projects
       WHERE published = true ORDER BY sort_order ASC
     `;
-    portfolioPages = portfolioResult.rows.map((p) => ({
+    portfolioPages = (portfolioResult?.rows ?? []).map((p) => ({
       url: `${BASE_URL}/portfolio/${p.slug || p.id}`,
       lastModified: p.updated_at ? new Date(p.updated_at) : new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.7,
     }));
-  } catch {
-    // Fallback: only static pages
+  } catch (err) {
+    // DB unavailable at build time — emit only static + MDX pages.
+    // Logged so build-time failures are visible in Vercel logs without breaking the sitemap.
+    console.warn("[sitemap] DB query failed, falling back to static pages:", err);
   }
 
   let mdxPages: MetadataRoute.Sitemap = [];
@@ -123,8 +131,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency: "monthly" as const,
         priority: 0.6,
       }));
-  } catch {
-    // MDX read failed — proceed without
+  } catch (err) {
+    console.warn("[sitemap] MDX read failed, falling back without MDX pages:", err);
   }
 
   return [...staticPages, ...portfolioPages, ...blogPages, ...mdxPages];

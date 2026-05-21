@@ -16,7 +16,15 @@ export default function AboutEditorial() {
           className="md:absolute md:left-0 md:top-[120px] w-full md:w-[36%]"
         >
           <div className="aspect-[3/4] bg-[#001F3F] overflow-hidden relative">
-            <img src="/services/highway.png" alt="" className="w-full h-full object-cover" />
+            <img
+              src="/services/highway-1280.webp"
+              srcSet="/services/highway-640.webp 640w, /services/highway-1280.webp 1280w, /services/highway-1920.webp 1920w"
+              sizes="(min-width: 768px) 36vw, 100vw"
+              alt=""
+              loading="lazy"
+              decoding="async"
+              className="w-full h-full object-cover"
+            />
           </div>
         </motion.div>
 
@@ -29,7 +37,15 @@ export default function AboutEditorial() {
           className="mt-8 md:mt-0 md:absolute md:left-[40%] md:top-0 w-[50%] md:w-[20%]"
         >
           <div className="aspect-[4/5] bg-[#001F3F] overflow-hidden relative">
-            <img src="/services/waterdrop.png" alt="" className="w-full h-full object-cover" />
+            <img
+              src="/services/waterdrop-640.webp"
+              srcSet="/services/waterdrop-640.webp 640w, /services/waterdrop-1280.webp 1280w"
+              sizes="(min-width: 768px) 20vw, 50vw"
+              alt=""
+              loading="lazy"
+              decoding="async"
+              className="w-full h-full object-cover"
+            />
           </div>
         </motion.div>
 

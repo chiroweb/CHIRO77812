@@ -9,8 +9,12 @@ export default function AllInOne() {
         {/* Right: Image mask — positioned top-right */}
         <div className="hidden md:block absolute right-0 top-0 md:w-[300px] md:h-[200px] lg:w-[360px] lg:h-[240px] rounded-lg overflow-hidden">
           <img
-            src="/services/blueprint.png"
+            src="/services/blueprint-640.webp"
+            srcSet="/services/blueprint-640.webp 640w, /services/blueprint-1280.webp 1280w"
+            sizes="(min-width: 1024px) 360px, 300px"
             alt=""
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover"
           />
           {/* Fallback */}

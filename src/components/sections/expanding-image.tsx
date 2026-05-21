@@ -75,8 +75,12 @@ export default function ExpandingImage() {
         >
           <div className="absolute inset-0 bg-[#001F3F]" />
           <img
-            src="/services/building-night.png"
+            src="/services/building-night-1280.webp"
+            srcSet="/services/building-night-640.webp 640w, /services/building-night-1280.webp 1280w, /services/building-night-1920.webp 1920w"
+            sizes="100vw"
             alt=""
+            loading="lazy"
+            decoding="async"
             className="absolute inset-0 w-full h-full object-cover"
           />
           {/* Dark overlay for text readability */}

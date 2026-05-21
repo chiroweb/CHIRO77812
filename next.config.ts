@@ -2,12 +2,34 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 31536000,
     remotePatterns: [
       {
         protocol: "https",
         hostname: "*.public.blob.vercel-storage.com",
       },
+      {
+        protocol: "https",
+        hostname: "chiro-web.s3.ap-northeast-2.amazonaws.com",
+      },
     ],
+  },
+  async headers() {
+    return [
+      {
+        source: "/:all*(woff2|woff|ttf|otf)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
+        source: "/:all*(png|jpg|jpeg|webp|avif|svg|gif|ico|mp4)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+    ];
   },
   async redirects() {
     return [

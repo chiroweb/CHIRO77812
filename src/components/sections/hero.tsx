@@ -12,7 +12,7 @@ export default function Hero() {
     const timer = setTimeout(() => {
       const video = videoRef.current;
       if (video) {
-        video.src = "/hero-video.mp4";
+        video.src = "/hero-video-720p.mp4";
         video.load();
         video.play().catch(() => {});
         video.addEventListener("loadeddata", () => setVideoLoaded(true), { once: true });
@@ -59,16 +59,13 @@ export default function Hero() {
         </p>
       </motion.div>
 
-      {/* Content — CHIRO at bottom, massive */}
+      {/* Content — CHIRO at bottom, massive (LCP element — no JS-blocking animation) */}
       <div className="relative z-10 h-full flex flex-col items-center justify-end pb-[2vh] md:pb-[3vh]">
-        <motion.h1
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        <h1
           className="text-[36vw] md:text-[28vw] font-extrabold tracking-[0.08em] leading-[0.8] text-white select-none mix-blend-difference"
         >
           CHIRO
-        </motion.h1>
+        </h1>
       </div>
 
       {/* Bottom info bar */}
