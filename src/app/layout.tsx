@@ -53,11 +53,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://chiroweb.co.kr"),
   title: {
     default:
-      "AEO·SEO 통합 설계 웹 에이전시 | 코드 기반 홈페이지 제작 — 치로웹디자인",
+      "다시 만들 일 없는 홈페이지 — 심리학·AEO 코드 웹 에이전시, 치로웹디자인",
     template: "%s | 치로웹디자인",
   },
   description:
-    "ChatGPT·Perplexity가 인용하는 사이트를 만듭니다. 아임웹·카페24로는 불가능한 AEO·SEO 통합 설계, llms.txt, 구조화 데이터를 코드 레벨에서 구현하는 소수 정예 웹 스튜디오. 평균 7.5일 제작, 175만원부터.",
+    "예쁘기만 한 홈페이지는 1년 안에 잊혀집니다. 치로는 ChatGPT·Perplexity가 인용하는 사이트만 만듭니다. 빌더로는 불가능한 AEO·SEO 통합 설계와 심리학 기반 전환 구조를 코드 레벨에서 구현하는 소수 정예 웹 스튜디오. 평균 7.5일 제작, 175만원부터.",
   keywords: [
     // 1층: 전문 용어 선점 (한국 1위 노림)
     "AEO",
@@ -92,9 +92,9 @@ export const metadata: Metadata = {
     apple: "/apple-icon.png",
   },
   openGraph: {
-    title: "AEO·SEO 통합 설계 웹 에이전시 | 코드 기반 홈페이지 제작 — 치로웹디자인",
+    title: "다시 만들 일 없는 홈페이지 — 심리학·AEO 코드 웹 에이전시, 치로웹디자인",
     description:
-      "ChatGPT·Perplexity가 인용하는 사이트. 아임웹·카페24로는 불가능한 AEO·SEO 통합 설계와 llms.txt를 코드 레벨에서 구현합니다. 디렉터 직접 주도의 소수 정예 웹 스튜디오.",
+      "예쁘기만 한 홈페이지는 1년 안에 잊혀집니다. ChatGPT·Perplexity가 인용하는 사이트, 심리학 기반 전환 구조, 빌더 한계 없는 코드 레벨 AEO·SEO. 디렉터 직접 주도 스튜디오.",
     url: "https://chiroweb.co.kr",
     siteName: "치로웹디자인",
     type: "website",
@@ -110,9 +110,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AEO·SEO 통합 설계 웹 에이전시 | 치로웹디자인",
+    title: "다시 만들 일 없는 홈페이지 — 치로웹디자인",
     description:
-      "ChatGPT·Perplexity가 인용하는 사이트. 아임웹·카페24로는 불가능한 AEO·SEO 통합 설계와 llms.txt를 코드 레벨에서 구현합니다.",
+      "예쁘기만 한 홈페이지는 1년 안에 잊혀집니다. ChatGPT·Perplexity가 인용하는 코드 기반 AEO·SEO 통합 설계, 심리학 전환 구조.",
     images: ["https://chiroweb.co.kr/opengraph-image"],
   },
   verification: {

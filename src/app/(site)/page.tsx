@@ -1,5 +1,6 @@
 import Hero from "@/components/sections/hero";
 import AllInOne from "@/components/sections/all-in-one";
+import PrettyTrash from "@/components/sections/pretty-trash";
 import AboutEditorial from "@/components/sections/about-editorial";
 import ExpandingImage from "@/components/sections/expanding-image";
 import WhyChiroPin from "@/components/sections/why-chiro-pin";
@@ -67,6 +68,7 @@ export default async function Home() {
     <>
       <Hero />
       <AllInOne />
+      <PrettyTrash />
       <AboutEditorial />
       <ExpandingImage />
       <WhyChiroPin />
